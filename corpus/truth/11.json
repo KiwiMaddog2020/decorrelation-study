@@ -36,6 +36,18 @@
       "severity": "high",
       "difficulty": "obvious",
       "why_subtle": "Intentional calibration anchor: classic %-format string concatenation of an untrusted value into SQL, flagged on sight."
+    },
+    {
+      "id": "11-d4",
+      "lines": [
+        23,
+        27
+      ],
+      "type": "performance",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "canonical": "acquire() calls psycopg2.connect(self.dsn) while holding self._lock, so a slow/blocking TCP connect serializes every other acquire() and release() in the pool for its full duration. The blocking network I/O should happen outside the lock.",
+      "why_subtle": "the connect sits naturally inside the same 'with self._lock' that guards the pool structures; the cost is invisible until a connect is slow and the whole pool stalls behind it."
     }
   ]
 }

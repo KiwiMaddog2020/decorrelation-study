@@ -1,34 +1,19 @@
-"""Unicode-aware string truncation helpers."""
+"""Grouping helpers for aggregating records before display."""
 
-import unicodedata
+from collections import OrderedDict
 
 
-def truncate(s, n):
-    """Return s shortened to at most n user-perceived characters.
+def group_by(items, key):
+    """Group ``items`` into an OrderedDict mapping ``key(item)`` to a list.
 
-    A user-perceived character (grapheme) may span several code points,
-    e.g. a base letter followed by combining marks, or a sequence joined
-    by a zero-width joiner. We never cut in the middle of such a cluster:
-    if including a cluster would push the count past n, we stop before it.
-
-    Out of scope: emoji modifiers (skin-tone selectors), regional-indicator
-    flags, variation selectors, and enclosing keycaps are treated as their
-    own code points rather than merged into the preceding cluster.
+    Keys appear in first-seen order, and within each group the items keep
+    their original relative order. Every input item lands in exactly one
+    group. The input iterable is consumed once and never mutated.
     """
-    if n <= 0:
-        return ""
-
-    clusters = []
-    for ch in s:
-        # A combining mark (or zero-width joiner) attaches to the cluster
-        # that precedes it rather than starting a new one.
-        if clusters and (unicodedata.combining(ch) or ch == "‍"):
-            clusters[-1] += ch
-        elif clusters and clusters[-1].endswith("‍"):
-            clusters[-1] += ch
-        else:
-            clusters.append(ch)
-
-    if len(clusters) <= n:
-        return s
-    return "".join(clusters[:n])
+    groups = OrderedDict()
+    for item in items:
+        k = key(item)
+        if k not in groups:
+            groups[k] = []
+        groups[k].append(item)
+    return groups

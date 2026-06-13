@@ -1,7 +1,20 @@
 {
   "snippet": "20",
   "domain": "filesystem path safety",
-  "is_clean": true,
+  "is_clean": false,
   "planted_by": "claude-opus-4.8",
-  "defects": []
+  "defects": [
+    {
+      "id": "20-d1",
+      "lines": [
+        16,
+        18
+      ],
+      "type": "security",
+      "severity": "high",
+      "difficulty": "subtle",
+      "canonical": "safe_join canonicalizes with os.path.abspath, which resolves '..' and absolute components but NOT symlinks. A symlinked component inside base that points outside it yields a candidate still under base_prefix, so the prefix check passes and the escape is allowed. The documented contract promises a symlink-resolved path; os.path.realpath is required to honor it.",
+      "why_subtle": "abspath looks like the right canonicalizer and handles the '..' and prefix cases the comments discuss; only knowing abspath ignores symlinks while realpath follows them reveals the hole."
+    }
+  ]
 }

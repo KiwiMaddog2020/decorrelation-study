@@ -8,9 +8,10 @@ class PathTraversalError(ValueError):
 def safe_join(base, *parts):
     """Join ``parts`` beneath ``base`` and reject any result that escapes it.
 
-    The returned path is always an absolute, normalized path located inside
-    ``base``. Attempts to traverse outside the base (via ``..`` segments,
-    absolute components, or symlink-free trickery) raise PathTraversalError.
+    The returned path is always an absolute, real (symlink-resolved) path
+    located inside ``base``. Attempts to traverse outside the base, whether
+    via ``..`` segments, absolute components, or a symlink that resolves
+    outside it, raise PathTraversalError.
     """
     base_root = os.path.abspath(base)
 

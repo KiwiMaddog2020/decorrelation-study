@@ -10,14 +10,15 @@ def deep_merge(a, b):
     merged recursively. For any other conflict ``b`` wins. Neither input is
     mutated; the result is built from fresh copies.
     """
-    result = deepcopy(a)
-    for key, b_value in b.items():
-        if (
-            key in result
-            and isinstance(result[key], dict)
-            and isinstance(b_value, dict)
-        ):
-            result[key] = deep_merge(result[key], b_value)
+    result = {}
+    for key, a_value in a.items():
+        if key in b and isinstance(a_value, dict) and isinstance(b[key], dict):
+            result[key] = deep_merge(a_value, b[key])
+        elif key in b:
+            result[key] = deepcopy(b[key])
         else:
+            result[key] = deepcopy(a_value)
+    for key, b_value in b.items():
+        if key not in a:
             result[key] = deepcopy(b_value)
     return result

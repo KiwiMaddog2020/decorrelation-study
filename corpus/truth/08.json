@@ -25,6 +25,17 @@
       "severity": "high",
       "difficulty": "subtle",
       "why_subtle": "bisect_left vs bisect_right reads as an arbitrary, both-plausible choice; the reader rarely checks it against the exclusive contract stated three lines up in the docstring."
+    },
+    {
+      "id": "08-d3",
+      "lines": [
+        15
+      ],
+      "type": "performance",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "canonical": "page() rebuilds the full ids list via [it['id'] for it in items] on every call, an O(N) scan of the whole collection per page, so a paged walk is O(N*pages) rather than O(N). The id list (or an index) should be built once.",
+      "why_subtle": "the comprehension is a single clean line that looks like setup, but it runs on every paginated call and turns a keyset walk quadratic."
     }
   ]
 }

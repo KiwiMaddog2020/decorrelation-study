@@ -14,6 +14,28 @@
       "severity": "high",
       "difficulty": "subtle",
       "why_subtle": "The `- 1` reads as defensive guarding against a trailing empty line, and inputs that happen to end in a newline mask the loss, so review and naive tests both pass."
+    },
+    {
+      "id": "04-d2",
+      "lines": [
+        7
+      ],
+      "type": "logic",
+      "severity": "high",
+      "difficulty": "moderate",
+      "canonical": "_split_fields splits each line on every comma, so a quoted field containing a comma (e.g. \"Smith, Jr\") is broken into two cells and every later column shifts. The parser does not honor CSV quoting.",
+      "why_subtle": "split-on-comma reads as a deliberate simplification; its effect (silent column misalignment) only appears on data that actually contains a quoted comma."
+    },
+    {
+      "id": "04-d3",
+      "lines": [
+        28
+      ],
+      "type": "logic",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "canonical": "dict(zip(header, cells)) stops at the shorter of the two, so a row with MORE fields than the header silently drops the extra trailing cells with no error. The docstring covers ragged short rows but not over-long ones.",
+      "why_subtle": "zip truncating to the shorter iterable is idiomatic and looks intentional; the data loss only happens on malformed over-long rows and never raises."
     }
   ]
 }
