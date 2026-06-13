@@ -14,6 +14,8 @@ are not correlated with the thing being checked.
 
 **Read the write-up:** [Do AI code reviewers have complementary blind spots?](https://kiwimaddog2020.github.io/decorrelation-study/)
 
+**The research program it sits inside:** [`docs/RESEARCH_AGENDA.md`](docs/RESEARCH_AGENDA.md) — decorrelation depreciates within a medium; the durable engine is acquiring new senses, and the human is the first new medium.
+
 ## What's here
 
 - [`PRE_REGISTRATION.md`](PRE_REGISTRATION.md) — hypotheses, metrics, scoring rules,
