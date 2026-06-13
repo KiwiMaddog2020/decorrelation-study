@@ -1,0 +1,4 @@
+cur.execute on line 9 | security | The limit value is concatenated directly into the SQL string instead of being passed as a parameter, allowing SQL injection if limit is not a trusted integer.
+for loop building result dict | logic | Keying the result dict by total means two users with the same total spend collide and one silently overwrites the other, dropping spenders from the output.
+result dict (return value) | spec-violation | A dict keyed by total cannot preserve the DESC ordering the query establishes nor represent ties, so it fails to faithfully return the top spenders list the function promises.
+conn (connection lifecycle) | other | conn is never closed if cur.execute or fetchall raises (no try/finally or context manager), leaking the database connection on error.

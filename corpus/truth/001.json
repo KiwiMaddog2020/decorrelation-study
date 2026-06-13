@@ -9,20 +9,34 @@
       "type": "security",
       "subtype": "sql-injection",
       "location": "line 9 (cur.execute)",
+      "lines": [9],
       "canonical": "SQL injection: the untrusted `limit` argument is concatenated into the query string with str(limit) instead of being passed as a bound parameter or validated as an integer; a caller passing '1; DROP TABLE spend' or a subquery controls the SQL.",
-      "severity": "high"
+      "severity": "high",
+      "origin": "planted"
     },
     {
       "id": "001-d2",
       "type": "logic",
       "subtype": "silent-data-loss",
       "location": "lines 12-13 (result[total] = user)",
+      "lines": [12, 13, 14],
       "canonical": "The result dict is keyed by `total`, so two users with the same spend total collide and one is silently overwritten and dropped from the output. The function returns fewer rows than `limit` whenever totals tie, with no error.",
-      "severity": "medium"
+      "severity": "medium",
+      "origin": "planted"
+    },
+    {
+      "id": "001-d3",
+      "type": "other",
+      "subtype": "resource-leak",
+      "location": "lines 6-16 (conn lifecycle)",
+      "lines": [6, 7, 9, 10, 15],
+      "canonical": "The database connection is not closed on the error path: if cur.execute or fetchall raises, conn.close() is never reached (no try/finally or context manager), leaking the connection.",
+      "severity": "low",
+      "origin": "UNINTENDED. Not planted. Recorded after independent confirmation by two model families (Claude and Gemini) in the smoke test; the planter (Claude) was blind to it. See runs/smoke/SMOKE_TEST_001.md."
     }
   ],
   "clean": false,
   "planted_by": "claude",
-  "audit_status": "pending-gemini-audit",
+  "audit_status": "smoke-confirmed; full Gemini completeness audit pending for the 20-snippet run",
   "note": "Reviewers see snippets/001.py ONLY. This file is the answer key and is never shown to any reviewer."
 }
