@@ -1,0 +1,28 @@
+{
+  "snippet_id": "001",
+  "language": "python",
+  "host_source": "synthetic-realistic: a SQLite analytics helper",
+  "lines": 17,
+  "defects": [
+    {
+      "id": "001-d1",
+      "type": "security",
+      "subtype": "sql-injection",
+      "location": "line 9 (cur.execute)",
+      "canonical": "SQL injection: the untrusted `limit` argument is concatenated into the query string with str(limit) instead of being passed as a bound parameter or validated as an integer; a caller passing '1; DROP TABLE spend' or a subquery controls the SQL.",
+      "severity": "high"
+    },
+    {
+      "id": "001-d2",
+      "type": "logic",
+      "subtype": "silent-data-loss",
+      "location": "lines 12-13 (result[total] = user)",
+      "canonical": "The result dict is keyed by `total`, so two users with the same spend total collide and one is silently overwritten and dropped from the output. The function returns fewer rows than `limit` whenever totals tie, with no error.",
+      "severity": "medium"
+    }
+  ],
+  "clean": false,
+  "planted_by": "claude",
+  "audit_status": "pending-gemini-audit",
+  "note": "Reviewers see snippets/001.py ONLY. This file is the answer key and is never shown to any reviewer."
+}
