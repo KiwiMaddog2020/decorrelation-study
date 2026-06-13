@@ -190,9 +190,13 @@ The fix is not a better human. It is a better question. The place a person's
 judgment really is uncorrelated with a model's is not the code, it is the thing the
 code becomes. A human knows what it feels like to be on the other end of an
 interface: where it is confusing, where it fights the way you actually want to move
-through it, what is missing that no specification lists. A model reading source has
-no access to that and never will. The human's decorrelated value lives in using the
-product, a different sense entirely, and a corpus of code defects is blind to it.
+through it, what is missing that no specification lists. A model can predict, and
+with enough data predict well, what a human will feel using something. What it
+cannot do is be the human feeling it. So at the frontier, where the product is
+genuinely new, the human is the one who generates the reaction the model can only
+learn from secondhand. Models converge on the preferences they have seen; a human is
+the one feeling the new thing first. The human's decorrelated value lives in using
+the product, a different sense entirely, and a corpus of code defects is blind to it.
 
 So H3, the way I posed it, is the wrong test, and I am not going to fake it with an
 unqualified or contaminated human pass just to fill the box. The honest result is a

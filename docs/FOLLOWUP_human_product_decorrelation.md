@@ -80,7 +80,19 @@ mean: not who is better, but who is unlike.
 This is the same argument the code study makes, pushed one modality further. A
 self-improving system grades its own work and is blind to its own kind of mistake.
 The escape is a *different* checker. "Different" can be a different model family, a
-different frozen rule, or a human placed in the one channel a model structurally
-lacks: the lived experience of being the user. That last one is not a weaker version
-of code review. It is the thing models cannot do at all, which is exactly why it is
-worth measuring.
+different frozen rule, or a human placed in the one channel a model lacks: the lived
+experience of being the user. A model can predict that experience, increasingly well,
+from data. What it cannot do is have it. So the human stays upstream of the model's
+UX competence, generating the reaction the model learns from after the fact, and at
+the frontier the model is always a step behind the human it is modeling.
+
+## The open question this sits inside
+
+There is an optimistic reading of the whole verification-shadow idea: a checker is
+blind to its own errors, but almost anything becomes verifiable with the right
+*decorrelated* context. The shadow is what you cannot see from inside; the right
+context is the outside view that can. If that holds, the interesting work is mapping
+where it reaches its limit: what stays hard to verify even with the right outside
+check, and how much human-preference data it takes before a model can stand in for
+the lived-user check on everything except the genuinely new. This experiment is one
+probe of that boundary. The boundary itself is worth a research program.
