@@ -1,0 +1,9 @@
+title: "Do AI code reviewers have complementary blind spots?"
+description: A pre-registered test of whether three AI models catch different bugs, the result I could not honestly claim, and why the most useful finding was about my own measuring stick
+url: https://kiwimaddog2020.github.io
+baseurl: /decorrelation-study
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
+  - jekyll-sitemap

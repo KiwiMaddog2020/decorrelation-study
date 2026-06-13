@@ -1,36 +1,70 @@
-# decorrelation-study
+# Decorrelation study: do AI code reviewers have complementary blind spots?
 
-A small, pre-registered controlled study testing one question: when reviewers
-with different "training" (Claude, Codex, Gemini, and one human) each review the
-same code blind, do their different blind spots produce complementary coverage no
-single reviewer matches, and is the human the most decorrelated reviewer?
+A small, pre-registered experiment. Three AI models (Claude, Codex, Gemini) and
+one human review the same 20 code snippets with planted defects, blind, and we ask
+whether their blind spots line up or cover for each other.
 
 It is the measured follow-up to a practitioner observation: in a real multi-model
-review system, half the defects in one batch were caught by a single model
-family, and the weakest model made the most unique catches. That was n=12, one
-run. This study is the attempt to measure it honestly.
+review system, half the defects in one batch were caught by a single model family,
+and the *weakest* model made the most unique catches. That was n=12, one run. This
+study is the attempt to measure it honestly. The question matters beyond code
+review: any system that improves itself has to grade its own work, and a grader is
+blind to the mistakes it would make itself. The escape is a checker whose errors
+are not correlated with the thing being checked.
 
-## Status
+**Read the write-up:** [Do AI code reviewers have complementary blind spots?](https://kiwimaddog2020.github.io/decorrelation-study/)
 
-Pilot, pre-registered. **Read [`PRE_REGISTRATION.md`](PRE_REGISTRATION.md) first**:
-the hypotheses, metrics, scoring rules, sample size, and known limitations are
-fixed there before any data is collected, so no result can be selected after the
-fact to flatter a conclusion.
+## What's here
 
-## Layout
+- [`PRE_REGISTRATION.md`](PRE_REGISTRATION.md) — hypotheses, metrics, scoring rules,
+  and limitations, frozen in git before any review was collected. The honesty anchor.
+- [`PRE_REGISTRATION_AMENDMENT.md`](PRE_REGISTRATION_AMENDMENT.md) — procedure fixes
+  logged transparently, before data, after a smoke test.
+- `corpus/` — 20 hand-written Python snippets (`snippets/`) with their exact ground
+  truth (`truth/`). 16 defective + 4 clean controls, 30 planted defects across seven
+  types. [`corpus/MANIFEST.md`](corpus/MANIFEST.md) describes the set.
+- `runs/gemini_audit/` — the blind external audit that found defects in my own
+  "clean" controls, and the [reconciliation](runs/gemini_audit/RECONCILIATION.md).
+- `runs/full/` — every reviewer's blind review, one file per (snippet, rater).
+- `harness/` — the scoring code (`score.py`), metrics (`metrics.py`), and the
+  generation, audit, and review runners.
+- [`runs/RESULTS_model_only.md`](runs/RESULTS_model_only.md) — the current results.
 
-- `PRE_REGISTRATION.md` — the honesty anchor (frozen before data).
-- `corpus/snippets/NNN.py` — the code each reviewer sees. Contains planted defects,
-  no markers.
-- `corpus/truth/NNN.json` — the answer key (planted defects with exact location,
-  type, canonical description). Never shown to any reviewer.
-- `protocol/review_prompt.txt` — the identical blind-review prompt every reviewer
-  receives.
-- `harness/` — (to come) runs each reviewer over each snippet, captures structured
-  flags, scores against ground truth, computes the metrics.
+## Headline findings (model-only; the human reviewer is still pending)
+
+- **Combining models helps, but modestly.** The three together caught all 30
+  defects; the best single model caught 27. A real but small gain (about 1.1x),
+  below the threshold I pre-registered as interesting.
+- **The correlation prediction could not be resolved.** Whether the most-similar
+  pair of models is Claude-Codex or Gemini-Codex flips on a single scoring choice,
+  with gaps that are noise at n=30. So it is reported as unresolved, not confirmed.
+  The scoring instrument has a blind spot too, and it pointed at the answer I wanted.
+- **What held up across every analysis:** Claude and Gemini are the most
+  decorrelated pair (their errors are anti-correlated), and **Codex caught 0/4
+  performance defects** while Gemini caught all four. Models are blind to different
+  *kinds* of bug. That is the durable result.
+
+## Reproduce
+
+```bash
+python3 harness/align_report.py          # every cited defect line is live code
+python3 harness/metrics.py               # strict (pre-registered) scoring
+SCORE_STEM=1 python3 harness/metrics.py  # the lenient sensitivity variant
+```
+
+The audit and review runners call the Gemini and Codex CLIs; the corpus, ground
+truth, and recorded reviews are all in the repo, so the scoring and metrics
+reproduce offline.
 
 ## The discipline
 
-Planted defects are audited by Gemini for fairness before any review runs. Claude
-reviewers run clean-room (no planting context). A clean null result is as
-publishable as a clean positive; the study is built so it can fail honestly.
+Planted defects were audited by Gemini for fairness and completeness before any
+review ran. Model reviewers ran clean-room (no planting context, no answer key).
+A clean null result is as publishable as a clean positive; the study is built so it
+can fail honestly, and where it could not support a prediction, it says so.
+
+## Status
+
+The human family (one reviewer) is not yet in, so the centerpiece hypothesis,
+whether a human is the most decorrelated reviewer of all, is open. It will be
+scored by the same frozen rule as everything else, and whatever it says ships.
