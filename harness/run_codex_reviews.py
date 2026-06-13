@@ -9,11 +9,11 @@ Writes runs/full/NN.codex.txt (+ NN.codex.raw for the full transcript).
 Usage: python3 harness/run_codex_reviews.py [snippet_id ...]   (default 01..20)
 """
 from __future__ import annotations
-import subprocess, sys, pathlib
+import os, subprocess, sys, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SNIP = ROOT / "corpus" / "snippets"
-OUT = ROOT / "runs" / "full"
+SNIP = ROOT / os.environ.get("CORPUS_DIR", "corpus/snippets")
+OUT = ROOT / os.environ.get("OUT_DIR", "runs/full")
 PROMPT = (ROOT / "protocol" / "review_prompt.txt").read_text()
 CODEX = "/Applications/Codex.app/Contents/Resources/codex"
 ARGS = [CODEX, "exec", "--skip-git-repo-check", "--enable", "fast_mode",
