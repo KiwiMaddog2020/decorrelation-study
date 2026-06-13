@@ -1,1 +1,4 @@
-
+line 9 | security | Concatenating `limit` into SQL allows SQL injection or query manipulation because the snippet does not validate or bind the value.
+line 9 | boundary | Negative or non-integer `limit` values are not rejected, so SQLite can return unintended results or raise errors instead of enforcing a valid top-N limit.
+line 14 | logic | Using `total` as the dictionary key overwrites users with the same spend total, silently dropping valid top spenders.
+line 16 | other | The connection is only closed on the success path, so exceptions before `conn.close()` can leak the SQLite connection.

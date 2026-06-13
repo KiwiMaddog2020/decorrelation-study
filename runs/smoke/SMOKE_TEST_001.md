@@ -57,9 +57,24 @@ must strip. Fix: raise the timeout substantially (the orchestrator uses up to 30
 min for real Codex work), capture stdout robustly, and parse the transcript for
 the defect lines.
 
+## Resolution (same day)
+
+Codex is fixed: the reliable invocation pipes the prompt to `codex exec` on
+STDIN (not as a positional arg) with a 600s timeout and a transcript parse. On
+the retry it caught all three defects (3/3) and surfaced a fourth candidate
+(negative / non-integer `limit` not validated, a boundary concern) that the
+line-matcher folded into d1, a known scorer-precision limitation: two distinct
+defects on the same line need type-aware matching or human adjudication.
+
+Final smoke result on snippet 001: **Claude 3/3, Gemini 3/3, Codex 3/3.** All
+three model raters agreed completely, which confirms Finding 2 directly: obvious
+defects produce universal agreement and zero decorrelation signal. The full
+three-model pipeline (clean-room review, capture, parse, score) is proven.
+
 ## Net
 
-The loop works (Claude + Gemini, blind, clean-room, captured, scorable). Before
-scaling, three things change: an independent completeness audit of every snippet,
-a difficulty-calibrated defect set, and a fixed Codex harness. None is a blocker;
-each is the difference between a real measurement and a flattering fake one.
+The loop works for all three model raters. Before scaling, three things change:
+an independent completeness audit of every snippet, a difficulty-calibrated
+defect set (the obvious-defect agreement above is the proof we need subtle ones),
+and the now-fixed Codex stdin harness. None is a blocker; each is the difference
+between a real measurement and a flattering fake one.
