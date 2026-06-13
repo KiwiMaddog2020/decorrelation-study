@@ -1,0 +1,3 @@
+Line 9 | security | Concatenating the `limit` parameter directly into the SQL query string exposes the application to SQL injection attacks.
+Line 14 | logic | Mapping spending totals to user names in a dictionary causes data loss when multiple users have the same total.
+Line 7 | other | The database connection is not guaranteed to close via a context manager or finally block, risking resource leaks on failure.

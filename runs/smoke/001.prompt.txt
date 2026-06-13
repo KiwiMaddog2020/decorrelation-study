@@ -1,0 +1,35 @@
+You are reviewing a single, self-contained code snippet for defects.
+
+Report every defect you find. For each one, give exactly:
+- LOCATION: the line number or the function/expression where the defect lives.
+- TYPE: one of [logic, security, concurrency, boundary, api-misuse, performance, spec-violation, other].
+- DESCRIPTION: one sentence stating what is actually wrong and why it matters.
+
+Rules:
+- Report defects only. Do NOT rewrite or fix the code.
+- If you find no defects, respond with exactly: NO DEFECTS FOUND.
+- Judge only the snippet as given. Do not assume callers sanitize inputs unless the snippet shows it.
+- Do not pad the list with style nitpicks; report genuine defects (correctness, security, resource, contract).
+
+Output one defect per line in the form:
+LOCATION | TYPE | DESCRIPTION
+
+--- SNIPPET ---
+"""Analytics helper: return the top spenders from a SQLite spend table."""
+
+import sqlite3
+
+
+def top_spenders(db_path, limit):
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    cur.execute("SELECT user, total FROM spend ORDER BY total DESC LIMIT " + str(limit))
+    rows = cur.fetchall()
+
+    result = {}
+    for user, total in rows:
+        result[total] = user
+
+    conn.close()
+    return result
+
