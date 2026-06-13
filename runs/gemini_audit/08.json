@@ -1,0 +1,43 @@
+{
+  "defects": [
+    {
+      "lines": [
+        20
+      ],
+      "type": "correctness",
+      "severity": "high",
+      "description": "The use of 'bisect_left(ids, cursor)' violates the 'exclusive' contract defined in the docstring. 'bisect_left' returns the index of the first occurrence of the cursor. Starting the window at this index includes the item the caller already received, resulting in duplicate items across pages."
+    },
+    {
+      "lines": [
+        15
+      ],
+      "type": "performance",
+      "severity": "high",
+      "description": "Creating the 'ids' list via comprehension '[it[\"id\"] for it in items]' is an O(N) operation. This negates the performance benefit of keyset pagination (which should be O(log N) or O(1)) and will cause high latency and memory usage for large datasets."
+    },
+    {
+      "lines": [
+        27
+      ],
+      "type": "API misuse",
+      "severity": "medium",
+      "description": "Accessing 'window[-1][\"id\"]' assumes the item is a dictionary. If 'items' contains objects, this will raise a TypeError. Furthermore, the function does not check if 'id' exists, potentially raising a KeyError."
+    },
+    {
+      "lines": [
+        12
+      ],
+      "type": "contract",
+      "severity": "low",
+      "description": "The docstring claims to return a 'slice', but the function returns a materialized list (the window). In Python, 'slice' typically refers to the slice object itself."
+    }
+  ],
+  "realism": "contrived",
+  "obvious_bugs": [
+    "Off-by-one error where the cursor item is included in the next page results",
+    "O(N) full scan of the items list to extract IDs on every pagination call"
+  ],
+  "notes": "The implementation correctly handles the terminal 'None' cursor case, but the fundamental logic for skipping the cursor is incorrect (should use 'bisect_right' or 'bisect_left + 1') and the performance is poor for an in-memory utility.",
+  "_snippet": "08"
+}

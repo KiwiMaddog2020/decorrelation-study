@@ -1,0 +1,28 @@
+{
+  "defects": [
+    {
+      "lines": [
+        31,
+        34
+      ],
+      "type": "concurrency",
+      "severity": "high",
+      "description": "Atomicity violation (TOCTOU): The 'put' method releases the lock after checking the capacity (line 32) but before appending the item (line 34). This creates a race condition where multiple producers can see the buffer as 'not full', exit the lock, and then all append items, causing the buffer to exceed its maximum capacity invariant."
+    },
+    {
+      "lines": [
+        35,
+        36
+      ],
+      "type": "performance",
+      "severity": "low",
+      "description": "Redundant lock acquisition: The 'put' method unnecessarily acquires the same lock twice (once for the check and once for the notification). Both the 'append' and 'notify' operations should be performed within the original 'with self._lock' block to reduce synchronization overhead."
+    }
+  ],
+  "realism": "contrived",
+  "obvious_bugs": [
+    "Race condition in 'put' allows the buffer to exceed its specified capacity."
+  ],
+  "notes": "This code is a textbook example of a concurrency failure where a lock is used to protect a 'check' but released before the 'act' phase of a state-dependent operation. While 'collections.deque' is thread-safe for appends in CPython, the higher-level logic (the capacity bound) is not.",
+  "_snippet": "03"
+}

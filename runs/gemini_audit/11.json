@@ -1,0 +1,65 @@
+{
+  "defects": [
+    {
+      "lines": [
+        44
+      ],
+      "type": "security",
+      "severity": "high",
+      "description": "SQL Injection vulnerability. The 'tenant' parameter is directly interpolated into the SET search_path command. Schema identifiers should be quoted using psycopg2.extensions.quote_ident or psycopg2.sql.Identifier to prevent malicious input from escaping the query."
+    },
+    {
+      "lines": [
+        33,
+        38
+      ],
+      "type": "correctness",
+      "severity": "high",
+      "description": "Transaction and session state leakage. The pool does not perform a rollback or reset session settings when a connection is released. This means uncommitted transactions or session-level changes (like the search_path set in set_active_tenant) will persist and affect the next consumer of that connection."
+    },
+    {
+      "lines": [
+        23,
+        27
+      ],
+      "type": "performance",
+      "severity": "medium",
+      "description": "Blocking network call inside a lock. Calling psycopg2.connect() while holding self._lock prevents any other thread from acquiring or releasing connections, creating a significant bottleneck during high latency or database load."
+    },
+    {
+      "lines": [
+        34,
+        38
+      ],
+      "type": "correctness",
+      "severity": "low",
+      "description": "The release() method does not verify if the connection being returned actually belongs to the pool. If an external connection is passed, it is added to the idle list, which can cause the pool to grow beyond maxconn and mix incompatible connection objects."
+    },
+    {
+      "lines": [
+        29
+      ],
+      "type": "correctness",
+      "severity": "medium",
+      "description": "The pool raises a RuntimeError upon exhaustion. In production environments, a thread-safe pool is typically expected to block the calling thread (e.g., using a Semaphore or Condition variable) until a connection becomes available or a timeout is reached."
+    },
+    {
+      "lines": [
+        42,
+        43,
+        44
+      ],
+      "type": "API misuse",
+      "severity": "medium",
+      "description": "Connection state modification without cleanup. The set_active_tenant method modifies the connection state globally for that session. Without a 'RESET ALL' or similar cleanup on release, this creates 'sticky' sessions where one tenant might accidentally access another's data."
+    }
+  ],
+  "realism": "contrived",
+  "obvious_bugs": [
+    "SQL injection in schema setting",
+    "Lack of rollback on connection release",
+    "Holding global lock during network I/O"
+  ],
+  "notes": "This implementation appears to be a technical interview challenge or a naive pedagogical example. It lacks essential production features such as connection health checks, proper resource cleanup (no close() method for the pool), and robust error handling during connection establishment.",
+  "_snippet": "11"
+}

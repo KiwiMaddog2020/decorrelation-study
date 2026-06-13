@@ -1,0 +1,19 @@
+{
+  "defects": [
+    {
+      "lines": [
+        8,
+        31
+      ],
+      "type": "Violation of Contract",
+      "severity": "high",
+      "description": "The implementation uses ROUND_HALF_UP, but the docstring explicitly specifies 'bankers rounding (round half to even)' to maintain statistical balance and consistency with the accounting system. In Python's decimal module, bankers rounding is achieved using ROUND_HALF_EVEN."
+    }
+  ],
+  "realism": "realistic",
+  "obvious_bugs": [
+    "Rounding mode mismatch: the code implements ROUND_HALF_UP while the documentation/contract explicitly requires bankers rounding (ROUND_HALF_EVEN)."
+  ],
+  "notes": "The code correctly follows best practices for financial calculations by using integer cents for amounts and the Decimal type for tax rates to avoid floating-point drift. The only defect is the choice of rounding algorithm, which is a classic implementation-versus-requirement error.",
+  "_snippet": "06"
+}

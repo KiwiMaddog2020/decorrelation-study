@@ -1,0 +1,67 @@
+{
+  "defects": [
+    {
+      "lines": [
+        21
+      ],
+      "type": "boundary",
+      "severity": "high",
+      "description": "The loop `range(1, len(lines) - 1)` contains an off-by-one error that skips the last line of the input text (e.g., if there are 2 lines, it iterates 0 times)."
+    },
+    {
+      "lines": [
+        8
+      ],
+      "type": "correctness",
+      "severity": "high",
+      "description": "Naive splitting on commas fails to handle standard CSV quoting (e.g., \"Field, with comma\"), which will be incorrectly split into multiple fields."
+    },
+    {
+      "lines": [
+        19
+      ],
+      "type": "performance",
+      "severity": "medium",
+      "description": "Using `text.split('\\n')` creates a full list of strings in memory, which is inefficient and potentially dangerous for large 'uploaded spreadsheets'."
+    },
+    {
+      "lines": [
+        19
+      ],
+      "type": "correctness",
+      "severity": "medium",
+      "description": "Splitting specifically on '\\n' will leave trailing carriage return characters ('\\r') if the input uses Windows-style CRLF line endings."
+    },
+    {
+      "lines": [
+        8
+      ],
+      "type": "correctness",
+      "severity": "low",
+      "description": "Mandatory `.strip()` on every field prevents the ingestion of CSV data where leading/trailing whitespace is syntactically significant."
+    },
+    {
+      "lines": [
+        20
+      ],
+      "type": "correctness",
+      "severity": "low",
+      "description": "The check `if not lines` is unreachable because `str.split` always returns a list containing at least one string, even for empty input."
+    },
+    {
+      "lines": [
+        26
+      ],
+      "type": "correctness",
+      "severity": "medium",
+      "description": "Using `zip(header, cells)` silently discards data if a row contains more fields than the header row."
+    }
+  ],
+  "realism": "contrived",
+  "obvious_bugs": [
+    "Skips the last row of data due to the range limit.",
+    "Fails to parse any CSV field containing a comma."
+  ],
+  "notes": "This code is a classic example of 'reinventing the wheel' poorly; the Python standard library `csv` module exists specifically to solve all the issues identified here (memory efficiency, CRLF handling, and quoted-field parsing).",
+  "_snippet": "04"
+}

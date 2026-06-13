@@ -1,0 +1,54 @@
+{
+  "defects": [
+    {
+      "lines": [
+        16,
+        20
+      ],
+      "type": "correctness",
+      "severity": "high",
+      "description": "The 'get' method fails to update the recency of the accessed key. In a Least Recently Used (LRU) cache, every access (read) must move the item to the 'most recently used' position. Without this, frequently accessed items will be evicted prematurely based on their insertion order (FIFO behavior)."
+    },
+    {
+      "lines": [
+        7
+      ],
+      "type": "concurrency",
+      "severity": "high",
+      "description": "The class is not thread-safe. Concurrent access to 'put' and 'get' in a multi-threaded environment (as implied by 'metadata resolver layer') will lead to race conditions and internal corruption of the OrderedDict's doubly-linked list."
+    },
+    {
+      "lines": [
+        16,
+        20
+      ],
+      "type": "API misuse",
+      "severity": "medium",
+      "description": "The 'get' method returns None for missing keys, creating ambiguity if 'None' is a valid value stored in the cache. Production caches typically use a unique sentinel or require the caller to provide a default value to distinguish between a miss and a None value."
+    },
+    {
+      "lines": [
+        30,
+        32
+      ],
+      "type": "API misuse",
+      "severity": "low",
+      "description": "The '_on_evict' hook only receives the key of the evicted item. In many production scenarios, the associated value is also required for proper cleanup (e.g., closing file handles or database connections)."
+    },
+    {
+      "lines": [
+        18,
+        20
+      ],
+      "type": "performance",
+      "severity": "low",
+      "description": "The 'get' method performs two dictionary lookups ('key in self._store' and 'self._store[key]'). This is less efficient than a single lookup using 'try...except' or 'self._store.get()'."
+    }
+  ],
+  "realism": "contrived",
+  "obvious_bugs": [
+    "The 'get' operation does not update the LRU order, breaking the fundamental cache contract."
+  ],
+  "notes": "The code is a classic textbook implementation that correctly identifies OrderedDict as the appropriate structure but misses the critical 'update on read' step for LRU. It also lacks the robustness (thread safety, value handling) expected in the stated production context.",
+  "_snippet": "07"
+}

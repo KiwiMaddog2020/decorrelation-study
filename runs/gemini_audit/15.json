@@ -1,0 +1,49 @@
+{
+  "defects": [
+    {
+      "lines": [
+        19,
+        20,
+        21
+      ],
+      "type": "correctness",
+      "severity": "high",
+      "description": "Rounding the source amount to minor units before conversion introduces cumulative rounding errors and precision loss. Financial conversions should be performed on the high-precision value, with rounding occurring only once at the final step."
+    },
+    {
+      "lines": [
+        19,
+        22,
+        23
+      ],
+      "type": "correctness",
+      "severity": "high",
+      "description": "The hardcoded 100 multiplier and unit quantization assume all currencies have exactly two decimal places (cents). This is incorrect for currencies like JPY (0 decimals), BHD (3 decimals), or CLF (4 decimals), leading to massive value errors."
+    },
+    {
+      "lines": [
+        17
+      ],
+      "type": "performance",
+      "severity": "medium",
+      "description": "Calling 'get_rate' inside the loop is a 'N+1' pattern. If this function performs network I/O or database lookups, performance will degrade linearly with the number of amounts. Rates should be fetched in batch or cached."
+    },
+    {
+      "lines": [
+        11,
+        20,
+        23
+      ],
+      "type": "violation of contract",
+      "severity": "medium",
+      "description": "The docstring specifies that amounts are converted and 'then' rounded. The implementation rounds twice (once before conversion and once after), violating the prescribed logic and potentially changing the resulting value."
+    }
+  ],
+  "realism": "realistic",
+  "obvious_bugs": [
+    "Precision loss due to rounding before conversion",
+    "Hardcoded decimal places (assuming 100 minor units for all currencies)"
+  ],
+  "notes": "The code uses Decimal correctly to avoid floating-point issues, but the algorithm itself is mathematically flawed for a general-purpose billing pipeline. It fails to adhere to ISO 4217 currency exponents and introduces rounding errors that would cause reconciliation failures.",
+  "_snippet": "15"
+}

@@ -1,0 +1,44 @@
+{
+  "defects": [
+    {
+      "lines": [
+        18
+      ],
+      "type": "boundary",
+      "severity": "medium",
+      "description": "Off-by-one error: 'range(1, attempts)' iterates only 'attempts - 1' times. For example, passing 'attempts=3' results in only 2 calls to 'fn'."
+    },
+    {
+      "lines": [
+        18,
+        27
+      ],
+      "type": "correctness",
+      "severity": "high",
+      "description": "Logic failure when 'attempts=1': The loop 'range(1, 1)' is empty, meaning the function raises 'TransientError(\"call_with_retry made no attempts\")' without ever calling 'fn'. At least one attempt should always be performed."
+    },
+    {
+      "lines": [
+        25
+      ],
+      "type": "performance",
+      "severity": "low",
+      "description": "Unnecessary latency: The code executes 'time.sleep(delay)' even after the final failure in the loop, before exiting to raise the exception."
+    },
+    {
+      "lines": [
+        23
+      ],
+      "type": "logic",
+      "severity": "low",
+      "description": "Non-standard backoff: Because 'i' starts at 1, the first retry delay is 'base_delay * factor' (1.0s) instead of 'base_delay' (0.5s), skipping the first intended step of the exponential sequence."
+    }
+  ],
+  "realism": "realistic",
+  "obvious_bugs": [
+    "Off-by-one error in retry count calculation",
+    "Failure to execute any attempts when attempts parameter is 1"
+  ],
+  "notes": "This implementation contains classic boundary condition errors. The use of 'range(1, attempts)' instead of 'range(attempts)' (or range(1, attempts + 1)) breaks the contract for small attempt values and incorrectly counts the total calls. The trailing sleep is a common but sub-optimal pattern in hand-rolled retry helpers.",
+  "_snippet": "05"
+}

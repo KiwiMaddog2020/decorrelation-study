@@ -1,0 +1,36 @@
+{
+  "defects": [
+    {
+      "lines": [
+        15,
+        16,
+        17
+      ],
+      "type": "correctness",
+      "severity": "high",
+      "description": "The use of person.get(key, '') will return None if the key exists in the mapping with an explicit None value. Subsequent calls to .casefold() on these None values will raise an AttributeError, as person.get() only uses the default value if the key is missing entirely, not if it is present with a null value."
+    },
+    {
+      "lines": [
+        17
+      ],
+      "type": "correctness",
+      "severity": "medium",
+      "description": "The function lacks robustness against non-string values. If 'last_name' or 'first_name' contains an integer or other non-string type (despite the type hint), .casefold() will raise an AttributeError."
+    },
+    {
+      "lines": [
+        14
+      ],
+      "type": "performance",
+      "severity": "low",
+      "description": "The sort_key function is defined inside sort_people, causing it to be re-instantiated on every call to sort_people. While negligible for small numbers of calls, moving it to the module level or using a lambda/itemgetter with a separate mapping function is more idiomatic for high-performance utilities."
+    }
+  ],
+  "realism": "realistic",
+  "obvious_bugs": [
+    "AttributeError when 'last_name' or 'first_name' is explicitly set to None in the input dictionaries."
+  ],
+  "notes": "The implementation is clean and correctly uses Python's Timsort stability and the Unicode-aware casefold() method. The primary 'textbook' defect is the common mistake of assuming .get(key, default) handles null values when the key is present.",
+  "_snippet": "19"
+}

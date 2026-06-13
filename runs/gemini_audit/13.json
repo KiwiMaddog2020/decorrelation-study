@@ -1,0 +1,27 @@
+{
+  "defects": [
+    {
+      "lines": [
+        31,
+        34
+      ],
+      "type": "security",
+      "severity": "high",
+      "description": "The use of substring matching on a joined string of roles ('admin' in granted) leads to privilege escalation. A user with a role like 'guest_admin' or 'administrator_helper' will incorrectly be granted 'admin' permissions. Similarly, if required_role is 'read', a user with the role 'ready' would be granted access."
+    },
+    {
+      "lines": [
+        28
+      ],
+      "type": "performance",
+      "severity": "low",
+      "description": "Joining a list into a string to perform membership tests is inefficient. Standard list or set membership tests (e.g., 'admin' in user.roles) are faster and more idiomatic."
+    }
+  ],
+  "realism": "contrived",
+  "obvious_bugs": [
+    "Partial string matching for role authorization (substring vulnerability)."
+  ],
+  "notes": "The code explicitly converts a structured list into a flat string specifically to use the 'in' operator, which is a common textbook example of a security flaw resulting from improper string handling.",
+  "_snippet": "13"
+}

@@ -1,0 +1,20 @@
+{
+  "defects": [
+    {
+      "lines": [
+        14,
+        20,
+        25
+      ],
+      "type": "correctness",
+      "severity": "high",
+      "description": "The implementation divides the weighted sum by the count of rows ('contributing') instead of the sum of weights. This is mathematically incorrect for a weighted average and violates the standard definition of the algorithm."
+    }
+  ],
+  "realism": "realistic",
+  "obvious_bugs": [
+    "Weighted average uses count of items as denominator instead of sum of weights"
+  ],
+  "notes": "The logic effectively treats 'weight' as a binary flag for inclusion in a simple average rather than a proportional scaling factor for the final result.",
+  "_snippet": "12"
+}

@@ -1,0 +1,37 @@
+{
+  "defects": [
+    {
+      "lines": [
+        36,
+        37,
+        38,
+        39
+      ],
+      "type": "concurrency",
+      "severity": "high",
+      "description": "Race condition: The token decrement 'self.tokens -= 1' occurs outside the thread lock. Multiple threads can concurrently pass the 'if available >= 1' check after releasing the lock, leading to a negative token count and allowing more requests than the configured capacity."
+    },
+    {
+      "lines": [
+        26
+      ],
+      "type": "correctness",
+      "severity": "medium",
+      "description": "Rate drift: Setting 'self._last = now' discards the fractional remainder of time that didn't constitute a full token. This causes the effective refill rate to be slower than the configured 'rate', especially when 'allow()' is called frequently at intervals just over the token period."
+    },
+    {
+      "lines": [
+        21
+      ],
+      "type": "correctness",
+      "severity": "medium",
+      "description": "Non-monotonic clock: 'time.time()' is used to measure elapsed time. If the system clock is adjusted backwards, the limiter will stall and stop accruing tokens until the clock catches up to the 'self._last' value. 'time.monotonic()' should be used for rate limiting."
+    }
+  ],
+  "realism": "realistic",
+  "obvious_bugs": [
+    "State mutation (decrementing tokens) happens outside the critical section protected by the lock."
+  ],
+  "notes": "The code represents a common but flawed implementation of the Token Bucket algorithm. The concurrency bug is a 'textbook' example of a check-then-act race condition.",
+  "_snippet": "09"
+}
