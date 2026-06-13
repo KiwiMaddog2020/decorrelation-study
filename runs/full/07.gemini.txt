@@ -1,0 +1,2 @@
+16 | logic | The `get` method fails to move the accessed key to the end of the `OrderedDict`, violating the Least-Recently-Used (LRU) policy by failing to update the item's recency.
+7 | concurrency | The class lacks synchronization mechanisms (e.g., locks), making it unsafe for concurrent access in the metadata resolver layer.

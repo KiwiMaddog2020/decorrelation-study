@@ -1,0 +1,1 @@
+line 31 (return statement) | spec-violation | The docstring promises bankers rounding (ROUND_HALF_EVEN / round half to even) to match the accounting system's half-to-even convention, but the code passes ROUND_HALF_UP, producing different cents on half-way values and breaking the stated contract.

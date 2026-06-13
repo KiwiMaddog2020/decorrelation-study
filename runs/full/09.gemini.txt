@@ -1,0 +1,3 @@
+35 | concurrency | The decrement of `self.tokens` is performed outside the mutex lock, leading to race conditions that can bypass the rate limit or cause negative token balances.
+26 | logic | Updating `self._last` to `now` discards fractional time progress toward the next token, resulting in an actual refill rate that is slower than the specified `rate`.
+21 | logic | The use of `time.time()` instead of `time.monotonic()` makes the rate limiter sensitive to system clock adjustments, which can cause the refill logic to stall.

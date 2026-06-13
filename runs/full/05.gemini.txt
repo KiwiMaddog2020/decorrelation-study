@@ -1,0 +1,3 @@
+Line 20 | logic | The range(1, attempts) loop executes one fewer attempt than specified and performs no attempts if the attempts parameter is 1.
+Line 25 | logic | The backoff calculation skips the initial base_delay by starting the exponent i at 1 instead of 0 for the first failure.
+Line 27 | performance | The function calls time.sleep after the final failure inside the loop, causing an unnecessary delay before the exception is propagated.

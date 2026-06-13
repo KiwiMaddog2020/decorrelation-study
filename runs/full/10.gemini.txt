@@ -1,0 +1,4 @@
+25 | logic | `datetime.utcnow()` returns a naive datetime object, leading to incorrect comparisons when evaluated against timezone-aware local data.
+26 | logic | Comparing `local.date()` with `now.date()` (UTC) is a logic error as the business's local calendar day and the UTC day may differ.
+26 | logic | Comparing `now.time()` (UTC) directly with `close_time` (local) is a timezone mismatch that results in incorrect business hour gating.
+26 | spec-violation | The function rejects valid business-hour timestamps if the current execution time (`now`) is past the closing hour, violating the docstring's contract to validate the provided timestamp `ts`.

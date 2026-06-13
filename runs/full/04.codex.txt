@@ -1,0 +1,2 @@
+LOCATION: line 23 | TYPE: boundary | DESCRIPTION: The loop stops at `len(lines) - 1`, so it silently drops the final row whenever the input does not end with a trailing newline.  
+LOCATION: line 7 | TYPE: logic | DESCRIPTION: Splitting on commas directly does not parse valid CSV fields with quotes, embedded commas, escaped quotes, or embedded newlines, causing uploaded spreadsheet data to be corrupted.

@@ -1,0 +1,2 @@
+lines 25-27 | logic | The current-time short-circuit makes the result depend on when the function runs rather than only on ``ts``, so an event squarely inside the window returns False merely because it is invoked after close on the same date, violating the documented pure-predicate contract.
+line 25-26 | logic | ``datetime.utcnow()`` yields a naive UTC datetime whose ``.date()`` and ``.time()`` are compared against a business-local date and a local wall-clock ``close_time``, mixing UTC and local timezones so the comparison fires on the wrong dates/times.

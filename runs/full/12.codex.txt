@@ -1,0 +1,1 @@
+line 26 | logic | The weighted average divides by the number of contributing rows instead of the sum of their weights, producing incorrect results when weights differ.

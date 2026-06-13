@@ -1,0 +1,2 @@
+fingerprint["path"] | logic | The auto key ignores query parameters because `request.path` excludes them, so distinct operations on the same path can collapse to the same idempotency key.
+fingerprint["body"] | logic | `request.get_json(silent=True) or {}` maps invalid, missing, non-JSON, and falsey JSON bodies such as `null`, `false`, `0`, or `[]` to `{}`, causing different requests to share the same key.

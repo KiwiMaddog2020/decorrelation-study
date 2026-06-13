@@ -1,0 +1,3 @@
+get() | logic | Fetching a key does not mark it as recently used, so eviction order is insertion/update-based rather than true LRU.
+__init__() capacity validation | boundary | Non-integer positive capacities such as 0.5 are accepted despite the “positive integer” contract, causing incorrect eviction behavior.
+get() return value | api-misuse | Cached None values are indistinguishable from cache misses because put accepts Any but get uses None as the miss sentinel.

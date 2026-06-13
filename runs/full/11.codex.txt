@@ -1,0 +1,3 @@
+release | logic | `discard` accepts unknown or already-released connections and still appends them to `_idle`, corrupting the pool and allowing duplicate or foreign connections to be handed out.
+set_active_tenant | security | The tenant value is interpolated directly into SQL, allowing SQL injection through the `SET search_path` statement.
+__init__ | boundary | `minconn` is not validated against `maxconn`, so `minconn > maxconn` creates more connections than the configured maximum.

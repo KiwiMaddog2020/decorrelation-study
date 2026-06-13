@@ -1,0 +1,2 @@
+Line 20 | logic | The loop uses `range(1, attempts)`, so it performs one fewer call than requested and makes zero calls when `attempts` is `1`.
+Line 27 | performance | The code sleeps after the final failed iteration even though no retry remains, causing an unnecessary delay before raising the last exception.

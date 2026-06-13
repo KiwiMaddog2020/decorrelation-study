@@ -1,0 +1,1 @@
+convert_all, lines 19-24 | logic | The value is quantized to whole source minor units before being multiplied by the exchange rate and quantized again, causing double rounding that discards sub-cent precision and produces inaccurate converted amounts in a billing context.

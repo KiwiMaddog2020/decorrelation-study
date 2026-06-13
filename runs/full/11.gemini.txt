@@ -1,0 +1,6 @@
+Line 42 | security | The `set_active_tenant` method uses string interpolation to build a SQL query, making it vulnerable to SQL injection.
+Line 38 | logic | The `release` method does not verify that the connection was currently in the `_in_use` set, allowing a double-release to add the same connection to the idle pool multiple times.
+Line 33 | logic | Connection session state (such as `search_path` or other session variables) is not reset upon release, which can lead to state leakage between different users or tenants.
+Line 45 | logic | The `connection` context manager does not ensure that transactions are committed or rolled back before returning the connection to the pool, potentially leaving it in an inconsistent state.
+Line 25 | logic | The `acquire` method does not check if an idle connection is still alive and functional before returning it, which can result in the caller receiving a broken or closed connection.
+Line 27 | performance | Establishing a new database connection while holding the pool's lock blocks all other threads from acquiring or releasing any connections until the network call completes.

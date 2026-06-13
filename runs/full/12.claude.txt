@@ -1,0 +1,1 @@
+return total / contributing (line 26) | logic | Weighted average must divide by the sum of weights, but the code divides by the count of contributing rows, yielding sum(score*weight)/count instead of sum(score*weight)/sum(weight), so the result is wrong whenever any weight != 1.

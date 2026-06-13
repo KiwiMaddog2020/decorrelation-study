@@ -1,0 +1,2 @@
+allow() lines 28-33 | concurrency | The lock is released before consuming the token, so concurrent callers can all observe the same available token and decrement `self.tokens` below zero.
+_refill() lines 19-21 | api-misuse | It uses `time.time()` for elapsed-time accounting, so wall-clock adjustments can incorrectly freeze or overfill the bucket.

@@ -1,0 +1,1 @@
+dedupe_events duplicate-handling branch | spec-violation | The code ignores the integer `ts` field and keeps the last duplicate in input order, so it can return an older event instead of the most recent one for a `(user_id, kind)` pair.

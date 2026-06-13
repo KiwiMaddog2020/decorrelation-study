@@ -1,0 +1,1 @@
+Line 31 | spec-violation | The implementation uses ROUND_HALF_UP (round half away from zero) instead of the bankers rounding (round half to even) explicitly required by the docstring to maintain statistical balance.

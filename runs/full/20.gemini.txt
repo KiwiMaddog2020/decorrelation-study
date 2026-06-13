@@ -1,0 +1,1 @@
+16, 18 | security | The implementation uses `os.path.abspath` instead of `os.path.realpath`, failing to resolve symlinks as promised in the docstring and allowing path traversal if any path component is a symlink.

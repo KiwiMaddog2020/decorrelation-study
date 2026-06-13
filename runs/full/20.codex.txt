@@ -1,0 +1,1 @@
+safe_join | security | The function uses `abspath` instead of `realpath`, so symlinks inside `base` can resolve outside the base while still passing the prefix check.

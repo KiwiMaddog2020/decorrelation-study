@@ -1,0 +1,5 @@
+Line 23 | logic | The loop range `range(1, len(lines) - 1)` stops one line too early, causing the last data row to be skipped if the input does not end with a trailing newline.
+Line 7 | logic | Simple comma splitting fails to account for quoted fields containing commas, leading to incorrect parsing of standard CSV data.
+Line 7 | spec-violation | Stripping whitespace from fields violates the CSV standard (RFC 4180), which specifies that spaces are significant and should be preserved.
+Line 17 | logic | Hardcoding `\n` as the delimiter fails to correctly handle CSV files that use CRLF (`\r\n`) or legacy CR (`\r`) line endings.
+Line 17 | performance | Splitting the entire input string into a list in memory is inefficient and can lead to memory exhaustion when processing large files.

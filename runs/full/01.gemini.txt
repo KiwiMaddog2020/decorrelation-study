@@ -1,0 +1,4 @@
+line 21 | spec-violation | The function ignores the `ts` field and unconditionally overwrites events, failing
+dedupe_events | spec-violation | The function fails to compare the `ts` field as specified, resulting in the last-seen event being kept instead of the most recent one.
+dedupe_events | performance | Using list-based membership checks and indexing leads to $O(N^2)$ time complexity, making the function inefficient for large datasets.
+Line 16 | logic | Accessing `user_id` and `kind` without checking for their existence will cause a `KeyError` if any input dictionary is missing these keys.

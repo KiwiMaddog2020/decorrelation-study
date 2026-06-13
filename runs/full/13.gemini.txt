@@ -1,0 +1,2 @@
+if "admin" in granted: | security | Substring matching via `in` allows users with roles containing "admin" (e.g., "superadmin") to inappropriately gain full administrative access.
+return resource.required_role in granted | security | Substring matching allows access if the required role is a substring of any held role (e.g., a required "edit" role matching a held "editor" role).

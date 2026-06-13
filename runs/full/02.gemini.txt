@@ -1,0 +1,2 @@
+21 | logic | Comparison between offset-naive 'datetime.utcnow()' and offset-aware 'self._expires_at' will raise a TypeError.
+21 | concurrency | Multiple threads can pass the initial expiration check simultaneously, leading to redundant and sequential token refreshes because the check is not repeated inside the lock.

@@ -1,0 +1,2 @@
+31 | concurrency | The capacity check and item append are not atomic, allowing multiple producers to exceed the buffer's capacity if they both pass the check before either appends.
+41 | logic | The wait(timeout) call inside a loop can lead to a total wait time that exceeds the specified timeout if multiple spurious wakeups or iterations occur.

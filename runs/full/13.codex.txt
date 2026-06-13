@@ -1,0 +1,2 @@
+29 | security | The admin check uses substring matching on a joined role string, so roles like `"notadmin"` or `"administrator"` incorrectly grant admin access.
+32 | security | The required-role check uses substring matching on a joined role string, so partial matches like required role `"read"` with role `"bread"` incorrectly grant access.

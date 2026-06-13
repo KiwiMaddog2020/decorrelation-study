@@ -1,0 +1,2 @@
+safe_join (lines 16,18) | security | Uses os.path.abspath which only normalizes lexically and does NOT resolve symlinks, so a symlink inside base pointing outside it passes the check and escapes, contradicting the docstring's "real (symlink-resolved)" guarantee.
+safe_join (lines 9-14 docstring) | spec-violation | The docstring promises the returned path is symlink-resolved and that symlinks escaping base raise PathTraversalError, but no realpath/lstat resolution is performed, so the stated contract is not met.

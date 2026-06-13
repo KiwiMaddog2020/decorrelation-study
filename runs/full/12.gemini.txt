@@ -1,0 +1,1 @@
+Line 26 | logic | The function incorrectly divides the sum of weighted scores by the count of contributing rows instead of the sum of the weights, resulting in an incorrect weighted average.

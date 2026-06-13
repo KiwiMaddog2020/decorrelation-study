@@ -1,0 +1,3 @@
+line 15 | logic | Using isinstance(..., dict) instead of collections.abc.Mapping prevents the function from recursively merging other mapping types such as UserDict.
+deep_merge | logic | The function does not handle circular or cross-referential structures, which can lead to a RecursionError if the input dictionaries contain loops.
+line 14 | logic | The function fails to validate that 'a' and 'b' are dictionaries, which will raise an AttributeError if types without an .items() method are provided.

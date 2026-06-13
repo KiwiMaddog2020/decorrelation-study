@@ -1,0 +1,1 @@
+31 | spec-violation | The code uses `ROUND_HALF_UP` even though the function contract says to use bankers rounding, so half-cent cases will disagree with the accounting system's half-to-even convention.

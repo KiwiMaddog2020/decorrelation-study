@@ -1,0 +1,3 @@
+line 19 | logic | The scaling factor of 100 is hardcoded, which incorrectly assumes all currencies have 100 minor units per major unit (e.g., JPY has 1 and BHD has 1000).
+line 19 | logic | Rounding the amount to minor units before currency conversion introduces intermediate precision loss and violates the sequence of operations described in the docstring.
+line 18 | performance | Fetching the exchange rate within the loop for each item is inefficient and can be optimized by caching rates for unique currencies.

@@ -1,0 +1,1 @@
+get (lines 16-20) | logic | get() reads a key without calling move_to_end, so accesses do not refresh recency and a recently-read key can be wrongly evicted, violating the LRU contract the class promises.

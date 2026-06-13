@@ -1,0 +1,1 @@
+converted expression | logic | The code rounds the source amount to minor units before applying the exchange rate, causing double-rounding errors instead of converting first and then rounding to target minor units.

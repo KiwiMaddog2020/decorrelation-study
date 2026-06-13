@@ -1,0 +1,2 @@
+start = bisect_left(ids, cursor) | logic | The exclusive cursor is not skipped when it exactly matches an item id, so the last item from the previous page can be returned again.
+size handling in items[start:start + size] | boundary | Non-positive sizes are not rejected and can return an empty or incorrect page with a misleading next cursor while items remain.

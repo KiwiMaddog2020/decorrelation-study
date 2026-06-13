@@ -1,0 +1,1 @@
+put | concurrency | `put` checks capacity under the lock but appends after releasing it, so concurrent producers can overfill the bounded buffer.

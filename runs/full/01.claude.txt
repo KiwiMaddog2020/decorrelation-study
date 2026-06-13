@@ -1,0 +1,4 @@
+lines 18-20 (dedupe_events) | logic | On a duplicate key the surviving event is overwritten unconditionally instead of comparing the integer ``ts`` field, so an out-of-order event with an older ts replaces a newer one, violating the documented "keep most recent" contract.
+dedupe_events | spec-violation | The ``ts`` field promised by the docstring as the recency tiebreaker is never read or compared anywhere, so correctness depends entirely on input arrival order rather than ts.
+line 17 (dedupe_events) | boundary | event["user_id"] and event["kind"] raise KeyError on any event missing those fields, aborting the whole dedup pass instead of handling the malformed row.
+lines 18-19 (dedupe_events) | performance | Using a list for seen_keys makes ``key in seen_keys`` and ``seen_keys.index(key)`` O(n) each, giving O(n^2) overall on an ingestion pipeline where a dict would be O(n).

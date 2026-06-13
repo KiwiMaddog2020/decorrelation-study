@@ -1,0 +1,3 @@
+21 | security | The automatic fingerprint lacks user-specific identity information (e.g., from Authorization headers or user IDs), allowing different users to share the same idempotency key for identical request content.
+23 | logic | The fingerprint uses request.path which excludes query parameters, causing distinct requests with different query strings to be treated as identical.
+24 | logic | The fingerprint ignores non-JSON request bodies and collapses various distinct inputs (like null, empty strings, or invalid JSON) into a single empty dictionary representation.

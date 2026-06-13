@@ -39,8 +39,18 @@ def review(sid: str) -> str:
 
 
 if __name__ == "__main__":
+    import os
+    from concurrent.futures import ThreadPoolExecutor, as_completed
     OUT.mkdir(parents=True, exist_ok=True)
     ids = sys.argv[1:] or [f"{i:02d}" for i in range(1, 21)]
-    for sid in ids:
-        print(review(sid), flush=True)
+    # I/O-bound CLI calls; a small pool clears the queue without straining the box.
+    workers = max(1, int(os.environ.get("GEMINI_WORKERS", "1")))
+    if workers == 1:
+        for sid in ids:
+            print(review(sid), flush=True)
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            futs = {ex.submit(review, sid): sid for sid in ids}
+            for f in as_completed(futs):
+                print(f.result(), flush=True)
     print("GEMINI REVIEWS COMPLETE")

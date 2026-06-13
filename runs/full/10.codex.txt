@@ -1,0 +1,2 @@
+now = datetime.utcnow() / local.date() == now.date() and now.time() > close_time | logic | The function’s result depends on the current clock instead of only on `ts`, so a timestamp inside the business window can be rejected after the current UTC time passes `close_time`.
+local.date() == now.date() and now.time() > close_time | logic | `now` is UTC while `local` and `close_time` are in the business timezone, so the date/time comparison is made in inconsistent timezones and can reject or allow the wrong events.
