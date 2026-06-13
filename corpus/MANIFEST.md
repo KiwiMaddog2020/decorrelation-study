@@ -7,10 +7,10 @@ exact ground truth in `corpus/truth/NN.json`.
 ## Shape
 
 - 20 snippets: **16 defective + 4 clean**.
-- **29 defects**, balanced across the seven types:
-  logic 6, security 5, api-misuse 4, boundary 4, performance 4,
+- **30 defects**, balanced across the seven types:
+  logic 6, security 5, boundary 5, api-misuse 4, performance 4,
   concurrency 3, spec-violation 3.
-- Difficulty: **26 subtle + 2 obvious anchors + 1 moderate**. The anchors
+- Difficulty: **27 subtle + 2 obvious anchors + 1 moderate**. The anchors
   (05-d2 off-by-one, 11-d3 SQL injection) are deliberate calibration points: we
   expect every reviewer to catch them, as a sanity check and a contrast for the
   subtle ones.

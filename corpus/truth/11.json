@@ -48,6 +48,19 @@
       "difficulty": "subtle",
       "canonical": "acquire() calls psycopg2.connect(self.dsn) while holding self._lock, so a slow/blocking TCP connect serializes every other acquire() and release() in the pool for its full duration. The blocking network I/O should happen outside the lock.",
       "why_subtle": "the connect sits naturally inside the same 'with self._lock' that guards the pool structures; the cost is invisible until a connect is slow and the whole pool stalls behind it."
+    },
+    {
+      "id": "11-d5",
+      "lines": [
+        13,
+        19
+      ],
+      "type": "boundary",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "canonical": "__init__ never validates minconn against maxconn, so range(minconn) eagerly opens minconn connections even when minconn > maxconn, exceeding the configured pool ceiling from the start.",
+      "why_subtle": "minconn=2/maxconn=10 defaults look fine; the ordering bug only bites on a misconfiguration the constructor silently accepts.",
+      "added_by": "reconciliation: caught by claude+codex in review (multi-rater)"
     }
   ]
 }

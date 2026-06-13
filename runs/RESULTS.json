@@ -4,7 +4,7 @@
     "gemini",
     "codex"
   ],
-  "n_defects": 29,
+  "n_defects": 30,
   "caught": {
     "claude": [
       "01-d1",
@@ -24,6 +24,7 @@
       "11-d1",
       "11-d3",
       "11-d4",
+      "11-d5",
       "12-d1",
       "13-d1",
       "14-d1",
@@ -75,6 +76,7 @@
       "09-d3",
       "10-d1",
       "11-d3",
+      "11-d5",
       "12-d1",
       "13-d1",
       "14-d1",
@@ -88,11 +90,11 @@
     "codex": 0
   },
   "correlations": {
-    "claude|gemini": -0.154,
-    "claude|codex": 0.318,
-    "gemini|codex": 0.406
+    "claude|gemini": -0.184,
+    "claude|codex": 0.327,
+    "gemini|codex": 0.267
   },
-  "coverage_payoff": 1.074,
-  "union_caught": 29,
+  "coverage_payoff": 1.111,
+  "union_caught": 30,
   "best_single": 27
 }

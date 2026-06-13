@@ -10,7 +10,12 @@ Usage: python3 harness/score.py <snippet_id> [runs_dir]
 Default runs_dir: runs/smoke
 """
 from __future__ import annotations
-import json, re, sys, pathlib
+import json, os, re, sys, pathlib
+
+# Strict (pre-registered) matcher by default. SCORE_STEM=1 enables a lenient
+# 5-char-prefix stemming variant, used only to report the result's sensitivity
+# to the matching rule -- never as the canonical scorer.
+_STEM = os.environ.get("SCORE_STEM", "0") == "1"
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 RATERS = ["claude", "codex", "gemini"]
@@ -35,7 +40,10 @@ def parse_flags(text: str) -> list[dict]:
 
 
 def words(s: str) -> set[str]:
-    return {w for w in re.findall(r"[a-z]{3,}", s.lower()) if w not in STOP}
+    toks = [w for w in re.findall(r"[a-z]{3,}", s.lower()) if w not in STOP]
+    # Lenient variant collapses tokens to a 5-char prefix so terse rater wording
+    # matches the answer key across inflections (recency~recently). Off = strict.
+    return {w[:5] for w in toks} if _STEM else set(toks)
 
 
 def defect_keywords(d: dict) -> set[str]:
