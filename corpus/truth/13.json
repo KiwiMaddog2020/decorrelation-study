@@ -1,0 +1,21 @@
+{
+  "snippet": "13",
+  "domain": "authorization / access control",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "13-d1",
+      "lines": [
+        27,
+        29,
+        32
+      ],
+      "type": "security",
+      "canonical": "Role checks use substring containment against a space-joined string of the user's roles instead of exact membership. Line 28 ('admin' in granted) grants admin privileges to any user whose role string contains the substring 'admin' (e.g. 'nonadmin', 'superadmin-readonly', 'badmin'), and line 31 (resource.required_role in granted) similarly matches the required role as a substring, so a required role of 'edit' is satisfied by any held role containing 'edit' (e.g. 'auditor', 'no-edit'). Both checks should compare against the exact role tokens in user.roles, not a concatenated string.",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "Flattening roles to a string and using 'in' reads as an idiomatic membership test, so a skimming reviewer sees 'admin in granted' as 'has admin' rather than a substring match."
+    }
+  ]
+}

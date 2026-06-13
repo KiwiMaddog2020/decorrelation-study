@@ -1,0 +1,19 @@
+{
+  "snippet": "12",
+  "domain": "statistics / scoring",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "12-d1",
+      "lines": [
+        26
+      ],
+      "type": "logic",
+      "canonical": "weighted_score divides the weighted sum (total) by the count of contributing rows instead of by the sum of weights; the result is a true weighted average only when all weights are equal, otherwise it is wrong (and can exceed the score range).",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "The loop already accumulates a tidy `contributing` counter and a `total`, so `total / contributing` reads like a normal average; a skimmer has to notice no running weight-sum exists to divide by."
+    }
+  ]
+}

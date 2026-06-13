@@ -1,0 +1,20 @@
+{
+  "snippet": "10",
+  "domain": "datetime/timezones",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "10-d1",
+      "lines": [
+        25,
+        26
+      ],
+      "type": "api-misuse",
+      "canonical": "datetime.utcnow() returns a naive datetime in UTC, but it is compared/correlated against `local` which is in the business timezone. `now.date()`/`now.time()` are UTC wall-clock values, so the same-day 'already past close' guard is off by the UTC-to-local offset (e.g. ~4-5 hours for America/Toronto), causing the cutoff to fire at the wrong instant or fail to fire across the day boundary.",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "why_subtle": "Both sides are datetimes and the code reads as a plausible 'has the local day already closed' check; the naive-UTC vs local-tz mismatch only shows up at the offset boundary."
+    }
+  ]
+}

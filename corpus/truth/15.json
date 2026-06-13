@@ -1,0 +1,33 @@
+{
+  "snippet": "15",
+  "domain": "currency/billing",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "15-d1",
+      "lines": [
+        19,
+        20,
+        21,
+        22
+      ],
+      "type": "spec-violation",
+      "canonical": "The amount is rounded to whole minor units BEFORE the exchange-rate conversion (value*100 is quantized, then multiplied by rate), contrary to the documented contract that requires converting first and rounding to minor units last. Rounding the pre-conversion value discards sub-unit precision, producing systematic drift after the rate is applied.",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "Both a *100 scaling and a quantize appear, so the code looks like correct minor-unit handling; the reviewer has to notice the rate is applied after the rounding, not before."
+    },
+    {
+      "id": "15-d2",
+      "lines": [
+        18
+      ],
+      "type": "performance",
+      "canonical": "get_rate(currency) is invoked once per amount inside the loop even when many amounts share the same currency, repeating an avoidable (and potentially expensive) rate lookup; the result should be memoized/cached per currency across iterations.",
+      "severity": "low",
+      "difficulty": "subtle",
+      "why_subtle": "Calling get_rate per amount reads as ordinary correct code; the redundancy is only visible when you realize amounts commonly share currencies and the lookup is non-trivial."
+    }
+  ]
+}

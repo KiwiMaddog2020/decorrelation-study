@@ -1,0 +1,33 @@
+{
+  "snippet": "01",
+  "domain": "ETL / analytics ingestion",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "01-d1",
+      "lines": [
+        18,
+        19,
+        20
+      ],
+      "type": "logic",
+      "canonical": "On a duplicate key the existing entry is overwritten unconditionally with the current event, so the last event in iteration order wins rather than the one with the maximum ts. There is no comparison of event['ts'] against the stored event's ts. For input not pre-sorted by ts, an older event can overwrite a newer one.",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "The docstring asserts ts decides the winner and the overwrite looks like a deliberate 'keep latest' update, so a skimmer assumes input is ts-ordered and never notices ts is never read."
+    },
+    {
+      "id": "01-d2",
+      "lines": [
+        18,
+        19
+      ],
+      "type": "performance",
+      "canonical": "Membership and position lookups use 'key in seen_keys' and seen_keys.index(key) against a growing Python list, each an O(n) scan, making the overall dedupe O(n^2); a dict keyed by (user_id, kind) would make it O(n).",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "why_subtle": "The parallel-list pattern reads as ordinary, correct code and the quadratic cost only manifests at scale, so a reviewer skimming for correctness overlooks the linear scans hidden inside 'in' and '.index'."
+    }
+  ]
+}

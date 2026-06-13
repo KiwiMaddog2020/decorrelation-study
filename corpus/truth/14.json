@@ -1,0 +1,23 @@
+{
+  "snippet": "14",
+  "domain": "idempotency / request deduplication",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "14-d1",
+      "lines": [
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "type": "security",
+      "canonical": "The auto-derived fingerprint hashes only method, path, and body, omitting the authenticated account/tenant identifier. Two different tenants issuing identical requests produce the same idempotency key, so one tenant's operation is silently deduplicated against another's (cross-tenant collision / response leakage and dropped processing).",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "The fingerprint looks complete and intentional; the missing tenant/account field is an absence, and method+path+body reads like a full request identity to a skimming reviewer."
+    }
+  ]
+}

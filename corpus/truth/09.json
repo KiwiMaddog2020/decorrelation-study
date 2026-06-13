@@ -1,0 +1,49 @@
+{
+  "snippet": "09",
+  "domain": "rate-limiting / concurrency utilities",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "09-d1",
+      "lines": [
+        23,
+        24,
+        25,
+        26
+      ],
+      "type": "boundary",
+      "canonical": "_refill() computes minted tokens as int(elapsed * self.rate), truncating the fractional part every call. Because _last is advanced to now only when minted > 0, the discarded fractional tokens are permanently lost rather than carried forward, so the effective sustained rate is strictly lower than the configured rate (and approaches zero for frequent calls where elapsed*rate < 1 each time).",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "why_subtle": "int()/truncation of a token count looks like a deliberate integer-token model, and the lost fractions are only visible when you reason about the carry across many calls."
+    },
+    {
+      "id": "09-d2",
+      "lines": [
+        17,
+        21
+      ],
+      "type": "api-misuse",
+      "canonical": "Elapsed time is measured with time.time() (wall clock) instead of time.monotonic(). An NTP step or manual clock adjustment can move the wall clock backward, making elapsed negative (minting nothing and stalling refill) or jump forward (minting a burst), so the limiter is not robust against clock changes.",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "why_subtle": "time.time() is the reflexive choice for 'current time' and works perfectly in tests; the monotonic-vs-wall-clock distinction only matters during a clock adjustment a reviewer rarely simulates."
+    },
+    {
+      "id": "09-d3",
+      "lines": [
+        30,
+        31,
+        32,
+        34,
+        35
+      ],
+      "type": "concurrency",
+      "canonical": "The lock guards _refill() and the read of self.tokens, but the consume step (the available >= 1 check and self.tokens -= 1) is performed after releasing the lock. Two threads can both read available == 1 inside their own locked sections, then both decrement outside the lock, driving tokens negative and admitting more requests than the bucket allows.",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "A lock is present and visibly wraps the refill, so it reads as properly synchronized; the check-then-act on tokens silently escaping the critical section is easy to miss."
+    }
+  ]
+}

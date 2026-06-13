@@ -1,0 +1,30 @@
+{
+  "snippet": "08",
+  "domain": "keyset pagination",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "08-d1",
+      "lines": [
+        27
+      ],
+      "type": "boundary",
+      "canonical": "next_cursor is set to window[-1]['id'], the id of the last item INCLUDED in the current page. On the next call bisect_left(ids, cursor) lands on that same item's index, so combined with the inclusive start (d2) the boundary item is re-served as the first row of the next page. Even on its own, advertising the last-returned id as the next cursor only works if the start is exclusive; here it is not.",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "Returning the last item's id as the next cursor is the textbook keyset idiom; the off-by-one only manifests when paired with the inclusive bisect_left start."
+    },
+    {
+      "id": "08-d2",
+      "lines": [
+        20
+      ],
+      "type": "spec-violation",
+      "canonical": "The docstring states the cursor is EXCLUSIVE (page starts strictly after it), but bisect_left(ids, cursor) returns the index OF the cursor element when present, so window[start:] INCLUDES the cursor item. Exclusive semantics require bisect_right (or start+1) so the matched id is skipped.",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "bisect_left vs bisect_right reads as an arbitrary, both-plausible choice; the reader rarely checks it against the exclusive contract stated three lines up in the docstring."
+    }
+  ]
+}

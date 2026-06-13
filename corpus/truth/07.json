@@ -1,0 +1,17 @@
+{
+  "snippet": "07",
+  "domain": "caching / data structures",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "07-d1",
+      "lines": [16, 17, 18, 19, 20],
+      "type": "logic",
+      "canonical": "get() reads the value without calling self._store.move_to_end(key), so a successful read does not refresh recency. A key that is read frequently but not re-put stays at the front of the OrderedDict and is wrongly evicted by popitem(last=False) on overflow, violating LRU semantics.",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "why_subtle": "put() correctly maintains recency, so the cache looks fully ordered; the missing move_to_end is an absence in get(), and a skimmer sees a plausible read path with no obvious error."
+    }
+  ]
+}

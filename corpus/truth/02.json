@@ -1,0 +1,26 @@
+{
+  "snippet": "02",
+  "domain": "OAuth token management / HTTP client auth",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "02-d1",
+      "lines": [21, 22],
+      "type": "concurrency",
+      "canonical": "The expiry check (`datetime.utcnow() >= self._expires_at - self.REFRESH_WINDOW`) is performed outside the lock; the lock is only acquired after the decision to refresh. Two callers can both pass the check while the token is near expiry, then serialize on the lock and each perform a full refresh. The second refresh overwrites the access token and expiry the first just issued, so a token returned to the first caller may already be invalidated server-side, and the double round-trip defeats the cache. Correct form acquires the lock first and re-checks expiry inside it (double-checked locking).",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "why_subtle": "A lock is present and wraps the refresh body, so the code looks thread-safe at a glance; the gap is that the read-and-decide step sits before `with self._lock`, not inside it."
+    },
+    {
+      "id": "02-d2",
+      "lines": [21],
+      "type": "api-misuse",
+      "canonical": "`datetime.utcnow()` returns a naive datetime while `self._expires_at` is tz-aware (built from `datetime.now(timezone.utc)`). In Python comparing a naive and an aware datetime raises TypeError; even if one reasons it as a numeric offset, the intended UTC comparison is wrong by the host's local UTC offset, so the 60s refresh window is computed against the wrong instant. The correct call is `datetime.now(timezone.utc)`.",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "`utcnow()` reads as obviously-UTC and matches the surrounding UTC intent, so a reviewer assumes it is comparable to the aware expiry; the naive-vs-aware mismatch is easy to miss when both sides say 'UTC'."
+    }
+  ]
+}

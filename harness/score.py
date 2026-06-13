@@ -44,18 +44,36 @@ def defect_keywords(d: dict) -> set[str]:
     return kw
 
 
+def _affinity(flag: dict, d: dict) -> int:
+    """Heuristic affinity between a rater flag and a defect: a type-token match
+    plus shared content words. Used to break ties when several defects sit on
+    the same lines, so a co-located defect is credited to the rater flag that
+    actually describes IT, not just to whichever defect is listed first."""
+    score = 0
+    ft, dt = flag.get("type", ""), d.get("type", "")
+    if dt and (dt in ft or ft in dt):
+        score += 2
+    return score + len(words(flag["desc"]) & defect_keywords(d))
+
+
 def match(flag: dict, defects: list[dict]) -> str | None:
-    # 1) line overlap (with +/-1 tolerance) wins
+    # 1) line overlap (+/-1). Among overlapping defects prefer the one whose
+    #    type/content best fits the flag, so two different-typed defects on the
+    #    same lines are not both auto-credited to the first one.
+    hits = [
+        d for d in defects
+        if flag["lines"] and set(d.get("lines", []))
+        and any(min(abs(fl - x) for x in d["lines"]) <= 1 for fl in flag["lines"])
+    ]
+    if hits:
+        return max(hits, key=lambda d: _affinity(flag, d))["id"]
+    # 2) no line overlap: best content match (>= 3 shared words), not just first.
+    best, best_score = None, 2
     for d in defects:
-        dl = set(d.get("lines", []))
-        if flag["lines"] and dl and any(min(abs(fl - x) for x in dl) <= 1 for fl in flag["lines"]):
-            return d["id"]
-    # 2) content overlap: same type-family and >= 3 shared content words
-    for d in defects:
-        shared = words(flag["desc"]) & defect_keywords(d)
-        if len(shared) >= 3:
-            return d["id"]
-    return None
+        s = len(words(flag["desc"]) & defect_keywords(d))
+        if s > best_score:
+            best, best_score = d["id"], s
+    return best
 
 
 def score_snippet(sid: str, runs_dir: pathlib.Path) -> dict:

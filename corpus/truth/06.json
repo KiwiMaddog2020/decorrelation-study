@@ -1,0 +1,19 @@
+{
+  "snippet": "06",
+  "domain": "money/pricing",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "06-d1",
+      "lines": [
+        31
+      ],
+      "type": "spec-violation",
+      "canonical": "The docstring promises bankers rounding (round half to even), but the implementation rounds the tax with ROUND_HALF_UP, so every total whose fractional cent lands on a .5 boundary rounds up instead of to the nearest even cent. Over many lines this is a small systematic upward bias that violates the stated half-to-even contract.",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "why_subtle": "It is a single rounding-mode argument that looks deliberate and correct in isolation; only reading the promised half-to-even against the half-up actually used reveals the mismatch."
+    }
+  ]
+}

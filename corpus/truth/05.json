@@ -1,0 +1,30 @@
+{
+  "snippet": "05",
+  "domain": "retry / resilience utility",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "05-d1",
+      "lines": [
+        27
+      ],
+      "type": "logic",
+      "canonical": "The final (failed) attempt still sleeps for its full backoff via time.sleep(delay) before the loop ends and the exception is re-raised, wasting one entire backoff interval after there is nothing left to retry.",
+      "severity": "medium",
+      "difficulty": "subtle",
+      "why_subtle": "The sleep sits inside the normal except block and looks correct per-iteration; the wasted wait on the last failure is only visible when reasoning about loop termination."
+    },
+    {
+      "id": "05-d2",
+      "lines": [
+        20
+      ],
+      "type": "boundary",
+      "canonical": "range(1, attempts) iterates attempts-1 times, so the function makes one fewer attempt than requested (e.g. attempts=3 yields only 2 calls).",
+      "severity": "medium",
+      "difficulty": "obvious",
+      "why_subtle": "Intentional calibration anchor: an attentive reader spots the off-by-one in range(1, attempts) immediately."
+    }
+  ]
+}

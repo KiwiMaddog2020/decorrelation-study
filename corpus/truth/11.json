@@ -1,0 +1,41 @@
+{
+  "snippet": "11",
+  "domain": "database connection pooling",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "11-d1",
+      "lines": [
+        38
+      ],
+      "type": "api-misuse",
+      "canonical": "release() returns the connection to the idle list without calling conn.rollback() (or commit), so an open/uncommitted transaction from the previous holder rides along to the next acquirer, who may unknowingly commit or be blocked by held locks.",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "release looks complete and defensive (closed check, discard), and the missing rollback is an absence rather than a wrong line a skimmer can point at."
+    },
+    {
+      "id": "11-d2",
+      "lines": [
+        38
+      ],
+      "type": "security",
+      "canonical": "Per-session state (search_path set via set_active_tenant, plus any SET session vars or temp tables) is never reset on release, so the next tenant that acquires the same physical connection inherits the prior tenant's search_path and reads/writes the wrong schema (cross-tenant state bleed).",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "The tenant switch happens in a separate method, so reviewing release() in isolation gives no hint that recycled connections carry session state across tenants."
+    },
+    {
+      "id": "11-d3",
+      "lines": [
+        42
+      ],
+      "type": "security",
+      "canonical": "set_active_tenant builds the SET search_path statement via string interpolation of the caller-supplied tenant value, a textbook SQL injection.",
+      "severity": "high",
+      "difficulty": "obvious",
+      "why_subtle": "Intentional calibration anchor: classic %-format string concatenation of an untrusted value into SQL, flagged on sight."
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "snippet": "20",
+  "domain": "filesystem path safety",
+  "is_clean": true,
+  "planted_by": "claude-opus-4.8",
+  "defects": []
+}

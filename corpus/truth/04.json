@@ -1,0 +1,19 @@
+{
+  "snippet": "04",
+  "domain": "csv-parsing",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "04-d1",
+      "lines": [
+        23
+      ],
+      "type": "boundary",
+      "canonical": "The loop bound `range(1, len(lines) - 1)` stops at the second-to-last element, so when `text` has no trailing newline the final data row is never yielded. Should be `range(1, len(lines))`.",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "The `- 1` reads as defensive guarding against a trailing empty line, and inputs that happen to end in a newline mask the loss, so review and naive tests both pass."
+    }
+  ]
+}

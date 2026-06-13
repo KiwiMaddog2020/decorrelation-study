@@ -1,0 +1,17 @@
+{
+  "snippet": "03",
+  "domain": "concurrency / bounded buffer",
+  "is_clean": false,
+  "planted_by": "claude-opus-4.8",
+  "defects": [
+    {
+      "id": "03-d1",
+      "lines": [33, 34, 35, 36],
+      "type": "concurrency",
+      "canonical": "The capacity check (len(self._items) >= self._capacity) and the append are in separate critical sections: the lock is released at the end of the `with self._lock` block before `self._items.append(item)` runs unlocked. Two concurrent puts that both observe size == capacity-1 inside the lock can both pass the check, both release, and both append, leaving the buffer at capacity+1 and violating the fixed-capacity invariant.",
+      "severity": "high",
+      "difficulty": "subtle",
+      "why_subtle": "Every line individually looks locked and correct; the bug is that the append sits just outside the `with self._lock` block, so the check and the append are not one atomic operation."
+    }
+  ]
+}
