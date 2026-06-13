@@ -51,9 +51,12 @@ flags a bug that is not there. Thirty planted defects in all, spread across seve
 kinds: logic, security, concurrency, off-by-one, API misuse, performance, and
 contract violations.
 
-Then four reviewers looked at each snippet blind, seeing only the code and the
-same instructions: Claude, Codex (OpenAI), Gemini (Google), and one human, me.
-Four estimators, each with its own error pattern. Before collecting a single
+The design put four reviewers on each snippet, blind, seeing only the code and the
+same instructions: Claude, Codex (OpenAI), Gemini (Google), and one human, me. Four
+differently-trained estimators, the bet being that they would have four different
+error patterns. The three models did the reviews you are about to see. The fourth,
+the human, turned out to be the most interesting part of the experiment, and not in
+the way I planned; I will come back to it. Before collecting a single
 review I wrote down the hypotheses, the metrics, and the scoring rules in a
 [pre-registration](https://github.com/KiwiMaddog2020/decorrelation-study), and
 committed it to git with a timestamp. That file is the honesty anchor. If the data
@@ -165,17 +168,41 @@ was the weakest on off-by-one errors. The diversity that matters is not "more
 reviewers," it is reviewers that fail in different directions. An ensemble is
 worth it when its members are blind to different things, and these three are.
 
-## The reviewer I am still missing
+## The reviewer I was testing wrong
 
-The centerpiece of the design is the human, the fourth reviewer, whose training,
-evolution and a lifetime of bugs, is the most different from gradient descent of
-anything available. The prediction is that the human is the most decorrelated
-reviewer of all, not because a person is the strongest, but because a person is
-the least like the machines. I have not finished my own reviews yet, so that
-result is open, and I am reporting this note without it rather than waiting and
-quietly tuning everything else in the meantime. When the human data is in, it will
-be scored by the same frozen rule as everything else, and whatever it says, it
-ships.
+The human was supposed to be the centerpiece. The bet: a person, shaped by a
+lifetime of experience instead of gradient descent, would be the most decorrelated
+reviewer of all, not the strongest, just the least like the machines.
+
+There is a problem I should have seen before I built a single snippet. I direct
+these systems for a living; I do not sit and read source line by line hunting for
+subtle bugs. That is exactly the work I hand to the models. So putting me in the
+reviewer's chair and asking me to spot a timing leak in an HMAC comparison does not
+measure whether my judgment is decorrelated from a model's. It measures whether I
+can read code, which is a different thing and not my strength. A reviewer who is not
+a fluent code reader misses most of these and comes out looking weak, when the entire
+point was to measure difference, not skill. The test would have quietly relabeled
+"not a programmer" as "not decorrelated." Those are not the same, and treating them
+as the same would be its own kind of inflation, the exact thing this study keeps
+trying not to do.
+
+The fix is not a better human. It is a better question. The place a person's
+judgment really is uncorrelated with a model's is not the code, it is the thing the
+code becomes. A human knows what it feels like to be on the other end of an
+interface: where it is confusing, where it fights the way you actually want to move
+through it, what is missing that no specification lists. A model reading source has
+no access to that and never will. The human's decorrelated value lives in using the
+product, a different sense entirely, and a corpus of code defects is blind to it.
+
+So H3, the way I posed it, is the wrong test, and I am not going to fake it with an
+unqualified or contaminated human pass just to fill the box. The honest result is a
+lesson about measurement itself: you measure a reviewer's decorrelation in the
+domain where they are competent, not the one where they are not. The experiment that
+would actually test it, a human and the models both evaluating real product flows
+and counting what the human catches that no model does, is the one worth running
+next; its design is a note in the repo. This was meant to be the centerpiece.
+Instead it became the clearest example in the whole study of testing the wrong thing
+and catching it in time.
 
 ## What this has to do with recursive AI
 
@@ -189,7 +216,10 @@ had one, and it pointed at the conclusion I was hoping for. A system that improv
 itself is a checker grading its own work, and it will have the same shadow, and it
 will not feel like a problem from the inside. The escape is not a smarter checker.
 It is a *different* one, with errors that do not line up, plus a rule fixed in
-advance so that the grader cannot quietly choose how it grades.
+advance so that the grader cannot quietly choose how it grades. And "different" has
+more than one axis: a different model family, a different scoring rule, or a human
+put in the one seat where a human is genuinely unlike the machine, not reading the
+work, but living with it.
 
 That is a modest, almost boring conclusion, and I think it is the right one.
 Decorrelation is real, it is worth paying for, and it is most valuable exactly

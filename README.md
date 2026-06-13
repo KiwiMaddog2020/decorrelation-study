@@ -30,7 +30,7 @@ are not correlated with the thing being checked.
   generation, audit, and review runners.
 - [`runs/RESULTS_model_only.md`](runs/RESULTS_model_only.md) — the current results.
 
-## Headline findings (model-only; the human reviewer is still pending)
+## Headline findings (model-only; H3 was the wrong test, see below)
 
 - **Combining models helps, but modestly.** The three together caught all 30
   defects; the best single model caught 27. A real but small gain (about 1.1x),
@@ -65,6 +65,9 @@ can fail honestly, and where it could not support a prediction, it says so.
 
 ## Status
 
-The human family (one reviewer) is not yet in, so the centerpiece hypothesis,
-whether a human is the most decorrelated reviewer of all, is open. It will be
-scored by the same frozen rule as everything else, and whatever it says ships.
+H3, the human-decorrelation centerpiece, was posed as code review, which turned out
+to measure code-reading skill rather than decorrelation for a non-coding operator.
+Rather than fake it, the study reframes H3 as a measurement lesson and a better
+experiment, where a human and the models evaluate real product flows, designed in
+[`docs/FOLLOWUP_human_product_decorrelation.md`](docs/FOLLOWUP_human_product_decorrelation.md).
+The model-only results (H1/H2/H5) stand as the pilot.

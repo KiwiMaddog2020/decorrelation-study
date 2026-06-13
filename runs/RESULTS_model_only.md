@@ -1,8 +1,10 @@
-# Results (model-only; human family pending)
+# Results (model-only; H3 reframed as the wrong test)
 
 60 clean-room model reviews (Claude, Gemini, Codex x 20 snippets) scored against
-the reconciled ground truth. The human family (Kevin) is not yet in, so H3 is
-open. Canonical numbers use the **pre-registered strict matcher**; the lenient
+the reconciled ground truth. H3 (is the human the most decorrelated reviewer?) was
+posed as code review, which turned out to measure code-reading skill, not
+decorrelation, for a non-coding operator; it is reframed below as a measurement
+lesson, not left pending. Canonical numbers use the **pre-registered strict matcher**; the lenient
 (stemmed) matcher is a sensitivity variant (`SCORE_STEM=1`). Machine-readable
 copy in `runs/RESULTS.json`. **Pre-registered: the contradictions and the
 non-results below ship as findings.**
@@ -77,7 +79,12 @@ The big coverage intuition got a *modest* yes (H1). The specific correlation
 prediction (H2) is *unresolvable at this n* -- it flips with the scoring rule, so
 we report the sensitivity instead of a verdict. The durable, matcher-independent
 results are type-specific blindness (Codex blind to performance) and that the
-most decorrelated model pair is Claude-Gemini. The centerpiece, whether the human
-is the most decorrelated reviewer of all (H3), is still open and needs the human
-reviews. A pre-registered study that refuses to claim a result its instrument
-cannot robustly support is the exact discipline this work argues for.
+most decorrelated model pair is Claude-Gemini. H3, the human-decorrelation
+centerpiece, was the wrong test as posed: asking a non-coding operator to find
+subtle code bugs measures code-reading skill, not decorrelation. The honest result
+is a measurement lesson (you test a reviewer's decorrelation in the domain where
+they are competent) plus a better experiment, where a human and the models evaluate
+real product flows, designed in `docs/FOLLOWUP_human_product_decorrelation.md`. A
+pre-registered study that refuses to claim a result its instrument cannot robustly
+support, and that throws out its own centerpiece when the test is wrong, is the
+exact discipline this work argues for.
