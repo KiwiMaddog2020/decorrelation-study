@@ -42,3 +42,22 @@ outside and no lived pass was needed.
 The model pass (`model_pass.md`) is written and frozen before the human pass. The human
 (Kevin) runs the flow without reading the model pass. Scoring (`SCORE.md`) happens only
 after both files are frozen.
+
+## Amendment (model family, logged before the human pass)
+
+Two more clean-room model passes were added at the same 7-step spine, blind to each
+other and to the Claude pass: `model_pass_gemini.md` and `model_pass_codex.md`, produced
+via the Gemini and Codex CLIs. The human pass is still uncollected, so the integrity
+condition (hypotheses frozen before the data) holds.
+
+Observed across all three passes (this is allowed: the model predictions are one half of
+the comparison, the lived human pass is the half that must stay blind): every model
+flagged the version step as friction, but each framed it as a *visible act*, noticing the
+toggle, matching the version, picking from the list. None named the version-lag residue
+(the map being subtly wrong even when the version is set correctly).
+
+This sharpens **H-C** into a stronger, more falsifiable claim: not "a model misses the
+lived-knowledge friction" but "**all three independent models miss the same lived-knowledge
+friction**" (a consensus miss). Falsifier is unchanged and now stricter: if any one of the
+three named the version-lag (or any lived-knowledge) friction on its own, the consensus
+claim fails.
