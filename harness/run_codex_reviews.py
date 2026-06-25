@@ -16,8 +16,11 @@ SNIP = ROOT / os.environ.get("CORPUS_DIR", "corpus/snippets")
 OUT = ROOT / os.environ.get("OUT_DIR", "runs/full")
 PROMPT = (ROOT / "protocol" / "review_prompt.txt").read_text()
 CODEX = "/Applications/Codex.app/Contents/Resources/codex"
-ARGS = [CODEX, "exec", "--skip-git-repo-check", "--enable", "fast_mode",
-        "-c", "service_tier=priority"]
+# COMPLIANCE (2026-06-24): no `--enable fast_mode` / `service_tier=priority`.
+# Pinning the ChatGPT-subscription fast/premium lane for a batched, programmatic
+# review sweep is the fair-use signal OpenAI flagged (warning + account strike).
+# Run on the default lane. See memory: codex_openai_footprint_audit.
+ARGS = [CODEX, "exec", "--skip-git-repo-check"]
 
 
 def keep(text: str) -> str:
