@@ -3,3 +3,4 @@ __pycache__/
 *.codex.raw
 corpus/h3/
 runs/h3/
+runs/RESULTS_lenient.json

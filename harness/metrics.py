@@ -108,7 +108,11 @@ def main():
     allm = sum(1 for did in all_ids if all(did not in caught[r] for r in model_raters))
     print(f"  all models caught: {allc}   all models missed: {allm}   split: {N - allc - allm}")
 
-    (ROOT / "runs" / "RESULTS.json").write_text(json.dumps({
+    # The lenient (SCORE_STEM) sensitivity run writes its own file so the
+    # documented reproduce sequence cannot silently clobber the canonical
+    # strict pin in runs/RESULTS.json.
+    out_name = "RESULTS_lenient.json" if score._STEM else "RESULTS.json"
+    (ROOT / "runs" / out_name).write_text(json.dumps({
         "raters": raters, "n_defects": N,
         "caught": {r: sorted(caught[r]) for r in raters},
         "false_positives": fp,
@@ -116,7 +120,7 @@ def main():
         "coverage_payoff": round(payoff, 3),
         "union_caught": len(union), "best_single": best,
     }, indent=2) + "\n")
-    print("\nwrote runs/RESULTS.json")
+    print(f"\nwrote runs/{out_name}")
 
 
 if __name__ == "__main__":
