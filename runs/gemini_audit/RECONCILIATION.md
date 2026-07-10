@@ -5,6 +5,15 @@ the audit surfaced; reject out-of-contract / nitpick findings; fix the clean
 controls so any flag on them is an unambiguous false positive. The corpus grew
 from 24 planted defects to **29**, and from 5 clean controls to **4**.
 
+> **Update (superseded count):** this document records the corpus as of the
+> Gemini-audit reconciliation, when the ground truth of record was **29
+> defects**. That count was later superseded: defect `11-d5` (`minconn > maxconn`
+> in snippet 11) was adjudicated into the answer key in commit `8e80876`,
+> bringing the corpus to **30 defects**. The current authoritative count is
+> `corpus/MANIFEST.md` (**30**), which matches the live harness output. The 29
+> figures below are preserved as the historical reconciliation state, not the
+> current count.
+
 ## Headline
 
 The blind Gemini audit found **all planted defects (29/29 after reconciliation,
