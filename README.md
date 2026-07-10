@@ -38,7 +38,9 @@ are not correlated with the thing being checked.
   defects; the best single model caught 27. A real but small gain (about 1.1x),
   below the threshold I pre-registered as interesting.
 - **The correlation prediction could not be resolved.** Whether the most-similar
-  pair of models is Claude-Codex or Gemini-Codex flips on a single scoring choice,
+  pair of models is Claude-Codex or Gemini-Codex flips on the scoring instrument:
+  at least two entangled choices (the matcher line-gap tolerance and the post-hoc
+  11-d5 answer-key addition, the latter adjudicated after the reviews were visible),
   with gaps that are noise at n=30. So it is reported as unresolved, not confirmed.
   The scoring instrument has a blind spot too, and it pointed at the answer I wanted.
 - **What held up across every analysis:** Claude and Gemini are the most
