@@ -135,8 +135,10 @@ Here is the table that stopped me:
 | strict matcher, 30 defects | Claude-Codex | holds |
 | stemmed matcher, 30 defects | Claude-Codex | holds |
 
-The verdict flips on a single judgment call, and the gaps between the top pairs
-are tiny, the kind of difference that vanishes if you re-roll the dice. With only
+The verdict flips on the scoring instrument, on at least two entangled choices
+(the matcher line-gap tolerance and the post-hoc 11-d5 answer-key addition, the
+latter adjudicated after the reviews were visible), and the gaps between the top
+pairs are tiny, the kind of difference that vanishes if you re-roll the dice. With only
 30 data points, the ordering is not a finding, it is noise dressed up as one. The
 tempting move was to report the version where I was right and footnote the rest.
 The honest move was to report that **the prediction cannot be resolved at this
