@@ -1,0 +1,16 @@
+=== SNIPPET 01 ===
+20 | logic | The survivor is chosen by list position (the later input wins), never by comparing the integer ts field, so an older event can overwrite a newer one, contrary to the docstring.
+18-19 | performance | seen_keys is a list searched with `in` and `index` for every event, making the function quadratic in the number of events.
+=== SNIPPET 12 ===
+24-26 | logic | The denominator is the count of contributing rows instead of the sum of their weights, so the result is not a weighted average (rows with weights 2 and 1 give (2a+b)/2 instead of (2a+b)/3).
+=== SNIPPET 14 ===
+27-28 | logic | The fingerprint uses request.path, which omits the query string, so requests differing only in query parameters get the same auto key and the second is treated as a retry of the first.
+24 | logic | get_json(silent=True) returns None for non-JSON or falsy bodies, which becomes {}, so all such requests to the same method and path share one key and are wrongly treated as duplicates.
+=== SNIPPET 13 ===
+29-30 | security | The substring test on the joined role string means any role containing "admin" (for example "superadmin" or "admin_readonly") grants full access.
+32 | security | `resource.required_role in granted` is a substring match over the joined roles, so a role such as "readonly" satisfies a required role "read", granting access it should not.
+32 | security | An empty required_role makes `"" in granted` always True, so a resource with no required role is open to every user.
+=== SNIPPET 09 ===
+34-35 | concurrency | The availability check runs under the lock but the decrement on line 35 runs after the lock is released, so two threads can both consume the same token, over-admitting requests and letting tokens go negative.
+23-26 | logic | int() truncation discards the fractional remainder and _last is reset to now on every mint, so each refill loses up to one token of accrual and the effective rate is below `rate`.
+17, 21 | other | time.time() is wall-clock rather than monotonic; a backward clock step stalls refills, and a forward step grants a burst of tokens up to capacity.

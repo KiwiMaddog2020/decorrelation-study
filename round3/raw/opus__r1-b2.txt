@@ -1,0 +1,17 @@
+=== SNIPPET 17 ===
+NO DEFECTS FOUND
+=== SNIPPET 13 ===
+line 27-29 (granted = " ".join(user.roles); "admin" in granted) | security | The admin check is a substring test on the joined role string, so any role containing "admin" (e.g. "sysadmin", "admin_readonly", "not_admin") grants full access to every resource.
+line 32 (resource.required_role in granted) | security | The required-role check is a substring match against the joined roles string, so a role like "read_write" satisfies a required role of "read" or "write", a multi-word fragment spanning two roles can match, and an empty required_role always matches, granting access the user does not hold.
+=== SNIPPET 11 ===
+line 42 (set_active_tenant: "SET search_path TO tenant_%s, public" % tenant) | security | The tenant value is interpolated directly into SQL with string formatting, allowing SQL injection (e.g. a tenant of "x; DROP TABLE ...") instead of using a safely quoted identifier.
+line 33-38 (release) / line 44-50 (connection) | security | Connections are returned to the idle list without resetting session state (no rollback, no RESET search_path), so a tenant search_path or an aborted/open transaction set by one caller leaks to the next caller, which can read or write another tenant's data or fail with "current transaction is aborted".
+line 33-38 (release) | logic | release appends any connection that was not acquired from this pool (or was already released) to the idle list, since it never checks that conn was in _in_use, so a double release puts the same connection in the pool twice and hands it to two threads at once.
+=== SNIPPET 14 ===
+line 21-25 (fingerprint) | security | The automatic fingerprint contains no caller identity (user, tenant, auth), so two different clients sending the same method, path and body get the same key and the second receives the first client's stored result.
+line 23 (request.path) | logic | request.path omits the query string, so requests that differ only in query parameters map to the same key and a distinct operation is wrongly treated as a retry and returns the wrong stored result.
+line 24 (request.get_json(silent=True) or {}) | logic | Any non-JSON or unparseable body (form data, raw bytes, invalid JSON) silently becomes {}, so different requests to the same endpoint with different non-JSON payloads collide on the same key and are deduplicated incorrectly.
+line 21-28 (auto fingerprint with no time or nonce) | logic | A deterministic fingerprint with no window means a later, intentional repeat of the same operation (e.g. a second identical payment) is permanently treated as a retry and never processed.
+=== SNIPPET 20 ===
+line 16 and 18 (os.path.abspath) | security | The function uses abspath instead of realpath, so symlinks are never resolved and a symlink inside base that points outside it passes the check, contradicting the docstring's promise to reject symlink escapes and return a real path.
+line 16 (base_root = os.path.abspath(base)) | security | The base itself is not symlink-resolved, so comparing it against a resolved candidate (if realpath were used) or a symlinked base yields inconsistent containment checks; the returned path is also not the documented real path.

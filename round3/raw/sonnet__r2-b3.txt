@@ -1,0 +1,11 @@
+=== SNIPPET 19 ===
+NO DEFECTS FOUND
+=== SNIPPET 16 ===
+NO DEFECTS FOUND
+=== SNIPPET 04 ===
+line 23, range(1, len(lines) - 1) | boundary | The loop stops one line early, so the last data line is silently dropped whenever the text has no trailing newline, and a one-line-plus-header input yields nothing.
+line 7, _split_fields | logic | Splitting on every comma ignores CSV quoting, so quoted fields containing commas are broken into extra cells and the row misaligns with the header.
+=== SNIPPET 06 ===
+line 31, quantize(..., rounding=ROUND_HALF_UP) | spec-violation | The docstring promises round-half-to-even (bankers rounding) but the code rounds half up, which gives different cents than the accounting system on exact halves.
+=== SNIPPET 18 ===
+NO DEFECTS FOUND

@@ -1,0 +1,1 @@
+24-26 | logic | The denominator is the count of contributing rows instead of the sum of their weights, so the result is not a weighted average (rows with weights 2 and 1 give (2a+b)/2 instead of (2a+b)/3).

@@ -1,0 +1,2 @@
+line 20 | boundary | range(1, attempts) runs fn only attempts-1 times (and zero times when attempts is 1, raising "made no attempts"), so callers get one fewer attempt than requested.
+line 27 | logic | The backoff sleep runs even after the final failed attempt, adding a needless delay before the exception is raised.

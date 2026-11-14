@@ -1,0 +1,1 @@
+lines 25-27 | logic | The extra check compares the event's local date and the close time against the naive current UTC time from datetime.utcnow(), mixing timezones and making the result depend on when the function is called, so valid in-hours events are wrongly rejected (or not) based on the current UTC clock.

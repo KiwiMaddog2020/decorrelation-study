@@ -1,0 +1,1 @@
+get (line 20) | logic | A cache hit never calls move_to_end, so reads do not refresh recency and the cache evicts by insertion/update order (FIFO) rather than least-recently-used, contradicting the class contract.

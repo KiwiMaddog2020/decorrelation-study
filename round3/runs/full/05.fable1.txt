@@ -1,0 +1,2 @@
+line 20 (for i in range(1, attempts)) | boundary | The loop runs only attempts-1 times, so fn is called one time fewer than requested and attempts=1 never calls fn at all, instead raising a misleading TransientError("made no attempts").
+lines 25-27 (sleep in except block) | logic | The backoff sleep runs after the final failed attempt too, so the caller is delayed by the longest backoff for no reason before the last exception is propagated.

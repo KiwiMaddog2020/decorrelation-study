@@ -1,0 +1,1 @@
+line 31 | spec-violation | The docstring and comment promise bankers rounding (round half to even), but ROUND_HALF_UP is used, so half-cent results round up and differ from the stated accounting convention.

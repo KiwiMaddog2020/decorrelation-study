@@ -1,0 +1,1 @@
+line 20 | logic | bisect_left returns the index of the cursor item itself, so the cursor is treated as inclusive and the last item of the previous page is repeated at the start of every subsequent page (and paging can loop forever when size is 1).

@@ -1,0 +1,2 @@
+lines 19-24, quantize before multiplying by rate | logic | The source amount is rounded to whole source minor units before the rate is applied and then rounded again, so sub-cent precision is discarded early and the double rounding yields converted totals that differ from rounding once after conversion.
+line 19, Decimal(100) | logic | The minor-unit factor is hard-coded to 100 for every currency, so currencies with zero or three decimal minor units (e.g. JPY, KWD) for either source or target are converted to wrong amounts.

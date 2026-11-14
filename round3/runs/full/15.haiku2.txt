@@ -1,0 +1,1 @@
+19-24 | spec-violation | each amount is rounded to whole cents before the rate is applied and rounded again after, a double rounding that contradicts the docstring's convert-then-round rule and can shift results by a cent.

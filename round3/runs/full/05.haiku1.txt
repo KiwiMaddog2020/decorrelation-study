@@ -1,0 +1,2 @@
+20 | boundary | range(1, attempts) runs only attempts-1 times, so attempts=1 never calls fn and the function raises "made no attempts" without trying the call at all.
+27 | performance | the backoff sleep also runs after the final failed attempt, so the caller waits a full delay before the last exception is raised.

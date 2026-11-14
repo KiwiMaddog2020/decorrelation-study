@@ -1,0 +1,1 @@
+get (lines 16-20) | logic | A cache hit returns the value without moving the key to the most-recent end, so reads never refresh recency and eviction follows insertion/update order (FIFO) rather than least-recently-used, evicting hot entries.

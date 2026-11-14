@@ -1,0 +1,1 @@
+line 20, bisect_left(ids, cursor) | boundary | The cursor is documented as exclusive but bisect_left returns the index of the cursor item itself, so every subsequent page starts with the last item already served (duplicate item, and each page advances by only size-1; with size=1 pagination never progresses).

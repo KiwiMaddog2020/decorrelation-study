@@ -1,0 +1,2 @@
+line 23 | boundary | range(1, len(lines) - 1) always skips the last line, so when the text has no trailing newline the final data row is silently dropped.
+line 7 | spec-violation | Splitting on every comma ignores CSV quoting, so quoted fields containing commas are split into the wrong cells and misaligned with the header.

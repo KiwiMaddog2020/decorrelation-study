@@ -1,0 +1,3 @@
+Lines 21-25 (fingerprint) | logic | The fallback fingerprint omits the query string, the authenticated user or tenant and relevant headers, so distinct requests from different callers with the same path and body collide on one key and may return another caller's stored result.
+Line 24 (get_json(silent=True) or {}) | logic | A missing, malformed or non-JSON body is treated as an empty dict, so different invalid or non-JSON bodies all map to the same key and are wrongly deduplicated.
+Lines 14-19 (explicit key) | logic | The explicit key is not bound to the request fingerprint, so reusing the same key with a different method, path or body returns a stale result instead of an error, and the key is not scoped per user.

@@ -1,0 +1,16 @@
+=== SNIPPET 07 ===
+get (lines 16-20) | logic | A cache hit returns the value without moving the key to the most-recent end, so reads never refresh recency and eviction follows insertion/update order (FIFO) rather than least-recently-used, evicting hot entries.
+
+=== SNIPPET 05 ===
+line 20, range(1, attempts) | boundary | The loop runs only attempts-1 times, so fn is called one time fewer than requested and with attempts=1 it is never called at all and a misleading TransientError("made no attempts") is raised instead.
+lines 25-29, sleep in except block | logic | The helper sleeps the backoff delay even after the final failed attempt before re-raising, delaying failure for no purpose (and the first backoff is base_delay*factor rather than base_delay because the exponent starts at 1).
+
+=== SNIPPET 15 ===
+lines 19-24, quantize before multiplying by rate | logic | The source amount is rounded to whole source minor units before the rate is applied and then rounded again, so sub-cent precision is discarded early and the double rounding yields converted totals that differ from rounding once after conversion.
+line 19, Decimal(100) | logic | The minor-unit factor is hard-coded to 100 for every currency, so currencies with zero or three decimal minor units (e.g. JPY, KWD) for either source or target are converted to wrong amounts.
+
+=== SNIPPET 20 ===
+lines 16-18, os.path.abspath (safe_join) | security | Paths are only normalized with abspath and never resolved with realpath, so a symlink inside the base that points outside it passes the prefix check and the returned path is not symlink-resolved, contradicting the documented guarantee and allowing escape from the base directory.
+
+=== SNIPPET 08 ===
+line 20, bisect_left(ids, cursor) | boundary | The cursor is documented as exclusive but bisect_left returns the index of the cursor item itself, so every subsequent page starts with the last item already served (duplicate item, and each page advances by only size-1; with size=1 pagination never progresses).

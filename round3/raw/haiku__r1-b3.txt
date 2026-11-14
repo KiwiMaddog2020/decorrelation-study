@@ -1,0 +1,17 @@
+=== SNIPPET 07 ===
+16-20 (get) | logic | get() does not move the key to the end on a hit, so recency is never refreshed on reads and the eviction order is insertion order (FIFO), not least-recently-used.
+
+=== SNIPPET 04 ===
+23 | boundary | range(1, len(lines) - 1) skips the final line, so the last data row is silently dropped when the text has no trailing newline.
+7 | logic | _split_fields splits on every comma, so quoted spreadsheet fields that contain commas are broken into the wrong cells.
+
+=== SNIPPET 15 ===
+19 | spec-violation | The hardcoded factor of 100 assumes two minor-unit decimals, which is wrong for zero-decimal currencies such as JPY and three-decimal currencies such as KWD, so their amounts are scaled incorrectly.
+19-24 | logic | The amount is rounded to whole minor units before the rate is applied and then rounded again after conversion, so the result carries compounded rounding error.
+
+=== SNIPPET 01 ===
+18-20 | spec-violation | The docstring says the most recent occurrence by the ts field is kept, but the code keeps the last occurrence in input order and never reads ts, so out-of-order events can retain the older row.
+18-19 | performance | seen_keys is a list checked with `in` and `.index()` on every event, making the loop O(n^2) on large batches.
+
+=== SNIPPET 19 ===
+NO DEFECTS FOUND

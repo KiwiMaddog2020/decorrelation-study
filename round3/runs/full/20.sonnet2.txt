@@ -1,0 +1,1 @@
+line 18 (os.path.abspath) | security | abspath only normalizes the path lexically and does not resolve symlinks, so a symlink inside base pointing outside it passes the check, contradicting the docstring's claim of a real, symlink-resolved path (realpath needed).

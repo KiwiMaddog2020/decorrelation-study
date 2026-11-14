@@ -1,0 +1,2 @@
+line 34 (put) | concurrency | The append happens after the lock is released, so the capacity check and the append are not atomic; concurrent producers can exceed capacity and the deque is mutated outside the lock that get() relies on.
+lines 40-42 (get) | boundary | The full timeout is passed to wait() on every loop iteration, so after a spurious or stolen wakeup the total wait can exceed the requested timeout.

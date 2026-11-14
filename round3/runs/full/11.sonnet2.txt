@@ -1,0 +1,2 @@
+set_active_tenant, line 42 | security | The tenant value is interpolated directly into the SET search_path SQL with string formatting, allowing SQL injection and cross-tenant schema access.
+release, lines 33-38 | logic | The connection is returned to the idle pool without a rollback or resetting search_path, so the previous tenant's search_path and any open transaction state leak to the next borrower, causing cross-tenant data exposure.

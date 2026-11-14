@@ -1,0 +1,12 @@
+=== SNIPPET 05 ===
+20 | boundary | range(1, attempts) runs only attempts-1 times, so attempts=1 never calls fn and the function raises "made no attempts" without trying the call at all.
+27 | performance | the backoff sleep also runs after the final failed attempt, so the caller waits a full delay before the last exception is raised.
+=== SNIPPET 16 ===
+NO DEFECTS FOUND
+=== SNIPPET 18 ===
+NO DEFECTS FOUND
+=== SNIPPET 08 ===
+20 | boundary | bisect_left makes the cursor inclusive, so the item whose id equals cursor is returned again on the next page, contradicting the documented exclusive semantics.
+=== SNIPPET 03 ===
+31-34 | concurrency | the capacity check runs under the lock but the append happens after the lock is released, so concurrent producers can both pass the check and push the buffer past capacity, and the deque is mutated outside the lock consumers rely on.
+41 | logic | the timeout is restarted on every wakeup, so spurious or repeated notifications can make get() wait far longer than the timeout it was given.

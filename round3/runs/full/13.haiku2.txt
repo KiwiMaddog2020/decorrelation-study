@@ -1,0 +1,3 @@
+29-30 | security | The substring test on the joined role string means any role containing "admin" (for example "superadmin" or "admin_readonly") grants full access.
+32 | security | `resource.required_role in granted` is a substring match over the joined roles, so a role such as "readonly" satisfies a required role "read", granting access it should not.
+32 | security | An empty required_role makes `"" in granted` always True, so a resource with no required role is open to every user.

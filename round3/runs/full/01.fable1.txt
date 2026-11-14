@@ -1,0 +1,2 @@
+lines 18-20 | logic | A duplicate always overwrites the stored event without comparing ts, so the last occurrence in input order is kept rather than the most recent by ts, which returns stale events when input is not sorted by time.
+lines 18-19, key in seen_keys / seen_keys.index(key) | performance | Membership and index lookups on a list are linear, making deduplication quadratic in the number of distinct keys, which is costly for an ingestion pipeline.

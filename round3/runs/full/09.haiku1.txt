@@ -1,0 +1,3 @@
+34-35 | concurrency | The availability check runs under the lock but the decrement on line 35 runs after the lock is released, so two threads can both pass the check and consume the same token, letting calls through beyond the budget.
+23-26 | logic | int() truncation discards the fractional refill and then resets _last to now, so tokens accrued from the remainder are lost and the effective rate is below the configured rate.
+17, 21 | logic | time.time() is a wall clock that can step backwards or jump, so a clock change can stall or distort refills; a rate limiter should use time.monotonic().

@@ -1,0 +1,3 @@
+24 | logic | The fingerprint uses request.path, which excludes the query string, so requests that differ only in query parameters (e.g. ?id=1 vs ?id=2) with the same body get the same key and one receives the other's stored result.
+24 | logic | Non-JSON bodies (form or raw) are read as {} by get_json(silent=True), so distinct requests with different non-JSON bodies on the same path produce the same key.
+19 | security | A client-supplied Idempotency-Key is not namespaced, so a client can send "auto-<sha256>" to collide with the fingerprint of another request and reuse that request's stored result.

@@ -1,0 +1,2 @@
+Lines 18-20 (seen_keys list membership and index) | performance | Using a list for seen_keys makes each membership check and index lookup O(n), so deduplication is quadratic in the number of events.
+Lines 18-20 (deduped[position] = event) | logic | The later event unconditionally replaces the earlier one without comparing the ts field, so out-of-order input keeps an older event instead of the most recent one as documented.

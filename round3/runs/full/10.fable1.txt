@@ -1,0 +1,2 @@
+Lines 25-27, within_business_hours() | logic | The result depends on the current wall-clock time rather than only on `ts`, so an event that fell inside business hours is reported as outside whenever the function is called after closing time on the same date, which contradicts the documented contract.
+Lines 25-26, datetime.utcnow() | api-misuse | A naive UTC "now" has its date and time compared directly against the business-local date and local close time, mixing timezones so the comparison is wrong by the UTC offset (and across the date boundary).

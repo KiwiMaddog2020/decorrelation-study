@@ -1,0 +1,3 @@
+21 | logic | datetime.utcnow() returns a naive value that is compared with the timezone-aware self._expires_at, which raises TypeError on every call including the first.
+21 | concurrency | The expiry check runs outside the lock and is not repeated inside it, so when the token expires many threads can each POST for a new token at once.
+34-36 | concurrency | _access_token and _expires_at are written and read outside the lock, so a reader can pair a new token with a stale expiry.

@@ -1,0 +1,6 @@
+42 | security | The tenant value is interpolated into the SQL with % formatting and no validation or identifier quoting, so a crafted tenant string injects SQL into the SET search_path statement.
+40-42 (set_active_tenant) | logic | The search_path set on a connection is never reset, and release() returns the connection to the idle pool unchanged, so the next borrower can run queries against another tenant's schema.
+44-50 (connection) | logic | If the body raises mid-transaction, the connection is returned to the pool without rollback or reset, so uncommitted state and aborted-transaction errors carry over to the next user.
+33-38 (release) | concurrency | release() does not check that the connection was actually acquired, so a double release appends the same connection to _idle twice and two callers can receive it at once.
+27 | performance | psycopg2.connect() runs while the global lock is held, so one slow connection setup blocks every acquire and release in all threads.
+13-20 (__init__) | boundary | When minconn exceeds maxconn, the pool starts with more connections than maxconn because the initial connections are never capped.

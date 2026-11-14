@@ -1,0 +1,3 @@
+29 | security | Substring test on the joined role string grants admin to any role that merely contains "admin" (e.g. "superadmin" or "admin_readonly"), so it is not an exact role match.
+32 | security | Substring test `resource.required_role in granted` grants access when the required role appears inside another role name (e.g. "user" matches "superuser").
+32 | boundary | An empty required_role makes `"" in granted` always True, so a resource with no required role is open to every user.

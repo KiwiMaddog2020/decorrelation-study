@@ -1,0 +1,18 @@
+=== SNIPPET 09 ===
+Lines 32-36, allow() | concurrency | The availability check and the `self.tokens -= 1` decrement run after the lock is released, so concurrent callers can all see the same token and each consume it, over-admitting requests and driving the token count negative.
+Lines 23-26, _refill() | logic | Minted tokens are truncated with int() but `_last` is advanced to `now`, so the fractional elapsed time is discarded on every refill and the effective rate falls below the configured `rate` (badly so under frequent calls).
+Lines 17 and 21, time.time() | api-misuse | The wall clock is used instead of a monotonic clock, so a backwards clock adjustment stalls refills and a forward jump mints a full burst of tokens.
+
+=== SNIPPET 10 ===
+Lines 25-27, within_business_hours() | logic | The result depends on the current wall-clock time rather than only on `ts`, so an event that fell inside business hours is reported as outside whenever the function is called after closing time on the same date, which contradicts the documented contract.
+Lines 25-26, datetime.utcnow() | api-misuse | A naive UTC "now" has its date and time compared directly against the business-local date and local close time, mixing timezones so the comparison is wrong by the UTC offset (and across the date boundary).
+
+=== SNIPPET 02 ===
+Line 21, get_token() | api-misuse | Naive `datetime.utcnow()` is compared with the timezone-aware `self._expires_at`, which raises TypeError (can't compare offset-naive and offset-aware datetimes) on every call, so no token is ever returned.
+Lines 21-22, get_token() | concurrency | The expiry check is done outside the lock and not repeated after acquiring it, so every thread that saw the token as stale queues up and performs its own redundant refresh request instead of reusing the token just fetched.
+
+=== SNIPPET 12 ===
+Lines 22 and 26, weighted_score() | logic | The weighted sum is divided by the count of contributing rows instead of the sum of their weights, so the result is not a weighted average and is wrong whenever weights are not all 1.
+
+=== SNIPPET 06 ===
+Line 31, line_total() | spec-violation | The code rounds with ROUND_HALF_UP while the docstring specifies bankers rounding (half to even), so exact half-cent totals round up instead of to even and diverge from the accounting system's convention.

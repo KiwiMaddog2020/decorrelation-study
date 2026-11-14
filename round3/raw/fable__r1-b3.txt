@@ -1,0 +1,19 @@
+=== SNIPPET 07 ===
+get (lines 16-20) | logic | A cache hit does not refresh the key's recency (no move_to_end), so eviction follows insertion/update order rather than least-recently-used order and frequently read entries get evicted.
+get (lines 18-20) | other | A cached value of None is indistinguishable from a miss, so callers cannot tell a stored None from an absent key and will recompute or mis-handle it.
+
+=== SNIPPET 04 ===
+line 23, range(1, len(lines) - 1) | boundary | The loop stops one line early, so the final data row is silently dropped whenever the text does not end with a trailing newline.
+_split_fields (line 7) | logic | Splitting on every comma ignores CSV quoting, so quoted fields containing commas (or embedded newlines, via the split on line 17) are broken into wrong cells and the data is shifted or corrupted.
+line 28, dict(zip(header, cells)) | logic | Rows with more cells than the header are silently truncated and duplicate header names overwrite each other, so uploaded data is lost without any error.
+
+=== SNIPPET 15 ===
+lines 19-24 | logic | The amount is rounded to whole source minor units before the rate is applied, so sub-cent precision is discarded early and the double rounding yields a different result than converting at full precision and rounding once.
+line 19, Decimal(100) | logic | A fixed factor of 100 minor units is assumed for every currency, so currencies with zero or three decimal places (for example JPY or KWD) are converted to amounts that are off by a factor of 100 or 10.
+
+=== SNIPPET 01 ===
+lines 18-20 | logic | A duplicate always overwrites the stored event without comparing ts, so the last occurrence in input order is kept rather than the most recent by ts, which returns stale events when input is not sorted by time.
+lines 18-19, key in seen_keys / seen_keys.index(key) | performance | Membership and index lookups on a list are linear, making deduplication quadratic in the number of distinct keys, which is costly for an ingestion pipeline.
+
+=== SNIPPET 19 ===
+NO DEFECTS FOUND

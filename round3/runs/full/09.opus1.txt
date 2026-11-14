@@ -1,0 +1,2 @@
+allow(), lines 30-36 | concurrency | The token check result is taken under the lock but the decrement `self.tokens -= 1` happens after the lock is released, so concurrent callers can all see the same available token and each consume it, overspending the budget (and the unlocked read-modify-write can also lose updates).
+_refill(), lines 17 and 21 | other | Elapsed time is measured with wall-clock `time.time()` instead of a monotonic clock, so system clock adjustments can stall refilling or mint a burst of tokens.

@@ -1,0 +1,2 @@
+23 | boundary | range(1, len(lines) - 1) skips the final line, so the last data row is silently dropped when the text has no trailing newline.
+7 | logic | _split_fields splits on every comma, so quoted spreadsheet fields that contain commas are broken into the wrong cells.

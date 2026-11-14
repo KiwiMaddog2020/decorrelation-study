@@ -1,0 +1,2 @@
+21 | api-misuse | datetime.utcnow() returns a naive datetime while self._expires_at is timezone-aware, so the comparison raises TypeError and get_token fails on every call.
+21-22 | concurrency | The expiry check is outside the lock and is not repeated after acquiring it, so several threads that see an expired token can all POST refresh requests at once.

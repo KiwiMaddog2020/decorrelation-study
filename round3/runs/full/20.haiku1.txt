@@ -1,0 +1,2 @@
+18 | security | os.path.abspath does not resolve symlinks, so a symlink inside base that points outside it passes the prefix check and the escape is not rejected.
+32 | spec-violation | The docstring promises a real, symlink-resolved path, but the function returns only an abspath-normalized path, so the contract is not met.

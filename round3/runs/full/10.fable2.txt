@@ -1,0 +1,1 @@
+lines 25-27 (within_business_hours) | logic | The result depends on the current wall clock rather than only on ts, and it compares a naive UTC "now" (date and time) against the local date and local close_time, so the same event instant is wrongly rejected whenever the function is called after 17:00 UTC on the same calendar date, including during local business hours.

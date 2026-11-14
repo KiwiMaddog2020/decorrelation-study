@@ -1,0 +1,2 @@
+get (lines 16-20) | logic | A cache hit does not refresh the key's recency (no move_to_end), so eviction follows insertion/update order rather than least-recently-used order and frequently read entries get evicted.
+get (lines 18-20) | other | A cached value of None is indistinguishable from a miss, so callers cannot tell a stored None from an absent key and will recompute or mis-handle it.

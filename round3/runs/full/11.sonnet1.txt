@@ -1,0 +1,4 @@
+line 42 (set_active_tenant) | security | The tenant value is interpolated directly into the SET search_path statement with string formatting, allowing SQL injection and cross-tenant access through a crafted tenant name.
+line 33-38 (release) | security | Connections are returned to the idle pool without resetting search_path or rolling back open transactions, so the next caller can inherit another tenant's schema and uncommitted state.
+line 33-38 (release) | logic | Releasing a connection that is not in use, or releasing the same connection twice, appends it to the idle list again, so two callers can later receive the same connection.
+line 26-27 (acquire) | performance | A new database connection is opened while holding the pool lock, so a slow or hanging connect blocks every other acquire and release.

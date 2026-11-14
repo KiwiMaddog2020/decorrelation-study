@@ -1,0 +1,2 @@
+lines 18-20 | logic | A later duplicate always replaces the earlier one regardless of ts, so with out-of-order input the function keeps the last-seen event rather than the most recent by the ts field as documented.
+lines 18-19 | performance | Membership tests and index lookups on the seen_keys list are linear, making deduplication quadratic in the number of events for an ingestion pipeline.

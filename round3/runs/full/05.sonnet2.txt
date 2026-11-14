@@ -1,0 +1,3 @@
+call_with_retry, line 20 (range(1, attempts)) | logic | The loop runs only attempts-1 times, so the function makes one fewer call than requested and with attempts=1 never calls fn at all.
+line 27 (time.sleep(delay)) | logic | The function sleeps and logs a backoff even after the final failed attempt, delaying the raise of the last exception for no benefit.
+line 25 (factor ** i) | logic | With i starting at 1 the first backoff is base_delay * factor rather than base_delay, so the delay schedule is off by one step.

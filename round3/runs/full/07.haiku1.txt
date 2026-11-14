@@ -1,0 +1,1 @@
+16-20 (get) | logic | get() does not move the key to the end on a hit, so recency is never refreshed on reads and the eviction order is insertion order (FIFO), not least-recently-used.

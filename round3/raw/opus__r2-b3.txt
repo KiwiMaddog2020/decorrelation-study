@@ -1,0 +1,11 @@
+=== SNIPPET 19 ===
+NO DEFECTS FOUND
+=== SNIPPET 16 ===
+NO DEFECTS FOUND
+=== SNIPPET 04 ===
+line 23 | boundary | range(1, len(lines) - 1) always skips the last line, so when the text has no trailing newline the final data row is silently dropped.
+line 7 | spec-violation | Splitting on every comma ignores CSV quoting, so quoted fields containing commas are split into the wrong cells and misaligned with the header.
+=== SNIPPET 06 ===
+line 31 | spec-violation | The docstring promises bankers rounding (round half to even) but the code uses ROUND_HALF_UP, so exact half-cent tax amounts round up and totals disagree with the accounting system.
+=== SNIPPET 18 ===
+NO DEFECTS FOUND

@@ -1,0 +1,2 @@
+18-20 | spec-violation | The docstring says the most recent occurrence by the ts field is kept, but the code keeps the last occurrence in input order and never reads ts, so out-of-order events can retain the older row.
+18-19 | performance | seen_keys is a list checked with `in` and `.index()` on every event, making the loop O(n^2) on large batches.

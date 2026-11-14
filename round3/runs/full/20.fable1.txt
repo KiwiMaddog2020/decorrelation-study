@@ -1,0 +1,1 @@
+line 16-18 (os.path.abspath) | security | Both base and candidate are normalised with abspath, which does not resolve symlinks, so a symlink inside the base that points outside it passes the prefix check and the returned path is not the real path, contradicting the documented guarantee and permitting escape from the base directory.

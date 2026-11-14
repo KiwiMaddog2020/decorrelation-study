@@ -1,0 +1,1 @@
+31 | spec-violation | The docstring says the final cent uses round-half-to-even, but the code uses ROUND_HALF_UP, so half-cent cases round up and contradict the documented accounting convention.

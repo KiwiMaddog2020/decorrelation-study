@@ -1,0 +1,1 @@
+line 20 / bisect_left(ids, cursor) | boundary | The cursor is documented as exclusive, but bisect_left lands on the item whose id equals the cursor, so that item is returned again at the start of the next page and pages overlap.

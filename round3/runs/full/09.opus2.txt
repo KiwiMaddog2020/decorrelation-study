@@ -1,0 +1,3 @@
+line 30-36 (allow) | concurrency | The token check and the decrement happen outside the lock, so concurrent callers can all read the same ``available`` value and each consume a token, overspending the bucket and racing on ``self.tokens -= 1``.
+line 23-26 (_refill) | logic | Setting ``_last = now`` after truncating ``elapsed * rate`` to an int discards the fractional token time each refill, so under frequent calls the limiter mints fewer tokens than ``rate`` and can starve callers when rate is low.
+line 17, 21 (time.time) | api-misuse | Wall-clock ``time.time()`` can jump backward or forward with clock adjustments, producing negative or huge elapsed values; a monotonic clock should be used for rate limiting.

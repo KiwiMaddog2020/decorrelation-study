@@ -1,0 +1,3 @@
+Lines 32-36, allow() | concurrency | The availability check and the `self.tokens -= 1` decrement run after the lock is released, so concurrent callers can all see the same token and each consume it, over-admitting requests and driving the token count negative.
+Lines 23-26, _refill() | logic | Minted tokens are truncated with int() but `_last` is advanced to `now`, so the fractional elapsed time is discarded on every refill and the effective rate falls below the configured `rate` (badly so under frequent calls).
+Lines 17 and 21, time.time() | api-misuse | The wall clock is used instead of a monotonic clock, so a backwards clock adjustment stalls refills and a forward jump mints a full burst of tokens.

@@ -1,0 +1,1 @@
+lines 19-24 | logic | The source amount is rounded to whole minor units before the rate is applied and then rounded again, causing double rounding that can produce results off by one minor unit versus rounding once after conversion.

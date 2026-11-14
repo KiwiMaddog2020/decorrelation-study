@@ -1,0 +1,16 @@
+=== SNIPPET 05 ===
+line 20 (for i in range(1, attempts)) | boundary | The loop runs only attempts-1 times, so fn is called one time fewer than requested and attempts=1 never calls fn at all, instead raising a misleading TransientError("made no attempts").
+lines 25-27 (sleep in except block) | logic | The backoff sleep runs after the final failed attempt too, so the caller is delayed by the longest backoff for no reason before the last exception is propagated.
+
+=== SNIPPET 16 ===
+NO DEFECTS FOUND
+
+=== SNIPPET 18 ===
+NO DEFECTS FOUND
+
+=== SNIPPET 08 ===
+line 20 (bisect_left(ids, cursor)) | boundary | bisect_left returns the index of the cursor item itself, so the cursor is treated as inclusive and every page after the first repeats the last item of the previous page, violating the documented exclusive contract (bisect_right is needed).
+
+=== SNIPPET 03 ===
+lines 31-34 (put) | concurrency | The capacity check is done under the lock but the append happens after the lock is released, so concurrent producers can all pass the check and push the buffer past capacity, and the deque is mutated without the lock that get and __len__ rely on.
+lines 40-42 (get wait loop) | logic | The full timeout is passed to wait on every loop iteration, so when a wakeup is lost to another consumer the wait restarts and get can block far longer than the requested timeout.

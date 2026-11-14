@@ -1,0 +1,2 @@
+19 | spec-violation | The hardcoded factor of 100 assumes two minor-unit decimals, which is wrong for zero-decimal currencies such as JPY and three-decimal currencies such as KWD, so their amounts are scaled incorrectly.
+19-24 | logic | The amount is rounded to whole minor units before the rate is applied and then rounded again after conversion, so the result carries compounded rounding error.

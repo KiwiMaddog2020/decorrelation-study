@@ -1,0 +1,2 @@
+lines 18-20 (dedupe_events) | logic | A later duplicate unconditionally replaces the earlier one without comparing ts, so the event kept is the last in input order rather than the most recent by ts, contradicting the docstring when input is unordered.
+lines 13, 18-19 (seen_keys list) | performance | Membership test and index on a list are O(n) per event, making the whole function O(n^2) on large ingestion batches; a dict keyed by tuple would avoid this.

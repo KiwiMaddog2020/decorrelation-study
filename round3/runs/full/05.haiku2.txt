@@ -1,0 +1,2 @@
+20 | boundary | range(1, attempts) makes only attempts-1 calls, so attempts=3 tries twice and attempts=1 never calls fn at all.
+25-27 | logic | the loop sleeps after the final failed attempt before raising, adding a needless backoff delay when retries are exhausted.

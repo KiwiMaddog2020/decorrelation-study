@@ -1,0 +1,1 @@
+Line 31, line_total() | spec-violation | The code rounds with ROUND_HALF_UP while the docstring specifies bankers rounding (half to even), so exact half-cent totals round up instead of to even and diverge from the accounting system's convention.

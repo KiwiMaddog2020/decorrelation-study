@@ -1,0 +1,2 @@
+line 18 (os.path.abspath) | security | abspath only normalizes the string and does not resolve symlinks, so a symlink inside base pointing outside it passes the check, contradicting the docstring's guarantee of a real, symlink-resolved path.
+line 16 (base_root) | security | The base itself is not symlink-resolved, so the containment comparison is purely lexical and cannot detect escapes via symlinks as the contract promises.

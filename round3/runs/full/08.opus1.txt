@@ -1,0 +1,1 @@
+line 20 | boundary | bisect_left returns the index of the cursor item itself, so the "exclusive" cursor is re-served as the first item of the next page (duplicates; bisect_right is needed).

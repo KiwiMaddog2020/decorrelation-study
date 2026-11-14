@@ -1,0 +1,2 @@
+line 21 (get_token) | api-misuse | datetime.utcnow() returns a naive datetime while _expires_at is timezone-aware, so the comparison raises TypeError on every call and no token can ever be returned.
+lines 21-22 (get_token) | concurrency | The expiry check is made outside the lock and not repeated after the lock is acquired, so every thread that saw the token as stale queues up and performs its own redundant refresh request one after another, and _expires_at and _access_token are read without the lock.

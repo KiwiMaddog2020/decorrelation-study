@@ -1,0 +1,2 @@
+line 20, range(1, attempts) | boundary | The loop runs only attempts-1 times, so fn is called one time fewer than requested and with attempts=1 it is never called at all and a misleading TransientError("made no attempts") is raised instead.
+lines 25-29, sleep in except block | logic | The helper sleeps the backoff delay even after the final failed attempt before re-raising, delaying failure for no purpose (and the first backoff is base_delay*factor rather than base_delay because the exponent starts at 1).

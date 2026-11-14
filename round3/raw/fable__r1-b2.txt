@@ -1,0 +1,18 @@
+=== SNIPPET 17 ===
+NO DEFECTS FOUND
+=== SNIPPET 13 ===
+line 27-29 ("admin" in granted) | security | Roles are joined into one string and tested by substring, so any role merely containing "admin" (e.g. "nonadmin", "admin_readonly", "badminton") is treated as the admin role and grants access to every resource.
+line 32 (resource.required_role in granted) | security | The required role is matched as a substring of the joined role string rather than by list membership, so a user holding "editor_trainee" passes a check for "editor", a role spanning two adjacent roles across the space can match, and an empty required_role matches every user.
+=== SNIPPET 11 ===
+line 42 (set_active_tenant) | security | The tenant value is interpolated into the SQL text with % string formatting instead of being validated or safely quoted as an identifier, allowing SQL injection through the tenant name.
+line 33-38 (release) | logic | A connection is returned to the idle list without a rollback or session reset, so an open or aborted transaction and the tenant search_path set by set_active_tenant leak to the next borrower, which can then run queries against another tenant's schema.
+line 33-38 (release) | concurrency | release does not check that the connection is currently in _in_use, so a double release (or releasing a foreign connection) appends it to _idle more than once and two threads can later be handed the same connection simultaneously.
+line 27 (acquire) | performance | A new connection is opened with psycopg2.connect while holding the pool lock, so a slow or hanging network connect blocks every other thread's acquire and release.
+line 19-20 (__init__) | boundary | minconn is never checked against maxconn and connections opened before a failing connect in the loop are not closed, so the pool can start above its stated maximum and leak connections on a partial construction failure.
+=== SNIPPET 14 ===
+line 21-25 (fingerprint) | security | The automatic fingerprint contains no caller identity (user, account, or credential), so identical requests from different clients map to the same key and one client can be served another client's stored result or have its operation silently suppressed.
+line 21-28 (fingerprint fallback) | logic | The fallback key has no time or attempt component, so two intentionally separate identical operations (for example the same payment made twice on purpose) are indistinguishable from a retry and the second is never processed.
+line 24 (request.get_json(silent=True) or {}) | logic | Any body that is not valid JSON, or is empty or falsy ([] , 0, "", null), collapses to {} and the query string is ignored entirely, so distinct requests to the same path with form, binary, or query-only differences produce the same key and are wrongly deduplicated.
+line 14-19 (explicit key) | security | A client-supplied key is returned verbatim without being scoped to the caller, method, or path, and may itself begin with "auto-", so it can collide with another client's key or with an automatically derived key and replay an unrelated stored result.
+=== SNIPPET 20 ===
+line 16-18 (os.path.abspath) | security | Both base and candidate are normalised with abspath, which does not resolve symlinks, so a symlink inside the base that points outside it passes the prefix check and the returned path is not the real path, contradicting the documented guarantee and permitting escape from the base directory.

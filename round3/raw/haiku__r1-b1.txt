@@ -1,0 +1,14 @@
+=== SNIPPET 09 ===
+34-35 | concurrency | The availability check runs under the lock but the decrement on line 35 runs after the lock is released, so two threads can both pass the check and consume the same token, letting calls through beyond the budget.
+23-26 | logic | int() truncation discards the fractional refill and then resets _last to now, so tokens accrued from the remainder are lost and the effective rate is below the configured rate.
+17, 21 | logic | time.time() is a wall clock that can step backwards or jump, so a clock change can stall or distort refills; a rate limiter should use time.monotonic().
+=== SNIPPET 10 ===
+25-27 | logic | The naive UTC clock (now) is compared against close_time, which is a local wall-clock time, so the same-day cutoff uses the wrong timezone and rejects in-hours local events whenever the UTC time-of-day is past 17:00.
+25 | api-misuse | datetime.utcnow() is deprecated since Python 3.12 and returns a naive value, which is the root of the mixed-timezone comparison.
+=== SNIPPET 02 ===
+21 | api-misuse | datetime.utcnow() returns a naive datetime while self._expires_at is timezone-aware, so the comparison raises TypeError and get_token fails on every call.
+21-22 | concurrency | The expiry check is outside the lock and is not repeated after acquiring it, so several threads that see an expired token can all POST refresh requests at once.
+=== SNIPPET 12 ===
+26 | logic | The result divides by the count of contributing rows instead of the sum of their weights, so the weighted average is wrong whenever the weights are not all equal to 1.
+=== SNIPPET 06 ===
+31 | spec-violation | The docstring says the final cent uses round-half-to-even, but the code uses ROUND_HALF_UP, so half-cent cases round up and contradict the documented accounting convention.

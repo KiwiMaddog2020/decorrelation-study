@@ -1,0 +1,3 @@
+Lines 32-35 (allow) | concurrency | The token check and decrement happen outside the lock, so concurrent callers can all see available >= 1 and each consume a token, letting more calls through than the bucket allows and possibly driving tokens negative.
+Line 23 (_refill) | logic | Truncating elapsed * rate to an int and only advancing _last when minted > 0 is fine, but when minted > 0 it resets _last to now and discards the fractional token accrued, so frequent calls at low rates lose partial tokens and under-refill.
+Lines 17, 21 (time.time) | other | Using the wall clock instead of a monotonic clock means clock adjustments can produce negative or huge elapsed values and corrupt refill behavior.

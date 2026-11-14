@@ -1,0 +1,2 @@
+lines 31-34 (put) | concurrency | The capacity check is done under the lock but the append happens after the lock is released, so several producers can pass the check together and push the buffer past capacity, and the deque is mutated outside the lock the rest of the class relies on.
+lines 40-42 (get) | boundary | The full timeout is passed to wait on every loop iteration, so a consumer that is woken but finds the item already taken by another consumer starts a fresh full wait and can block far longer than the requested timeout.

@@ -1,0 +1,2 @@
+line 16 and 18 (os.path.abspath) | security | The function uses abspath instead of realpath, so symlinks are never resolved and a symlink inside base that points outside it passes the check, contradicting the docstring's promise to reject symlink escapes and return a real path.
+line 16 (base_root = os.path.abspath(base)) | security | The base itself is not symlink-resolved, so comparing it against a resolved candidate (if realpath were used) or a symlinked base yields inconsistent containment checks; the returned path is also not the documented real path.

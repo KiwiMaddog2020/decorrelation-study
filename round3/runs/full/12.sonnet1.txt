@@ -1,0 +1,2 @@
+Line 26 | logic | The result divides by the count of contributing rows instead of the sum of the weights, so it is not a weighted average and returns wrong values whenever weights differ from 1.
+Line 19 | spec-violation | The docstring says only zero-weight rows are skipped, but weight <= 0 also silently skips negative weights, which are invalid input and should not be quietly ignored.

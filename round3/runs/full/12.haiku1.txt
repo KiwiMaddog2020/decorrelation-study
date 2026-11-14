@@ -1,0 +1,1 @@
+26 | logic | The result divides by the count of contributing rows instead of the sum of their weights, so the weighted average is wrong whenever the weights are not all equal to 1.

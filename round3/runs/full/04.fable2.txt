@@ -1,0 +1,2 @@
+line 23 (range(1, len(lines) - 1)) | boundary | The loop stops one line early, so the last data row is silently dropped whenever the text does not end with a trailing newline.
+line 7 (_split_fields, line.split(",")) and line 17 (text.split("\n")) | logic | Splitting naively on commas and newlines ignores CSV quoting, so quoted fields containing commas or line breaks are split into wrong cells and rows, corrupting uploaded spreadsheet data.

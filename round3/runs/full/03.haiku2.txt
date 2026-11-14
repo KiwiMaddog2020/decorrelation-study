@@ -1,0 +1,2 @@
+31-34 | concurrency | The capacity check is made under the lock but the append happens after the lock is released, so concurrent producers can both pass the check and push the buffer past capacity.
+41 | boundary | Each wait() call is given the full timeout, so spurious or notified wakeups restart the timer and get() can block well beyond the requested timeout.

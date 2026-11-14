@@ -1,0 +1,2 @@
+get_token line 21 | logic | Uses naive datetime.utcnow() and compares it to timezone-aware self._expires_at, which raises TypeError on the comparison since aware and naive datetimes cannot be compared.
+get_token line 21 | concurrency | The expiry check is performed outside the lock, so concurrent threads can each see an expired token and all enter the critical section to refresh; without a re-check inside the lock the token is refreshed redundantly multiple times (double-checked locking missing).

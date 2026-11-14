@@ -1,0 +1,3 @@
+put, lines 31-34 | concurrency | The capacity check is done under the lock but the append happens after the lock is released, so concurrent producers can all pass the check and exceed capacity.
+put, line 34 | concurrency | The deque is modified outside the lock while get and __len__ access it under the lock, creating a race between producers and consumers.
+get, lines 40-42 | logic | The full timeout is restarted on each loop iteration after a wakeup that finds no item, so the total wait can exceed the requested timeout.

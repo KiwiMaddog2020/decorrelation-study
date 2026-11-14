@@ -1,0 +1,1 @@
+line_total(), line 31 | spec-violation | The code rounds with ROUND_HALF_UP while the docstring and the accounting convention require bankers rounding (ROUND_HALF_EVEN), so half-cent cases round up and totals drift from the ledger.

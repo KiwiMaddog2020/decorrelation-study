@@ -1,0 +1,1 @@
+line 31, quantize(..., rounding=ROUND_HALF_UP) | spec-violation | The docstring promises round-half-to-even (bankers rounding) but the code rounds half up, which gives different cents than the accounting system on exact halves.

@@ -1,0 +1,2 @@
+Lines 27-29 (granted = " ".join(user.roles); "admin" in granted) | security | The admin check is a substring match on a joined string, so any role merely containing "admin" (for example "sysadmin" or "administrator-readonly") grants full access to every resource.
+Line 32 (resource.required_role in granted) | security | The required-role check is also a substring test on the joined string, so a role such as "superuser" satisfies a required role of "user" and an empty required_role always matches, granting unintended access.

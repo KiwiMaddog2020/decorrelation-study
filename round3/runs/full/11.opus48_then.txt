@@ -1,0 +1,6 @@
+set_active_tenant (line 42) | security | tenant is interpolated directly into the SQL string via %-formatting, allowing SQL injection into the SET search_path statement.
+acquire (line 26) | logic | capacity is checked using len(self._in_use) only, ignoring idle connections, so the pool can create more than maxconn total connections (idle + in_use can exceed maxconn).
+release (line 36) | logic | a closed connection is discarded from _in_use but never recreated, so the pool permanently shrinks below minconn over time as connections die.
+acquire (line 27) | logic | a new connection created when idle is empty but capacity remains is added to _in_use under the lock, but if psycopg2.connect raises, the lock is held during a slow network call and no slot accounting is corrected, blocking all other threads during connection establishment.
+__init__ (line 19) | logic | minconn is not validated against maxconn, so minconn greater than maxconn pre-fills more idle connections than the pool's stated capacity, defeating the maxconn limit.
+release | api-misuse | release does not verify the connection belongs to this pool, so releasing a foreign or already-released connection silently appends it to _idle for reuse.

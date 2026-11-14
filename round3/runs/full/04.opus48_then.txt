@@ -1,0 +1,3 @@
+parse_rows / line 23 | boundary | range(1, len(lines) - 1) is off-by-one and drops the last data line whenever the input lacks a trailing newline (e.g. "h\na\nb" yields only row "a"), silently losing data.
+parse_rows / line 28 | logic | dict(zip(header, cells)) silently truncates rows that have more cells than the header, discarding extra fields without error and masking malformed input.
+parse_rows / line 18 | logic | the `if not lines` guard is dead code because str.split("\n") never returns an empty list (even "" yields [""]), so empty input is not actually handled and produces a [''] header.

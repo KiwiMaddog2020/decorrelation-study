@@ -1,0 +1,2 @@
+lines 31-34 / put | concurrency | The capacity check is made under the lock but the append happens after the lock is released, so concurrent producers can all pass the check and exceed capacity.
+line 34 / self._items.append(item) | concurrency | The append runs without holding the lock, racing with get's popleft and len on the shared deque, and a consumer waiting in get may miss the item before the notify.

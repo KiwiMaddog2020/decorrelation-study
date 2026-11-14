@@ -1,0 +1,2 @@
+line 42 (set_active_tenant) | security | The tenant value is interpolated into the SQL string with % formatting instead of being quoted as an identifier, so a crafted tenant name allows SQL injection.
+lines 33-38 (release) | security | Connections are returned to the idle list without rolling back or resetting session state, so a tenant's search_path (and any open or failed transaction) leaks to the next borrower, risking cross-tenant data access.

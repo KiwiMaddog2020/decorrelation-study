@@ -1,0 +1,2 @@
+Line 26 (total / contributing) | logic | The weighted sum is divided by the count of contributing rows instead of the sum of their weights, so the result is not a weighted average and is wrong whenever weights are not all 1.
+Line 19 (weight <= 0) | spec-violation | Negative weights, which violate the documented non-negative contract, are silently skipped as if they were zero rather than rejected, hiding bad input data.

@@ -1,0 +1,1 @@
+lines 16-18 | security | The path is normalized with os.path.abspath, which does not resolve symlinks, so a symlink inside base that points outside it passes the prefix check and the function returns a non-real path that escapes base, violating its documented guarantee.

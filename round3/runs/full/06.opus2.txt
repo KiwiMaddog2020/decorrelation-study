@@ -1,0 +1,1 @@
+line 31 | spec-violation | The docstring promises bankers rounding (round half to even) but the code uses ROUND_HALF_UP, so exact half-cent tax amounts round up and totals disagree with the accounting system.

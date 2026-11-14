@@ -1,0 +1,13 @@
+=== SNIPPET 07 ===
+16-20 (get) | spec-violation | get() never moves the key to the end, so reads do not count as recent use and eviction follows insertion order, not the least-recently-used order the class docstring promises.
+=== SNIPPET 05 ===
+20 | boundary | range(1, attempts) makes only attempts-1 calls, so attempts=3 tries twice and attempts=1 never calls fn at all.
+25-27 | logic | the loop sleeps after the final failed attempt before raising, adding a needless backoff delay when retries are exhausted.
+=== SNIPPET 15 ===
+19-24 | spec-violation | each amount is rounded to whole cents before the rate is applied and rounded again after, a double rounding that contradicts the docstring's convert-then-round rule and can shift results by a cent.
+=== SNIPPET 20 ===
+16-18 (abspath) | security | the docstring promises a symlink-resolved path, but abspath never resolves symlinks, so a symlink inside base that points outside it passes the check and is accepted.
+=== SNIPPET 08 ===
+20 | boundary | bisect_left makes the cursor inclusive, so the returned page repeats the item the caller already received, although the contract says the cursor is exclusive; bisect_right is the matching call.
+24-27 | boundary | with size 0 the window is empty and next_cursor is None while items remain, so the caller is told the list has ended.
+15 | performance | the ids list is rebuilt from every item on each call, making each page O(n) instead of a lookup on the sorted list.

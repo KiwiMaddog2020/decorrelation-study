@@ -1,0 +1,1 @@
+weighted_score(), line 26 | logic | The weighted sum is divided by the count of contributing rows instead of the sum of their weights, so the result is not a weighted average (e.g. a single row with weight 2 returns double its score).

@@ -1,0 +1,12 @@
+=== SNIPPET 07 ===
+get (line 16-20) | logic | A cache hit never calls move_to_end, so reads do not refresh recency and the cache evicts by insertion/update order rather than least-recently-used, contradicting the class contract.
+=== SNIPPET 04 ===
+line 23 | boundary | range(1, len(lines) - 1) always skips the final line, so the last data row is silently dropped whenever the text does not end with a trailing newline.
+line 7 | spec-violation | Fields are split on every comma with no handling of quoted fields, so any CSV cell containing a quoted comma is split into extra columns and misaligned against the header.
+=== SNIPPET 15 ===
+lines 19-24 | logic | The amount is rounded to whole minor units before applying the rate and then rounded again, so double rounding produces off-by-one-cent results instead of converting first and rounding once as the docstring specifies.
+=== SNIPPET 01 ===
+lines 18-20 | logic | A later duplicate always replaces the earlier one regardless of ts, so with out-of-order input the function keeps the last-seen event rather than the most recent by the ts field as documented.
+lines 18-19 | performance | Membership tests and index lookups on the seen_keys list are linear, making deduplication quadratic in the number of events for an ingestion pipeline.
+=== SNIPPET 19 ===
+NO DEFECTS FOUND

@@ -1,0 +1,1 @@
+lines 19-24 | logic | The amount is rounded to whole minor units before applying the rate and then rounded again, so double rounding produces off-by-one-cent results instead of converting first and rounding once as the docstring specifies.

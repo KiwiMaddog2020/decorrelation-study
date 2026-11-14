@@ -1,0 +1,12 @@
+=== SNIPPET 05 ===
+line 20 | boundary | range(1, attempts) runs fn only attempts-1 times (and zero times when attempts is 1, raising "made no attempts"), so callers get one fewer attempt than requested.
+line 27 | logic | The backoff sleep runs even after the final failed attempt, adding a needless delay before the exception is raised.
+=== SNIPPET 16 ===
+NO DEFECTS FOUND
+=== SNIPPET 18 ===
+NO DEFECTS FOUND
+=== SNIPPET 08 ===
+line 20 | boundary | bisect_left returns the index of the cursor item itself, so the "exclusive" cursor is re-served as the first item of the next page (duplicates; bisect_right is needed).
+=== SNIPPET 03 ===
+lines 31-34 | concurrency | The capacity check is done under the lock but the append happens after the lock is released, so concurrent producers can both pass the check and push the buffer past capacity, and the deque is mutated without holding the lock.
+lines 40-42 | logic | On a spurious or stolen wakeup the loop calls wait(timeout) again with the full timeout, so get can block much longer than the requested timeout.

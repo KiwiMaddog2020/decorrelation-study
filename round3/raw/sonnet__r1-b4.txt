@@ -1,0 +1,12 @@
+=== SNIPPET 05 ===
+line 20 / for i in range(1, attempts) | boundary | The loop runs only attempts-1 times, so the function makes one fewer call than requested and with attempts=1 it never calls fn at all.
+line 27 / time.sleep(delay) | logic | The function sleeps with backoff even after the final failed attempt, delaying the raised exception for no benefit.
+=== SNIPPET 16 ===
+NO DEFECTS FOUND
+=== SNIPPET 18 ===
+NO DEFECTS FOUND
+=== SNIPPET 08 ===
+line 20 / bisect_left(ids, cursor) | boundary | The cursor is documented as exclusive, but bisect_left lands on the item whose id equals the cursor, so that item is returned again at the start of the next page and pages overlap.
+=== SNIPPET 03 ===
+lines 31-34 / put | concurrency | The capacity check is made under the lock but the append happens after the lock is released, so concurrent producers can all pass the check and exceed capacity.
+line 34 / self._items.append(item) | concurrency | The append runs without holding the lock, racing with get's popleft and len on the shared deque, and a consumer waiting in get may miss the item before the notify.

@@ -1,0 +1,2 @@
+line 20 | boundary | range(1, attempts) runs only attempts-1 tries (and zero tries when attempts is 1, raising the "no attempts" error), so fn is called one time fewer than requested.
+line 27 | performance | The loop sleeps after the final failed attempt too, adding a needless backoff delay before the exception is finally raised.

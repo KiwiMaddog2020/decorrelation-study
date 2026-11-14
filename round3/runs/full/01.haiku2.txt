@@ -1,0 +1,2 @@
+20 | logic | The survivor is chosen by list position (the later input wins), never by comparing the integer ts field, so an older event can overwrite a newer one, contrary to the docstring.
+18-19 | performance | seen_keys is a list searched with `in` and `index` for every event, making the function quadratic in the number of events.

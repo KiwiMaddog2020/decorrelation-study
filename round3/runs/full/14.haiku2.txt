@@ -1,0 +1,2 @@
+27-28 | logic | The fingerprint uses request.path, which omits the query string, so requests differing only in query parameters get the same auto key and the second is treated as a retry of the first.
+24 | logic | get_json(silent=True) returns None for non-JSON or falsy bodies, which becomes {}, so all such requests to the same method and path share one key and are wrongly treated as duplicates.

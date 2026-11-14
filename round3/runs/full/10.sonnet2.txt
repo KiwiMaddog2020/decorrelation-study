@@ -1,0 +1,2 @@
+lines 25-27 | logic | The check compares the current UTC wall-clock time to the local close_time whenever the event date matches today, mixing UTC with local time and making the result depend on when the function is called rather than on ts.
+line 25 | api-misuse | datetime.utcnow() returns a naive, deprecated datetime and is used where the timezone-aware local value should be used, so the date and time comparison is wrong across timezones.

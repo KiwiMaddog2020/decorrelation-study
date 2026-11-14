@@ -1,0 +1,2 @@
+Line 31 | spec-violation | The docstring promises round-half-to-even (bankers rounding) but the code uses ROUND_HALF_UP, so half-cent totals round the wrong way and drift from the accounting system.
+Lines 29-31 | logic | Tax is computed on the line total and rounded only once at the end, which matches per-line rounding but the docstring says only the tax component is rounded; rounding the sum rather than the tax is equivalent here but negative qty or unit values are not validated.

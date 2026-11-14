@@ -1,0 +1,2 @@
+Lines 18-20 (deduped[position] = event) | logic | A duplicate key always overwrites the stored event with the later-iterated one without comparing ts, so when input is not sorted by ts an older event replaces a newer one, violating the "keep the most recent occurrence by ts" contract.
+Lines 18-19 (key in seen_keys / seen_keys.index) | performance | Membership and index lookups on a list are linear per event, making deduplication quadratic in the number of distinct keys, which is a real cost in an ingestion pipeline where a dict lookup would be constant time.

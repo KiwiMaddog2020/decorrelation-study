@@ -1,0 +1,12 @@
+=== SNIPPET 07 ===
+get (lines 16-20) | logic | A cache hit does not call move_to_end, so reads never refresh recency and the cache evicts in insertion order (FIFO) rather than least-recently-used, evicting hot entries.
+=== SNIPPET 05 ===
+call_with_retry, line 20 (range(1, attempts)) | logic | The loop runs only attempts-1 times, so the function makes one fewer call than requested and with attempts=1 never calls fn at all.
+line 27 (time.sleep(delay)) | logic | The function sleeps and logs a backoff even after the final failed attempt, delaying the raise of the last exception for no benefit.
+line 25 (factor ** i) | logic | With i starting at 1 the first backoff is base_delay * factor rather than base_delay, so the delay schedule is off by one step.
+=== SNIPPET 15 ===
+lines 19-24 | logic | The source amount is rounded to whole minor units before the rate is applied and then rounded again, causing double rounding that can produce results off by one minor unit versus rounding once after conversion.
+=== SNIPPET 20 ===
+line 18 (os.path.abspath) | security | abspath only normalizes the path lexically and does not resolve symlinks, so a symlink inside base pointing outside it passes the check, contradicting the docstring's claim of a real, symlink-resolved path (realpath needed).
+=== SNIPPET 08 ===
+line 20 (bisect_left) | boundary | The cursor is documented as exclusive but bisect_left returns the index of the cursor item itself, so the last item of the previous page is returned again as the first item of the next page (bisect_right needed).

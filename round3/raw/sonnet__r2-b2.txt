@@ -1,0 +1,16 @@
+=== SNIPPET 11 ===
+set_active_tenant, line 42 | security | The tenant value is interpolated directly into the SET search_path SQL with string formatting, allowing SQL injection and cross-tenant schema access.
+release, lines 33-38 | logic | The connection is returned to the idle pool without a rollback or resetting search_path, so the previous tenant's search_path and any open transaction state leak to the next borrower, causing cross-tenant data exposure.
+=== SNIPPET 10 ===
+lines 25-27 | logic | The check compares the current UTC wall-clock time to the local close_time whenever the event date matches today, mixing UTC with local time and making the result depend on when the function is called rather than on ts.
+line 25 | api-misuse | datetime.utcnow() returns a naive, deprecated datetime and is used where the timezone-aware local value should be used, so the date and time comparison is wrong across timezones.
+=== SNIPPET 03 ===
+put, lines 31-34 | concurrency | The capacity check is done under the lock but the append happens after the lock is released, so concurrent producers can all pass the check and exceed capacity.
+put, line 34 | concurrency | The deque is modified outside the lock while get and __len__ access it under the lock, creating a race between producers and consumers.
+get, lines 40-42 | logic | The full timeout is restarted on each loop iteration after a wakeup that finds no item, so the total wait can exceed the requested timeout.
+=== SNIPPET 02 ===
+line 21 | api-misuse | datetime.utcnow() returns a naive datetime that is compared with the timezone-aware _expires_at, which raises TypeError on every call.
+get_token, lines 21-36 | concurrency | The expiry check is made outside the lock and is not repeated inside it, so many threads can refresh the token at once, each making a redundant token request.
+get_token, line 37 | concurrency | The token is read outside the lock, so a thread can see a partially updated state while another thread refreshes.
+=== SNIPPET 17 ===
+NO DEFECTS FOUND

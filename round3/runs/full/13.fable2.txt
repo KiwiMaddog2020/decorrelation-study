@@ -1,0 +1,3 @@
+Line 29 ("admin" in granted) | security | The admin check is a substring test on the space-joined role string, so any role merely containing "admin" (for example "nonadmin", "sysadmin_readonly", "administrator-viewer") grants access to every resource.
+Line 32 (resource.required_role in granted) | security | The required role is matched as a substring of the joined roles rather than as an exact list member, so partial matches (for example "edit" inside "editor", "read" inside "thread") or matches spanning two adjacent roles grant access the user does not hold.
+Line 32 (resource.required_role in granted) | boundary | An empty required_role is a substring of every string, so a resource with a blank role is accessible to every user, including users with no roles at all.

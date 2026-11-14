@@ -1,0 +1,1 @@
+lines 16-18, os.path.abspath (safe_join) | security | Paths are only normalized with abspath and never resolved with realpath, so a symlink inside the base that points outside it passes the prefix check and the returned path is not symlink-resolved, contradicting the documented guarantee and allowing escape from the base directory.

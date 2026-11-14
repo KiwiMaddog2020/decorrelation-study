@@ -1,0 +1,17 @@
+=== SNIPPET 17 ===
+NO DEFECTS FOUND
+=== SNIPPET 13 ===
+line 27-32 (granted = " ".join(user.roles); "admin" in granted) | security | The admin check is a substring test on a joined string, so any role merely containing "admin" (e.g. "superadmin", "administrator", "readmin-viewer") grants access to every resource.
+line 32 (resource.required_role in granted) | security | The required-role check is also a substring match on the joined string, so a role like "editor-readonly" or "xeditor" satisfies a required role of "editor", and an empty required_role matches everything.
+=== SNIPPET 11 ===
+line 42 (set_active_tenant) | security | The tenant value is interpolated directly into the SET search_path statement with string formatting, allowing SQL injection and cross-tenant access through a crafted tenant name.
+line 33-38 (release) | security | Connections are returned to the idle pool without resetting search_path or rolling back open transactions, so the next caller can inherit another tenant's schema and uncommitted state.
+line 33-38 (release) | logic | Releasing a connection that is not in use, or releasing the same connection twice, appends it to the idle list again, so two callers can later receive the same connection.
+line 26-27 (acquire) | performance | A new database connection is opened while holding the pool lock, so a slow or hanging connect blocks every other acquire and release.
+=== SNIPPET 14 ===
+line 21-25 (fingerprint) | logic | The auto-generated key omits the caller identity and the query string, so different users (or requests differing only by query parameters) sending the same method, path and body collide and may receive another caller's stored result.
+line 21-28 (fingerprint fallback) | logic | A deterministic fingerprint treats any two identical requests as retries, so legitimate repeated operations (for example two identical orders) are wrongly deduplicated.
+line 14-19 (explicit key) | security | The client-supplied key is returned unscoped and not bound to the request payload or user, so reusing a key with a different body or by a different user maps to the same stored result.
+=== SNIPPET 20 ===
+line 18 (os.path.abspath) | security | abspath only normalizes the string and does not resolve symlinks, so a symlink inside base pointing outside it passes the check, contradicting the docstring's guarantee of a real, symlink-resolved path.
+line 16 (base_root) | security | The base itself is not symlink-resolved, so the containment comparison is purely lexical and cannot detect escapes via symlinks as the contract promises.

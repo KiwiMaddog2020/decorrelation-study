@@ -1,0 +1,687 @@
+{
+  "seed": 20261114,
+  "batch_size": 5,
+  "tiers": {
+    "haiku": "claude-haiku-5-5",
+    "sonnet": "claude-sonnet-5-5",
+    "opus": "claude-opus-5-5",
+    "fable": "claude-fable-5-2"
+  },
+  "paths_are_relative_to": "the run directory given to --out",
+  "prompts": [
+    {
+      "call_id": "r1-b1",
+      "review": 1,
+      "batch": 1,
+      "prompt_path": "prompts/r1-b1.txt",
+      "snippet_ids": [
+        "09",
+        "10",
+        "02",
+        "12",
+        "06"
+      ],
+      "snippet_paths": [
+        "files/snippet-09.txt",
+        "files/snippet-10.txt",
+        "files/snippet-02.txt",
+        "files/snippet-12.txt",
+        "files/snippet-06.txt"
+      ]
+    },
+    {
+      "call_id": "r1-b2",
+      "review": 1,
+      "batch": 2,
+      "prompt_path": "prompts/r1-b2.txt",
+      "snippet_ids": [
+        "17",
+        "13",
+        "11",
+        "14",
+        "20"
+      ],
+      "snippet_paths": [
+        "files/snippet-17.txt",
+        "files/snippet-13.txt",
+        "files/snippet-11.txt",
+        "files/snippet-14.txt",
+        "files/snippet-20.txt"
+      ]
+    },
+    {
+      "call_id": "r1-b3",
+      "review": 1,
+      "batch": 3,
+      "prompt_path": "prompts/r1-b3.txt",
+      "snippet_ids": [
+        "07",
+        "04",
+        "15",
+        "01",
+        "19"
+      ],
+      "snippet_paths": [
+        "files/snippet-07.txt",
+        "files/snippet-04.txt",
+        "files/snippet-15.txt",
+        "files/snippet-01.txt",
+        "files/snippet-19.txt"
+      ]
+    },
+    {
+      "call_id": "r1-b4",
+      "review": 1,
+      "batch": 4,
+      "prompt_path": "prompts/r1-b4.txt",
+      "snippet_ids": [
+        "05",
+        "16",
+        "18",
+        "08",
+        "03"
+      ],
+      "snippet_paths": [
+        "files/snippet-05.txt",
+        "files/snippet-16.txt",
+        "files/snippet-18.txt",
+        "files/snippet-08.txt",
+        "files/snippet-03.txt"
+      ]
+    },
+    {
+      "call_id": "r2-b1",
+      "review": 2,
+      "batch": 1,
+      "prompt_path": "prompts/r2-b1.txt",
+      "snippet_ids": [
+        "01",
+        "12",
+        "14",
+        "13",
+        "09"
+      ],
+      "snippet_paths": [
+        "files/snippet-01.txt",
+        "files/snippet-12.txt",
+        "files/snippet-14.txt",
+        "files/snippet-13.txt",
+        "files/snippet-09.txt"
+      ]
+    },
+    {
+      "call_id": "r2-b2",
+      "review": 2,
+      "batch": 2,
+      "prompt_path": "prompts/r2-b2.txt",
+      "snippet_ids": [
+        "11",
+        "10",
+        "03",
+        "02",
+        "17"
+      ],
+      "snippet_paths": [
+        "files/snippet-11.txt",
+        "files/snippet-10.txt",
+        "files/snippet-03.txt",
+        "files/snippet-02.txt",
+        "files/snippet-17.txt"
+      ]
+    },
+    {
+      "call_id": "r2-b3",
+      "review": 2,
+      "batch": 3,
+      "prompt_path": "prompts/r2-b3.txt",
+      "snippet_ids": [
+        "19",
+        "16",
+        "04",
+        "06",
+        "18"
+      ],
+      "snippet_paths": [
+        "files/snippet-19.txt",
+        "files/snippet-16.txt",
+        "files/snippet-04.txt",
+        "files/snippet-06.txt",
+        "files/snippet-18.txt"
+      ]
+    },
+    {
+      "call_id": "r2-b4",
+      "review": 2,
+      "batch": 4,
+      "prompt_path": "prompts/r2-b4.txt",
+      "snippet_ids": [
+        "07",
+        "05",
+        "15",
+        "20",
+        "08"
+      ],
+      "snippet_paths": [
+        "files/snippet-07.txt",
+        "files/snippet-05.txt",
+        "files/snippet-15.txt",
+        "files/snippet-20.txt",
+        "files/snippet-08.txt"
+      ]
+    }
+  ],
+  "calls": [
+    {
+      "call_id": "r1-b1",
+      "tier": "haiku",
+      "requested_model": "claude-haiku-5-5",
+      "review": 1,
+      "rater": "haiku1",
+      "prompt_path": "prompts/r1-b1.txt",
+      "answer_path": "raw/haiku__r1-b1.txt",
+      "snippet_ids": [
+        "09",
+        "10",
+        "02",
+        "12",
+        "06"
+      ]
+    },
+    {
+      "call_id": "r1-b2",
+      "tier": "haiku",
+      "requested_model": "claude-haiku-5-5",
+      "review": 1,
+      "rater": "haiku1",
+      "prompt_path": "prompts/r1-b2.txt",
+      "answer_path": "raw/haiku__r1-b2.txt",
+      "snippet_ids": [
+        "17",
+        "13",
+        "11",
+        "14",
+        "20"
+      ]
+    },
+    {
+      "call_id": "r1-b3",
+      "tier": "haiku",
+      "requested_model": "claude-haiku-5-5",
+      "review": 1,
+      "rater": "haiku1",
+      "prompt_path": "prompts/r1-b3.txt",
+      "answer_path": "raw/haiku__r1-b3.txt",
+      "snippet_ids": [
+        "07",
+        "04",
+        "15",
+        "01",
+        "19"
+      ]
+    },
+    {
+      "call_id": "r1-b4",
+      "tier": "haiku",
+      "requested_model": "claude-haiku-5-5",
+      "review": 1,
+      "rater": "haiku1",
+      "prompt_path": "prompts/r1-b4.txt",
+      "answer_path": "raw/haiku__r1-b4.txt",
+      "snippet_ids": [
+        "05",
+        "16",
+        "18",
+        "08",
+        "03"
+      ]
+    },
+    {
+      "call_id": "r2-b1",
+      "tier": "haiku",
+      "requested_model": "claude-haiku-5-5",
+      "review": 2,
+      "rater": "haiku2",
+      "prompt_path": "prompts/r2-b1.txt",
+      "answer_path": "raw/haiku__r2-b1.txt",
+      "snippet_ids": [
+        "01",
+        "12",
+        "14",
+        "13",
+        "09"
+      ]
+    },
+    {
+      "call_id": "r2-b2",
+      "tier": "haiku",
+      "requested_model": "claude-haiku-5-5",
+      "review": 2,
+      "rater": "haiku2",
+      "prompt_path": "prompts/r2-b2.txt",
+      "answer_path": "raw/haiku__r2-b2.txt",
+      "snippet_ids": [
+        "11",
+        "10",
+        "03",
+        "02",
+        "17"
+      ]
+    },
+    {
+      "call_id": "r2-b3",
+      "tier": "haiku",
+      "requested_model": "claude-haiku-5-5",
+      "review": 2,
+      "rater": "haiku2",
+      "prompt_path": "prompts/r2-b3.txt",
+      "answer_path": "raw/haiku__r2-b3.txt",
+      "snippet_ids": [
+        "19",
+        "16",
+        "04",
+        "06",
+        "18"
+      ]
+    },
+    {
+      "call_id": "r2-b4",
+      "tier": "haiku",
+      "requested_model": "claude-haiku-5-5",
+      "review": 2,
+      "rater": "haiku2",
+      "prompt_path": "prompts/r2-b4.txt",
+      "answer_path": "raw/haiku__r2-b4.txt",
+      "snippet_ids": [
+        "07",
+        "05",
+        "15",
+        "20",
+        "08"
+      ]
+    },
+    {
+      "call_id": "r1-b1",
+      "tier": "sonnet",
+      "requested_model": "claude-sonnet-5-5",
+      "review": 1,
+      "rater": "sonnet1",
+      "prompt_path": "prompts/r1-b1.txt",
+      "answer_path": "raw/sonnet__r1-b1.txt",
+      "snippet_ids": [
+        "09",
+        "10",
+        "02",
+        "12",
+        "06"
+      ]
+    },
+    {
+      "call_id": "r1-b2",
+      "tier": "sonnet",
+      "requested_model": "claude-sonnet-5-5",
+      "review": 1,
+      "rater": "sonnet1",
+      "prompt_path": "prompts/r1-b2.txt",
+      "answer_path": "raw/sonnet__r1-b2.txt",
+      "snippet_ids": [
+        "17",
+        "13",
+        "11",
+        "14",
+        "20"
+      ]
+    },
+    {
+      "call_id": "r1-b3",
+      "tier": "sonnet",
+      "requested_model": "claude-sonnet-5-5",
+      "review": 1,
+      "rater": "sonnet1",
+      "prompt_path": "prompts/r1-b3.txt",
+      "answer_path": "raw/sonnet__r1-b3.txt",
+      "snippet_ids": [
+        "07",
+        "04",
+        "15",
+        "01",
+        "19"
+      ]
+    },
+    {
+      "call_id": "r1-b4",
+      "tier": "sonnet",
+      "requested_model": "claude-sonnet-5-5",
+      "review": 1,
+      "rater": "sonnet1",
+      "prompt_path": "prompts/r1-b4.txt",
+      "answer_path": "raw/sonnet__r1-b4.txt",
+      "snippet_ids": [
+        "05",
+        "16",
+        "18",
+        "08",
+        "03"
+      ]
+    },
+    {
+      "call_id": "r2-b1",
+      "tier": "sonnet",
+      "requested_model": "claude-sonnet-5-5",
+      "review": 2,
+      "rater": "sonnet2",
+      "prompt_path": "prompts/r2-b1.txt",
+      "answer_path": "raw/sonnet__r2-b1.txt",
+      "snippet_ids": [
+        "01",
+        "12",
+        "14",
+        "13",
+        "09"
+      ]
+    },
+    {
+      "call_id": "r2-b2",
+      "tier": "sonnet",
+      "requested_model": "claude-sonnet-5-5",
+      "review": 2,
+      "rater": "sonnet2",
+      "prompt_path": "prompts/r2-b2.txt",
+      "answer_path": "raw/sonnet__r2-b2.txt",
+      "snippet_ids": [
+        "11",
+        "10",
+        "03",
+        "02",
+        "17"
+      ]
+    },
+    {
+      "call_id": "r2-b3",
+      "tier": "sonnet",
+      "requested_model": "claude-sonnet-5-5",
+      "review": 2,
+      "rater": "sonnet2",
+      "prompt_path": "prompts/r2-b3.txt",
+      "answer_path": "raw/sonnet__r2-b3.txt",
+      "snippet_ids": [
+        "19",
+        "16",
+        "04",
+        "06",
+        "18"
+      ]
+    },
+    {
+      "call_id": "r2-b4",
+      "tier": "sonnet",
+      "requested_model": "claude-sonnet-5-5",
+      "review": 2,
+      "rater": "sonnet2",
+      "prompt_path": "prompts/r2-b4.txt",
+      "answer_path": "raw/sonnet__r2-b4.txt",
+      "snippet_ids": [
+        "07",
+        "05",
+        "15",
+        "20",
+        "08"
+      ]
+    },
+    {
+      "call_id": "r1-b1",
+      "tier": "opus",
+      "requested_model": "claude-opus-5-5",
+      "review": 1,
+      "rater": "opus1",
+      "prompt_path": "prompts/r1-b1.txt",
+      "answer_path": "raw/opus__r1-b1.txt",
+      "snippet_ids": [
+        "09",
+        "10",
+        "02",
+        "12",
+        "06"
+      ]
+    },
+    {
+      "call_id": "r1-b2",
+      "tier": "opus",
+      "requested_model": "claude-opus-5-5",
+      "review": 1,
+      "rater": "opus1",
+      "prompt_path": "prompts/r1-b2.txt",
+      "answer_path": "raw/opus__r1-b2.txt",
+      "snippet_ids": [
+        "17",
+        "13",
+        "11",
+        "14",
+        "20"
+      ]
+    },
+    {
+      "call_id": "r1-b3",
+      "tier": "opus",
+      "requested_model": "claude-opus-5-5",
+      "review": 1,
+      "rater": "opus1",
+      "prompt_path": "prompts/r1-b3.txt",
+      "answer_path": "raw/opus__r1-b3.txt",
+      "snippet_ids": [
+        "07",
+        "04",
+        "15",
+        "01",
+        "19"
+      ]
+    },
+    {
+      "call_id": "r1-b4",
+      "tier": "opus",
+      "requested_model": "claude-opus-5-5",
+      "review": 1,
+      "rater": "opus1",
+      "prompt_path": "prompts/r1-b4.txt",
+      "answer_path": "raw/opus__r1-b4.txt",
+      "snippet_ids": [
+        "05",
+        "16",
+        "18",
+        "08",
+        "03"
+      ]
+    },
+    {
+      "call_id": "r2-b1",
+      "tier": "opus",
+      "requested_model": "claude-opus-5-5",
+      "review": 2,
+      "rater": "opus2",
+      "prompt_path": "prompts/r2-b1.txt",
+      "answer_path": "raw/opus__r2-b1.txt",
+      "snippet_ids": [
+        "01",
+        "12",
+        "14",
+        "13",
+        "09"
+      ]
+    },
+    {
+      "call_id": "r2-b2",
+      "tier": "opus",
+      "requested_model": "claude-opus-5-5",
+      "review": 2,
+      "rater": "opus2",
+      "prompt_path": "prompts/r2-b2.txt",
+      "answer_path": "raw/opus__r2-b2.txt",
+      "snippet_ids": [
+        "11",
+        "10",
+        "03",
+        "02",
+        "17"
+      ]
+    },
+    {
+      "call_id": "r2-b3",
+      "tier": "opus",
+      "requested_model": "claude-opus-5-5",
+      "review": 2,
+      "rater": "opus2",
+      "prompt_path": "prompts/r2-b3.txt",
+      "answer_path": "raw/opus__r2-b3.txt",
+      "snippet_ids": [
+        "19",
+        "16",
+        "04",
+        "06",
+        "18"
+      ]
+    },
+    {
+      "call_id": "r2-b4",
+      "tier": "opus",
+      "requested_model": "claude-opus-5-5",
+      "review": 2,
+      "rater": "opus2",
+      "prompt_path": "prompts/r2-b4.txt",
+      "answer_path": "raw/opus__r2-b4.txt",
+      "snippet_ids": [
+        "07",
+        "05",
+        "15",
+        "20",
+        "08"
+      ]
+    },
+    {
+      "call_id": "r1-b1",
+      "tier": "fable",
+      "requested_model": "claude-fable-5-2",
+      "review": 1,
+      "rater": "fable1",
+      "prompt_path": "prompts/r1-b1.txt",
+      "answer_path": "raw/fable__r1-b1.txt",
+      "snippet_ids": [
+        "09",
+        "10",
+        "02",
+        "12",
+        "06"
+      ]
+    },
+    {
+      "call_id": "r1-b2",
+      "tier": "fable",
+      "requested_model": "claude-fable-5-2",
+      "review": 1,
+      "rater": "fable1",
+      "prompt_path": "prompts/r1-b2.txt",
+      "answer_path": "raw/fable__r1-b2.txt",
+      "snippet_ids": [
+        "17",
+        "13",
+        "11",
+        "14",
+        "20"
+      ]
+    },
+    {
+      "call_id": "r1-b3",
+      "tier": "fable",
+      "requested_model": "claude-fable-5-2",
+      "review": 1,
+      "rater": "fable1",
+      "prompt_path": "prompts/r1-b3.txt",
+      "answer_path": "raw/fable__r1-b3.txt",
+      "snippet_ids": [
+        "07",
+        "04",
+        "15",
+        "01",
+        "19"
+      ]
+    },
+    {
+      "call_id": "r1-b4",
+      "tier": "fable",
+      "requested_model": "claude-fable-5-2",
+      "review": 1,
+      "rater": "fable1",
+      "prompt_path": "prompts/r1-b4.txt",
+      "answer_path": "raw/fable__r1-b4.txt",
+      "snippet_ids": [
+        "05",
+        "16",
+        "18",
+        "08",
+        "03"
+      ]
+    },
+    {
+      "call_id": "r2-b1",
+      "tier": "fable",
+      "requested_model": "claude-fable-5-2",
+      "review": 2,
+      "rater": "fable2",
+      "prompt_path": "prompts/r2-b1.txt",
+      "answer_path": "raw/fable__r2-b1.txt",
+      "snippet_ids": [
+        "01",
+        "12",
+        "14",
+        "13",
+        "09"
+      ]
+    },
+    {
+      "call_id": "r2-b2",
+      "tier": "fable",
+      "requested_model": "claude-fable-5-2",
+      "review": 2,
+      "rater": "fable2",
+      "prompt_path": "prompts/r2-b2.txt",
+      "answer_path": "raw/fable__r2-b2.txt",
+      "snippet_ids": [
+        "11",
+        "10",
+        "03",
+        "02",
+        "17"
+      ]
+    },
+    {
+      "call_id": "r2-b3",
+      "tier": "fable",
+      "requested_model": "claude-fable-5-2",
+      "review": 2,
+      "rater": "fable2",
+      "prompt_path": "prompts/r2-b3.txt",
+      "answer_path": "raw/fable__r2-b3.txt",
+      "snippet_ids": [
+        "19",
+        "16",
+        "04",
+        "06",
+        "18"
+      ]
+    },
+    {
+      "call_id": "r2-b4",
+      "tier": "fable",
+      "requested_model": "claude-fable-5-2",
+      "review": 2,
+      "rater": "fable2",
+      "prompt_path": "prompts/r2-b4.txt",
+      "answer_path": "raw/fable__r2-b4.txt",
+      "snippet_ids": [
+        "07",
+        "05",
+        "15",
+        "20",
+        "08"
+      ]
+    }
+  ]
+}

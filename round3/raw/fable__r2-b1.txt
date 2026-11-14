@@ -1,0 +1,24 @@
+=== SNIPPET 01 ===
+Lines 18-20 (deduped[position] = event) | logic | A duplicate key always overwrites the stored event with the later-iterated one without comparing ts, so when input is not sorted by ts an older event replaces a newer one, violating the "keep the most recent occurrence by ts" contract.
+Lines 18-19 (key in seen_keys / seen_keys.index) | performance | Membership and index lookups on a list are linear per event, making deduplication quadratic in the number of distinct keys, which is a real cost in an ingestion pipeline where a dict lookup would be constant time.
+
+=== SNIPPET 12 ===
+Line 26 (total / contributing) | logic | The weighted sum is divided by the count of contributing rows instead of the sum of their weights, so the result is not a weighted average and is wrong whenever weights are not all 1.
+Line 19 (weight <= 0) | spec-violation | Negative weights, which violate the documented non-negative contract, are silently skipped as if they were zero rather than rejected, hiding bad input data.
+
+=== SNIPPET 14 ===
+Lines 21-25 (fingerprint) | security | The automatic fingerprint contains no caller identity (user, tenant or credential), so identical requests from different clients map to the same key and one client can be served or blocked by another client's stored result.
+Lines 21-28 (fingerprint fallback) | logic | The fingerprint has no time window or nonce, so two intentionally separate but identical operations (for example two equal payments) are treated as a retry forever and the second is never processed.
+Line 24 (request.get_json(silent=True) or {}) | logic | Any non-JSON, malformed or falsy body (form data, raw bytes, empty list, 0, false) collapses to {}, so different requests with different payloads to the same path get the same key and are wrongly deduplicated.
+Line 23 (request.path) | logic | The path excludes the query string, so requests that differ only in query parameters produce the same key and are wrongly treated as the same operation.
+Lines 14-19 and 28 (explicit key vs "auto-" prefix) | security | Client-supplied keys are returned verbatim in the same namespace as generated ones and are not scoped to the caller, so a client can submit an "auto-<digest>" value or another client's key to collide with a different request's stored result.
+
+=== SNIPPET 13 ===
+Line 29 ("admin" in granted) | security | The admin check is a substring test on the space-joined role string, so any role merely containing "admin" (for example "nonadmin", "sysadmin_readonly", "administrator-viewer") grants access to every resource.
+Line 32 (resource.required_role in granted) | security | The required role is matched as a substring of the joined roles rather than as an exact list member, so partial matches (for example "edit" inside "editor", "read" inside "thread") or matches spanning two adjacent roles grant access the user does not hold.
+Line 32 (resource.required_role in granted) | boundary | An empty required_role is a substring of every string, so a resource with a blank role is accessible to every user, including users with no roles at all.
+
+=== SNIPPET 09 ===
+Lines 34-36 (check and decrement outside the lock) | concurrency | The token count is read under the lock but tested and decremented after the lock is released, so concurrent callers can all see the same available token and all be allowed, over-admitting load and driving tokens negative.
+Lines 23-26 (int(elapsed * self.rate) with self._last = now) | logic | Truncating minted tokens to an integer and then resetting _last to now discards the fractional remainder of elapsed time on every refill, so the bucket systematically refills slower than the configured rate.
+Lines 17, 21 (time.time()) | api-misuse | The wall clock is not monotonic, so a backwards clock adjustment makes elapsed negative and stalls refilling until the clock catches up, and a forward jump mints a burst of tokens up to capacity; time.monotonic is the correct source for intervals.

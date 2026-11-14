@@ -1,0 +1,18 @@
+=== SNIPPET 09 ===
+Lines 32-35 (allow) | concurrency | The token check and decrement happen outside the lock, so concurrent callers can all see available >= 1 and each consume a token, letting more calls through than the bucket allows and possibly driving tokens negative.
+Line 23 (_refill) | logic | Truncating elapsed * rate to an int and only advancing _last when minted > 0 is fine, but when minted > 0 it resets _last to now and discards the fractional token accrued, so frequent calls at low rates lose partial tokens and under-refill.
+Lines 17, 21 (time.time) | other | Using the wall clock instead of a monotonic clock means clock adjustments can produce negative or huge elapsed values and corrupt refill behavior.
+=== SNIPPET 10 ===
+Lines 25-27 | logic | The check compares the event's local date to the current UTC date and the current UTC time to close_time, so a past or future event is rejected based on when the code runs rather than on the event's own time, and it mixes UTC with local time.
+Line 25 | api-misuse | datetime.utcnow() returns a naive UTC datetime and is deprecated, and it is compared against a local date and wall-clock time in a different timezone.
+Lines 29-30 | boundary | The window ignores the tz-specific handling of DST edge cases only via astimezone, but open_time and close_time are naive and the close check at line 26 uses <= semantics inconsistent with the exclusive close bound at line 30.
+=== SNIPPET 02 ===
+Line 21 | logic | datetime.utcnow() returns a naive datetime while self._expires_at is timezone-aware, so the comparison raises TypeError on the first call.
+Lines 20-37 (get_token) | concurrency | The expiry check happens outside the lock and is not repeated inside it, so many threads that see an expired token all queue up and each perform a redundant token request.
+Lines 34-37 | concurrency | The token is read at line 37 outside the lock while another thread may be writing _access_token and _expires_at, so a reader can see a partially updated state.
+=== SNIPPET 12 ===
+Line 26 | logic | The result divides by the count of contributing rows instead of the sum of the weights, so it is not a weighted average and returns wrong values whenever weights differ from 1.
+Line 19 | spec-violation | The docstring says only zero-weight rows are skipped, but weight <= 0 also silently skips negative weights, which are invalid input and should not be quietly ignored.
+=== SNIPPET 06 ===
+Line 31 | spec-violation | The docstring promises round-half-to-even (bankers rounding) but the code uses ROUND_HALF_UP, so half-cent totals round the wrong way and drift from the accounting system.
+Lines 29-31 | logic | Tax is computed on the line total and rounded only once at the end, which matches per-line rounding but the docstring says only the tax component is rounded; rounding the sum rather than the tax is equivalent here but negative qty or unit values are not validated.

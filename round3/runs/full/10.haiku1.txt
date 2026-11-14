@@ -1,0 +1,2 @@
+25-27 | logic | The naive UTC clock (now) is compared against close_time, which is a local wall-clock time, so the same-day cutoff uses the wrong timezone and rejects in-hours local events whenever the UTC time-of-day is past 17:00.
+25 | api-misuse | datetime.utcnow() is deprecated since Python 3.12 and returns a naive value, which is the root of the mixed-timezone comparison.

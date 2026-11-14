@@ -1,0 +1,2 @@
+31-34 | concurrency | the capacity check runs under the lock but the append happens after the lock is released, so concurrent producers can both pass the check and push the buffer past capacity, and the deque is mutated outside the lock consumers rely on.
+41 | logic | the timeout is restarted on every wakeup, so spurious or repeated notifications can make get() wait far longer than the timeout it was given.

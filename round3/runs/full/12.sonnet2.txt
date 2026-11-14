@@ -1,0 +1,2 @@
+Line 26 (return total / contributing) | logic | The result divides by the count of contributing rows instead of the sum of weights, so it is not a weighted average and the weights only scale the numerator.
+Lines 18-20 (weight <= 0 check) | boundary | Negative weights are silently skipped rather than rejected, even though the contract says weights are non-negative, which hides invalid input.

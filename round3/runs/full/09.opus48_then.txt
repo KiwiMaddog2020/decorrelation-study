@@ -1,0 +1,2 @@
+allow() (lines 34-35) | concurrency | The token decrement and the availability check run outside the lock (only _refill and the read of available are guarded), so concurrent callers can all observe available>=1 and each decrement, over-consuming tokens and driving self.tokens negative.
+allow() (lines 32-35) | concurrency | The check uses the locked snapshot `available` while the decrement mutates `self.tokens` unguarded; this read-snapshot/act-on-live-state split is a TOCTOU race that lets the limiter admit more calls than capacity.

@@ -1,0 +1,1 @@
+within_business_hours(), lines 25-27 | logic | The extra check compares the current naive UTC time from `datetime.utcnow()` against the local close time and local date, mixing timezones and making the result depend on when the function is called rather than on `ts`, so valid in-hours events are rejected (or not) depending on the current UTC clock.

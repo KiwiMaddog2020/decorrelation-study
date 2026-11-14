@@ -1,0 +1,3 @@
+line 27-29 (" ".join and "admin" in granted) | security | Role checks use substring matching on a joined string, so any role containing "admin" (for example "sysadmin_readonly" or "notadmin") is treated as full admin, a privilege escalation.
+line 32 (required_role in granted) | security | Substring matching lets a role like "readwrite" satisfy a required role of "read" or "write", and an empty ``required_role`` matches every user, granting access the user does not hold.
+line 24 (resource.owner == user.username) | security | An empty or missing owner equals an empty username, so a user with an empty username is treated as owner of every unowned resource.

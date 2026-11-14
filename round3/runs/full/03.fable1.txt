@@ -1,0 +1,2 @@
+lines 31-34 (put) | concurrency | The capacity check is done under the lock but the append happens after the lock is released, so concurrent producers can all pass the check and push the buffer past capacity, and the deque is mutated without the lock that get and __len__ rely on.
+lines 40-42 (get wait loop) | logic | The full timeout is passed to wait on every loop iteration, so when a wakeup is lost to another consumer the wait restarts and get can block far longer than the requested timeout.

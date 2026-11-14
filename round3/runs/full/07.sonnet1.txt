@@ -1,0 +1,1 @@
+line 20 (get) | logic | get returns the value without calling move_to_end, so reads never refresh recency and the cache evicts by insertion/update order rather than least-recently-used, evicting hot entries.

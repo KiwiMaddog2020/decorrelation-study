@@ -1,0 +1,1 @@
+16-20 (get) | spec-violation | get() never moves the key to the end, so reads do not count as recent use and eviction follows insertion order, not the least-recently-used order the class docstring promises.

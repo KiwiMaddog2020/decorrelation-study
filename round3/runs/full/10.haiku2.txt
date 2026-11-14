@@ -1,0 +1,2 @@
+25-27 | logic | The same-day cutoff compares the UTC wall clock to the local close time, so an event inside the local window is rejected whenever the UTC time is past 17:00 (for example 16:30 Toronto time at 21:30 UTC).
+25 | api-misuse | datetime.utcnow() is deprecated and returns a naive value that is mixed with timezone-aware local times.

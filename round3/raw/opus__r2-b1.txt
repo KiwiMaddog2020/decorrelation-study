@@ -1,0 +1,19 @@
+=== SNIPPET 01 ===
+line 18-20 (dedupe loop) | logic | A later duplicate unconditionally replaces the stored event without comparing the ``ts`` field, so the last occurrence in input order wins rather than the most recent by timestamp, violating the documented contract for out-of-order input.
+line 18-19 (seen_keys list) | performance | Membership tests and ``index`` on a list make deduplication O(n^2), which degrades badly on large ingestion batches where a dict keyed by (user_id, kind) would be O(n).
+=== SNIPPET 12 ===
+line 26 (return total / contributing) | logic | The weighted sum is divided by the count of contributing rows instead of the sum of their weights, so the result is not a weighted average and is wrong whenever weights differ from 1.
+line 19 (if weight <= 0) | spec-violation | Negative weights, which the contract says must not occur, are silently skipped instead of being rejected, hiding bad input and quietly altering the result.
+=== SNIPPET 14 ===
+line 21-25 (fingerprint) | security | The auto-derived key omits any caller identity (user, tenant or auth principal), so two different users sending the same method, path and body get the same key and one can be served the other's stored result.
+line 19 (return explicit) | security | The client-supplied Idempotency-Key is returned without scoping to the caller, so a key reused or guessed by another user collides with and can replay someone else's stored response.
+line 23 (path) | logic | The fingerprint uses only ``request.path`` and ignores the query string, so distinct operations differing only in query parameters map to the same key and the second is wrongly treated as a retry.
+line 24 (get_json(silent=True) or {}) | logic | Non-JSON or malformed bodies (form posts, raw payloads) all collapse to ``{}``, so different requests to the same endpoint share one key and later ones are dropped as duplicates.
+=== SNIPPET 13 ===
+line 27-29 (" ".join and "admin" in granted) | security | Role checks use substring matching on a joined string, so any role containing "admin" (for example "sysadmin_readonly" or "notadmin") is treated as full admin, a privilege escalation.
+line 32 (required_role in granted) | security | Substring matching lets a role like "readwrite" satisfy a required role of "read" or "write", and an empty ``required_role`` matches every user, granting access the user does not hold.
+line 24 (resource.owner == user.username) | security | An empty or missing owner equals an empty username, so a user with an empty username is treated as owner of every unowned resource.
+=== SNIPPET 09 ===
+line 30-36 (allow) | concurrency | The token check and the decrement happen outside the lock, so concurrent callers can all read the same ``available`` value and each consume a token, overspending the bucket and racing on ``self.tokens -= 1``.
+line 23-26 (_refill) | logic | Setting ``_last = now`` after truncating ``elapsed * rate`` to an int discards the fractional token time each refill, so under frequent calls the limiter mints fewer tokens than ``rate`` and can starve callers when rate is low.
+line 17, 21 (time.time) | api-misuse | Wall-clock ``time.time()`` can jump backward or forward with clock adjustments, producing negative or huge elapsed values; a monotonic clock should be used for rate limiting.

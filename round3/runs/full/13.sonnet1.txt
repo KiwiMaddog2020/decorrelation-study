@@ -1,0 +1,2 @@
+line 27-32 (granted = " ".join(user.roles); "admin" in granted) | security | The admin check is a substring test on a joined string, so any role merely containing "admin" (e.g. "superadmin", "administrator", "readmin-viewer") grants access to every resource.
+line 32 (resource.required_role in granted) | security | The required-role check is also a substring match on the joined string, so a role like "editor-readonly" or "xeditor" satisfies a required role of "editor", and an empty required_role matches everything.

@@ -1,0 +1,4 @@
+line 21-25 (fingerprint) | security | The auto-derived key omits any caller identity (user, tenant or auth principal), so two different users sending the same method, path and body get the same key and one can be served the other's stored result.
+line 19 (return explicit) | security | The client-supplied Idempotency-Key is returned without scoping to the caller, so a key reused or guessed by another user collides with and can replay someone else's stored response.
+line 23 (path) | logic | The fingerprint uses only ``request.path`` and ignores the query string, so distinct operations differing only in query parameters map to the same key and the second is wrongly treated as a retry.
+line 24 (get_json(silent=True) or {}) | logic | Non-JSON or malformed bodies (form posts, raw payloads) all collapse to ``{}``, so different requests to the same endpoint share one key and later ones are dropped as duplicates.

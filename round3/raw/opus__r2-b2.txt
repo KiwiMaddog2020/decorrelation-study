@@ -1,0 +1,13 @@
+=== SNIPPET 11 ===
+line 42 (set_active_tenant) | security | The tenant value is interpolated into the SQL string with % formatting instead of being quoted as an identifier, so a crafted tenant name allows SQL injection.
+lines 33-38 (release) | security | Connections are returned to the idle list without rolling back or resetting session state, so a tenant's search_path (and any open or failed transaction) leaks to the next borrower, risking cross-tenant data access.
+=== SNIPPET 10 ===
+lines 25-27 | logic | The extra check compares the event's local date and the close time against the naive current UTC time from datetime.utcnow(), mixing timezones and making the result depend on when the function is called, so valid in-hours events are wrongly rejected (or not) based on the current UTC clock.
+=== SNIPPET 03 ===
+line 34 (put) | concurrency | The append happens after the lock is released, so the capacity check and the append are not atomic; concurrent producers can exceed capacity and the deque is mutated outside the lock that get() relies on.
+lines 40-42 (get) | boundary | The full timeout is passed to wait() on every loop iteration, so after a spurious or stolen wakeup the total wait can exceed the requested timeout.
+=== SNIPPET 02 ===
+line 21 (get_token) | api-misuse | datetime.utcnow() returns a naive datetime that is compared with the timezone-aware _expires_at, which raises TypeError on every call.
+lines 21-36 (get_token) | concurrency | The expiry check is done outside the lock and not re-checked after acquiring it, so multiple threads that see an expiring token all perform redundant token refreshes in turn.
+=== SNIPPET 17 ===
+NO DEFECTS FOUND

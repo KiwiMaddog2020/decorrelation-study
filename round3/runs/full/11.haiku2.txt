@@ -1,0 +1,5 @@
+42 | security | The tenant value is %-formatted directly into a SQL statement, so a crafted tenant string can inject SQL.
+42 | security | SET search_path is session state that stays on the pooled connection after release, so the next caller can run queries against a previous tenant's schema.
+38 | concurrency | release() appends the connection to the idle list without checking it is in use, so a double release lets two callers receive the same connection.
+36-38 | logic | release() returns a connection without rolling back any open or aborted transaction, so the next caller inherits that transaction state.
+27 | performance | psycopg2.connect() runs while the pool lock is held, so every acquire and release blocks behind a slow network connect.

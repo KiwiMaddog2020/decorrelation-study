@@ -1,0 +1,1 @@
+line 31 (rounding=ROUND_HALF_UP) | spec-violation | The docstring promises bankers rounding (round half to even) but the code rounds half up, so exact half-cent totals round differently from the accounting system and bias totals upward.

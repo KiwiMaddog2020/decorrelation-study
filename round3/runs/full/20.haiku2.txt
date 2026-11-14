@@ -1,0 +1,1 @@
+16-18 (abspath) | security | the docstring promises a symlink-resolved path, but abspath never resolves symlinks, so a symlink inside base that points outside it passes the check and is accepted.

@@ -1,0 +1,18 @@
+=== SNIPPET 11 ===
+42 | security | The tenant value is %-formatted directly into a SQL statement, so a crafted tenant string can inject SQL.
+42 | security | SET search_path is session state that stays on the pooled connection after release, so the next caller can run queries against a previous tenant's schema.
+38 | concurrency | release() appends the connection to the idle list without checking it is in use, so a double release lets two callers receive the same connection.
+36-38 | logic | release() returns a connection without rolling back any open or aborted transaction, so the next caller inherits that transaction state.
+27 | performance | psycopg2.connect() runs while the pool lock is held, so every acquire and release blocks behind a slow network connect.
+=== SNIPPET 10 ===
+25-27 | logic | The same-day cutoff compares the UTC wall clock to the local close time, so an event inside the local window is rejected whenever the UTC time is past 17:00 (for example 16:30 Toronto time at 21:30 UTC).
+25 | api-misuse | datetime.utcnow() is deprecated and returns a naive value that is mixed with timezone-aware local times.
+=== SNIPPET 03 ===
+31-34 | concurrency | The capacity check is made under the lock but the append happens after the lock is released, so concurrent producers can both pass the check and push the buffer past capacity.
+41 | boundary | Each wait() call is given the full timeout, so spurious or notified wakeups restart the timer and get() can block well beyond the requested timeout.
+=== SNIPPET 02 ===
+21 | logic | datetime.utcnow() returns a naive value that is compared with the timezone-aware self._expires_at, which raises TypeError on every call including the first.
+21 | concurrency | The expiry check runs outside the lock and is not repeated inside it, so when the token expires many threads can each POST for a new token at once.
+34-36 | concurrency | _access_token and _expires_at are written and read outside the lock, so a reader can pair a new token with a stale expiry.
+=== SNIPPET 17 ===
+NO DEFECTS FOUND

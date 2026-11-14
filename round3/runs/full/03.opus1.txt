@@ -1,0 +1,2 @@
+lines 31-34 | concurrency | The capacity check is done under the lock but the append happens after the lock is released, so concurrent producers can both pass the check and push the buffer past capacity, and the deque is mutated without holding the lock.
+lines 40-42 | logic | On a spurious or stolen wakeup the loop calls wait(timeout) again with the full timeout, so get can block much longer than the requested timeout.

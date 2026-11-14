@@ -1,0 +1,2 @@
+lines 19-24 | logic | The amount is rounded to whole source minor units before the rate is applied, so sub-cent precision is discarded early and the double rounding yields a different result than converting at full precision and rounding once.
+line 19, Decimal(100) | logic | A fixed factor of 100 minor units is assumed for every currency, so currencies with zero or three decimal places (for example JPY or KWD) are converted to amounts that are off by a factor of 100 or 10.

@@ -1,0 +1,2 @@
+line 23 | boundary | The loop range(1, len(lines) - 1) skips the last line, so a final data row without a trailing newline is silently dropped.
+line 7 | logic | _split_fields splits on every comma, so quoted CSV fields containing commas are split into wrong cells, corrupting the parsed rows.

@@ -1,0 +1,1 @@
+line 20 (bisect_left) | logic | cursor is documented exclusive but bisect_left returns the index of a matching id, so the cursor item is re-included at the start of the next page (duplicate); bisect_right is required for exclusive keyset paging.

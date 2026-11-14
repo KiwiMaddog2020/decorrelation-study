@@ -1,0 +1,2 @@
+line 18-20 (dedupe loop) | logic | A later duplicate unconditionally replaces the stored event without comparing the ``ts`` field, so the last occurrence in input order wins rather than the most recent by timestamp, violating the documented contract for out-of-order input.
+line 18-19 (seen_keys list) | performance | Membership tests and ``index`` on a list make deduplication O(n^2), which degrades badly on large ingestion batches where a dict keyed by (user_id, kind) would be O(n).

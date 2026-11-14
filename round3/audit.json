@@ -1,0 +1,645 @@
+[
+ {
+  "answer": "raw/haiku__r1-b1.txt",
+  "tier": "haiku",
+  "transcript": "ab38d084ed21e467e.output",
+  "sessions_that_wrote_this_path": 2,
+  "models": {
+   "claude-haiku-5-5": 14
+  },
+  "tools": [
+   "Read r1-b1.txt",
+   "Read snippet-09.txt",
+   "Read snippet-10.txt",
+   "Read snippet-02.txt",
+   "Read snippet-12.txt",
+   "Read snippet-06.txt",
+   "Write haiku__r1-b1.txt",
+   "mcp__claude-code-remote__SubagentHandback ",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/haiku__r1-b2.txt",
+  "tier": "haiku",
+  "transcript": "abb6fc35534cd7309.output",
+  "sessions_that_wrote_this_path": 2,
+  "models": {
+   "claude-haiku-5-5": 12
+  },
+  "tools": [
+   "Read r1-b2.txt",
+   "Read snippet-17.txt",
+   "Read snippet-13.txt",
+   "Read snippet-11.txt",
+   "Read snippet-14.txt",
+   "Read snippet-20.txt",
+   "Write haiku__r1-b2.txt",
+   "mcp__claude-code-remote__SubagentHandback ",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/haiku__r1-b3.txt",
+  "tier": "haiku",
+  "transcript": "a3f1f3287cbdaa231.output",
+  "sessions_that_wrote_this_path": 2,
+  "models": {
+   "claude-haiku-5-5": 12
+  },
+  "tools": [
+   "Read r1-b3.txt",
+   "Read snippet-07.txt",
+   "Read snippet-04.txt",
+   "Read snippet-15.txt",
+   "Read snippet-01.txt",
+   "Read snippet-19.txt",
+   "Write haiku__r1-b3.txt",
+   "mcp__claude-code-remote__read_documentation ",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/haiku__r1-b4.txt",
+  "tier": "haiku",
+  "transcript": "a3798d4252a9ba943.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-haiku-5-5": 12
+  },
+  "tools": [
+   "Read r1-b4.txt",
+   "Read snippet-05.txt",
+   "Read snippet-16.txt",
+   "Read snippet-18.txt",
+   "Read snippet-08.txt",
+   "Read snippet-03.txt",
+   "Write haiku__r1-b4.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/haiku__r2-b1.txt",
+  "tier": "haiku",
+  "transcript": "ac21bcf0214b4d1a9.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-haiku-5-5": 13
+  },
+  "tools": [
+   "Read r2-b1.txt",
+   "Read snippet-01.txt",
+   "Read snippet-12.txt",
+   "Read snippet-14.txt",
+   "Read snippet-13.txt",
+   "Read snippet-09.txt",
+   "Write haiku__r2-b1.txt",
+   "mcp__claude-code-remote__read_documentation ",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/haiku__r2-b2.txt",
+  "tier": "haiku",
+  "transcript": "a1b9cda0dab38b20a.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-haiku-5-5": 12
+  },
+  "tools": [
+   "Read r2-b2.txt",
+   "Read snippet-11.txt",
+   "Read snippet-10.txt",
+   "Read snippet-03.txt",
+   "Read snippet-02.txt",
+   "Read snippet-17.txt",
+   "Write haiku__r2-b2.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/haiku__r2-b3.txt",
+  "tier": "haiku",
+  "transcript": "a229d62f4f11d5486.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-haiku-5-5": 10
+  },
+  "tools": [
+   "Read r2-b3.txt",
+   "Read snippet-19.txt",
+   "Read snippet-16.txt",
+   "Read snippet-04.txt",
+   "Read snippet-06.txt",
+   "Read snippet-18.txt",
+   "Write haiku__r2-b3.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/haiku__r2-b4.txt",
+  "tier": "haiku",
+  "transcript": "a51aac531cb970ec3.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-haiku-5-5": 11
+  },
+  "tools": [
+   "Read r2-b4.txt",
+   "Read snippet-07.txt",
+   "Read snippet-05.txt",
+   "Read snippet-15.txt",
+   "Read snippet-20.txt",
+   "Read snippet-08.txt",
+   "Write haiku__r2-b4.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/sonnet__r1-b1.txt",
+  "tier": "sonnet",
+  "transcript": "af52ac7e6a823817e.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-sonnet-5-5": 8
+  },
+  "tools": [
+   "Read r1-b1.txt",
+   "Read snippet-09.txt",
+   "Read snippet-10.txt",
+   "Read snippet-02.txt",
+   "Read snippet-12.txt",
+   "Read snippet-06.txt",
+   "Write sonnet__r1-b1.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/sonnet__r1-b2.txt",
+  "tier": "sonnet",
+  "transcript": "a7de8137bb8e7a3ca.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-sonnet-5-5": 9
+  },
+  "tools": [
+   "Read r1-b2.txt",
+   "Read snippet-17.txt",
+   "Read snippet-13.txt",
+   "Read snippet-11.txt",
+   "Read snippet-14.txt",
+   "Read snippet-20.txt",
+   "Write sonnet__r1-b2.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/sonnet__r1-b3.txt",
+  "tier": "sonnet",
+  "transcript": "a783ff96ef0aa11ca.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-sonnet-5-5": 9
+  },
+  "tools": [
+   "Read r1-b3.txt",
+   "Read snippet-07.txt",
+   "Read snippet-04.txt",
+   "Read snippet-15.txt",
+   "Read snippet-01.txt",
+   "Read snippet-19.txt",
+   "Write sonnet__r1-b3.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/sonnet__r1-b4.txt",
+  "tier": "sonnet",
+  "transcript": "a1f0d1f5b6a5ea273.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-sonnet-5-5": 9
+  },
+  "tools": [
+   "Read r1-b4.txt",
+   "Read snippet-05.txt",
+   "Read snippet-16.txt",
+   "Read snippet-18.txt",
+   "Read snippet-08.txt",
+   "Read snippet-03.txt",
+   "Write sonnet__r1-b4.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/sonnet__r2-b1.txt",
+  "tier": "sonnet",
+  "transcript": "a0dbce4d49452e23a.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-sonnet-5-5": 8
+  },
+  "tools": [
+   "Read r2-b1.txt",
+   "Read snippet-01.txt",
+   "Read snippet-12.txt",
+   "Read snippet-14.txt",
+   "Read snippet-13.txt",
+   "Read snippet-09.txt",
+   "Write sonnet__r2-b1.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/sonnet__r2-b2.txt",
+  "tier": "sonnet",
+  "transcript": "a81395354f36650d3.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-sonnet-5-5": 9
+  },
+  "tools": [
+   "Read r2-b2.txt",
+   "Read snippet-11.txt",
+   "Read snippet-10.txt",
+   "Read snippet-03.txt",
+   "Read snippet-02.txt",
+   "Read snippet-17.txt",
+   "Write sonnet__r2-b2.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/sonnet__r2-b3.txt",
+  "tier": "sonnet",
+  "transcript": "ac2314df6d6a31ca8.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-sonnet-5-5": 10
+  },
+  "tools": [
+   "Read r2-b3.txt",
+   "Read snippet-19.txt",
+   "Read snippet-16.txt",
+   "Read snippet-04.txt",
+   "Read snippet-06.txt",
+   "Read snippet-18.txt",
+   "Write sonnet__r2-b3.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/sonnet__r2-b4.txt",
+  "tier": "sonnet",
+  "transcript": "acc952c5e3e0182b5.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-sonnet-5-5": 9
+  },
+  "tools": [
+   "Read r2-b4.txt",
+   "Read snippet-07.txt",
+   "Read snippet-05.txt",
+   "Read snippet-15.txt",
+   "Read snippet-20.txt",
+   "Read snippet-08.txt",
+   "Write sonnet__r2-b4.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/opus__r1-b1.txt",
+  "tier": "opus",
+  "transcript": "a053f655d02024155.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-opus-5-5": 9
+  },
+  "tools": [
+   "Read r1-b1.txt",
+   "Read snippet-09.txt",
+   "Read snippet-10.txt",
+   "Read snippet-02.txt",
+   "Read snippet-12.txt",
+   "Read snippet-06.txt",
+   "Write opus__r1-b1.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/opus__r1-b2.txt",
+  "tier": "opus",
+  "transcript": "afdec4dc3f3ea47f2.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-opus-5-5": 9
+  },
+  "tools": [
+   "Read r1-b2.txt",
+   "Read snippet-17.txt",
+   "Read snippet-13.txt",
+   "Read snippet-11.txt",
+   "Read snippet-14.txt",
+   "Read snippet-20.txt",
+   "Write opus__r1-b2.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/opus__r1-b3.txt",
+  "tier": "opus",
+  "transcript": "a69ec2a3d23cb06ea.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-opus-5-5": 9
+  },
+  "tools": [
+   "Read r1-b3.txt",
+   "Read snippet-07.txt",
+   "Read snippet-04.txt",
+   "Read snippet-15.txt",
+   "Read snippet-01.txt",
+   "Read snippet-19.txt",
+   "Write opus__r1-b3.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/opus__r1-b4.txt",
+  "tier": "opus",
+  "transcript": "aec3d710ef0900630.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-opus-5-5": 9
+  },
+  "tools": [
+   "Read r1-b4.txt",
+   "Read snippet-05.txt",
+   "Read snippet-16.txt",
+   "Read snippet-18.txt",
+   "Read snippet-08.txt",
+   "Read snippet-03.txt",
+   "Write opus__r1-b4.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/opus__r2-b1.txt",
+  "tier": "opus",
+  "transcript": "a0dc71cfdbfc96e9e.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-opus-5-5": 9
+  },
+  "tools": [
+   "Read r2-b1.txt",
+   "Read snippet-01.txt",
+   "Read snippet-12.txt",
+   "Read snippet-14.txt",
+   "Read snippet-13.txt",
+   "Read snippet-09.txt",
+   "Write opus__r2-b1.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/opus__r2-b2.txt",
+  "tier": "opus",
+  "transcript": "af15fb4958a1e2e7c.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-opus-5-5": 9
+  },
+  "tools": [
+   "Read r2-b2.txt",
+   "Read snippet-11.txt",
+   "Read snippet-10.txt",
+   "Read snippet-03.txt",
+   "Read snippet-02.txt",
+   "Read snippet-17.txt",
+   "Write opus__r2-b2.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/opus__r2-b3.txt",
+  "tier": "opus",
+  "transcript": "af477097c9cb8f6f1.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-opus-5-5": 9
+  },
+  "tools": [
+   "Read r2-b3.txt",
+   "Read snippet-19.txt",
+   "Read snippet-16.txt",
+   "Read snippet-04.txt",
+   "Read snippet-06.txt",
+   "Read snippet-18.txt",
+   "Write opus__r2-b3.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/opus__r2-b4.txt",
+  "tier": "opus",
+  "transcript": "a244fd1cb11015242.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-opus-5-5": 9
+  },
+  "tools": [
+   "Read r2-b4.txt",
+   "Read snippet-07.txt",
+   "Read snippet-05.txt",
+   "Read snippet-15.txt",
+   "Read snippet-20.txt",
+   "Read snippet-08.txt",
+   "Write opus__r2-b4.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/fable__r1-b1.txt",
+  "tier": "fable",
+  "transcript": "a6b433d865ac318e9.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-fable-5-2": 9
+  },
+  "tools": [
+   "Read r1-b1.txt",
+   "Read snippet-09.txt",
+   "Read snippet-10.txt",
+   "Read snippet-02.txt",
+   "Read snippet-12.txt",
+   "Read snippet-06.txt",
+   "Write fable__r1-b1.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/fable__r1-b2.txt",
+  "tier": "fable",
+  "transcript": "ab1dd58ae2762766e.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-fable-5-2": 9
+  },
+  "tools": [
+   "Read r1-b2.txt",
+   "Read snippet-17.txt",
+   "Read snippet-13.txt",
+   "Read snippet-11.txt",
+   "Read snippet-14.txt",
+   "Read snippet-20.txt",
+   "Write fable__r1-b2.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/fable__r1-b3.txt",
+  "tier": "fable",
+  "transcript": "aab06f3354ee610c2.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-fable-5-2": 9
+  },
+  "tools": [
+   "Read r1-b3.txt",
+   "Read snippet-07.txt",
+   "Read snippet-04.txt",
+   "Read snippet-15.txt",
+   "Read snippet-01.txt",
+   "Read snippet-19.txt",
+   "Write fable__r1-b3.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/fable__r1-b4.txt",
+  "tier": "fable",
+  "transcript": "a3e5af79bb0d9bc0c.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-fable-5-2": 9
+  },
+  "tools": [
+   "Read r1-b4.txt",
+   "Read snippet-05.txt",
+   "Read snippet-16.txt",
+   "Read snippet-18.txt",
+   "Read snippet-08.txt",
+   "Read snippet-03.txt",
+   "Write fable__r1-b4.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/fable__r2-b1.txt",
+  "tier": "fable",
+  "transcript": "a651e6e58dfdf4a22.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-fable-5-2": 8
+  },
+  "tools": [
+   "Read r2-b1.txt",
+   "Read snippet-01.txt",
+   "Read snippet-12.txt",
+   "Read snippet-14.txt",
+   "Read snippet-13.txt",
+   "Read snippet-09.txt",
+   "Write fable__r2-b1.txt"
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/fable__r2-b2.txt",
+  "tier": "fable",
+  "transcript": "a99a8ef8dc4ba3630.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-fable-5-2": 9
+  },
+  "tools": [
+   "Read r2-b2.txt",
+   "Read snippet-11.txt",
+   "Read snippet-10.txt",
+   "Read snippet-03.txt",
+   "Read snippet-02.txt",
+   "Read snippet-17.txt",
+   "Write fable__r2-b2.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/fable__r2-b3.txt",
+  "tier": "fable",
+  "transcript": "a7e2911a8d02dd47d.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-fable-5-2": 9
+  },
+  "tools": [
+   "Read r2-b3.txt",
+   "Read snippet-19.txt",
+   "Read snippet-16.txt",
+   "Read snippet-04.txt",
+   "Read snippet-06.txt",
+   "Read snippet-18.txt",
+   "Write fable__r2-b3.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ },
+ {
+  "answer": "raw/fable__r2-b4.txt",
+  "tier": "fable",
+  "transcript": "a8085db9f9ad02c4d.output",
+  "sessions_that_wrote_this_path": 1,
+  "models": {
+   "claude-fable-5-2": 9
+  },
+  "tools": [
+   "Read r2-b4.txt",
+   "Read snippet-07.txt",
+   "Read snippet-05.txt",
+   "Read snippet-15.txt",
+   "Read snippet-20.txt",
+   "Read snippet-08.txt",
+   "Write fable__r2-b4.txt",
+   "SubagentHandback "
+  ],
+  "problems": []
+ }
+]

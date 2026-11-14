@@ -1,0 +1,2613 @@
+{
+  "n_defects": 30,
+  "raters": [
+    "haiku1",
+    "haiku2",
+    "sonnet1",
+    "sonnet2",
+    "opus1",
+    "opus2",
+    "fable1",
+    "fable2",
+    "opus48_then"
+  ],
+  "incomplete_raters": {},
+  "primary_mode": "headers",
+  "modes": {
+    "original": {
+      "n_defects": 30,
+      "raters": {
+        "haiku1": {
+          "caught": 25,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "11-d4",
+            "11-d5",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 4,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 2,
+            "security": 4,
+            "spec-violation": 3
+          }
+        },
+        "haiku2": {
+          "caught": 26,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d1",
+            "08-d2",
+            "08-d3",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "11-d4",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 4,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 3,
+            "security": 4,
+            "spec-violation": 3
+          }
+        },
+        "sonnet1": {
+          "caught": 26,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "04-d3",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "11-d4",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 0,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 6,
+            "performance": 2,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "sonnet2": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 2,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 1,
+            "security": 4,
+            "spec-violation": 3
+          }
+        },
+        "opus1": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 2,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 1,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "opus2": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d2",
+            "11-d3",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 3,
+          "by_type": {
+            "api-misuse": 3,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 1,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "fable1": {
+          "caught": 27,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "04-d3",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "11-d4",
+            "11-d5",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 4,
+            "concurrency": 3,
+            "logic": 6,
+            "performance": 2,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "fable2": {
+          "caught": 25,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "11-d4",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 2,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 2,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "opus48_then": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d3",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "11-d4",
+            "11-d5",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 1,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 3,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 2,
+            "security": 4,
+            "spec-violation": 3
+          }
+        }
+      },
+      "same_tier_pairs": [
+        {
+          "a": "haiku1",
+          "b": "haiku2",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.6139406135149205
+        },
+        {
+          "a": "sonnet1",
+          "b": "sonnet2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "opus1",
+          "b": "opus2",
+          "union": 24,
+          "best_single": 23,
+          "gain": 1,
+          "phi": 0.8136645962732919
+        },
+        {
+          "a": "fable1",
+          "b": "fable2",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.7453559924999299
+        }
+      ],
+      "cross_tier_pairs": [
+        {
+          "a": "haiku1",
+          "b": "sonnet1",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.6139406135149205
+        },
+        {
+          "a": "haiku1",
+          "b": "sonnet2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        },
+        {
+          "a": "haiku2",
+          "b": "sonnet1",
+          "union": 28,
+          "best_single": 26,
+          "gain": 2,
+          "phi": 0.4230769230769231
+        },
+        {
+          "a": "haiku2",
+          "b": "sonnet2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "haiku1",
+          "b": "opus1",
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "phi": 0.5991712703227052
+        },
+        {
+          "a": "haiku1",
+          "b": "opus2",
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "phi": 0.5991712703227052
+        },
+        {
+          "a": "haiku2",
+          "b": "opus1",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.47913961749476935
+        },
+        {
+          "a": "haiku2",
+          "b": "opus2",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.47913961749476935
+        },
+        {
+          "a": "haiku1",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.7453559924999299
+        },
+        {
+          "a": "haiku1",
+          "b": "fable2",
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "phi": 0.76
+        },
+        {
+          "a": "haiku2",
+          "b": "fable1",
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "phi": 0.19611613513818404
+        },
+        {
+          "a": "haiku2",
+          "b": "fable2",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.6139406135149205
+        },
+        {
+          "a": "sonnet1",
+          "b": "opus1",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "sonnet1",
+          "b": "opus2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "sonnet2",
+          "b": "opus1",
+          "union": 24,
+          "best_single": 23,
+          "gain": 1,
+          "phi": 0.8136645962732919
+        },
+        {
+          "a": "sonnet2",
+          "b": "opus2",
+          "union": 24,
+          "best_single": 23,
+          "gain": 1,
+          "phi": 0.8136645962732919
+        },
+        {
+          "a": "sonnet1",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.8498365855987975
+        },
+        {
+          "a": "sonnet1",
+          "b": "fable2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.8770580193070292
+        },
+        {
+          "a": "sonnet2",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.6042179781166439
+        },
+        {
+          "a": "sonnet2",
+          "b": "fable2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        },
+        {
+          "a": "opus1",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.6042179781166439
+        },
+        {
+          "a": "opus1",
+          "b": "fable2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        },
+        {
+          "a": "opus2",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.6042179781166439
+        },
+        {
+          "a": "opus2",
+          "b": "fable2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        }
+      ],
+      "summary": {
+        "same_tier": {
+          "n_pairs": 4,
+          "mean_union": 26.0,
+          "mean_gain": 0.5,
+          "mean_phi": 0.7209856425459016
+        },
+        "cross_tier": {
+          "n_pairs": 24,
+          "mean_union": 26.25,
+          "mean_gain": 0.5416666666666666,
+          "mean_phi": 0.6688103259324863
+        }
+      },
+      "gain_difference_cross_minus_same": 0.04166666666666663,
+      "bootstrap": {
+        "boots": 10000,
+        "seed": 20261114,
+        "ci95": [
+          -0.5833333333333334,
+          0.6666666666666666
+        ],
+        "share_above_zero": 0.5888
+      },
+      "verdict_by_preregistered_rule": "a second look is just as good",
+      "four_tier_unions": [
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus1",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus1",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus2",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus2",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus1",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus1",
+            "fable2"
+          ],
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "payoff": 1.04
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus2",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus2",
+            "fable2"
+          ],
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "payoff": 1.04
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus1",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus1",
+            "fable2"
+          ],
+          "union": 28,
+          "best_single": 26,
+          "gain": 2,
+          "payoff": 1.077
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus2",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus2",
+            "fable2"
+          ],
+          "union": 28,
+          "best_single": 26,
+          "gain": 2,
+          "payoff": 1.077
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus1",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus1",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus2",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus2",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        }
+      ],
+      "missed_by_every_round3_review": [
+        "15-d2"
+      ],
+      "then_row": {
+        "caught": 23,
+        "vs": {
+          "opus1": {
+            "both": 20,
+            "then_only": [
+              "04-d3",
+              "11-d4",
+              "11-d5"
+            ],
+            "now_only": [
+              "04-d2",
+              "09-d2",
+              "11-d2"
+            ],
+            "phi": 0.4409937888198758
+          },
+          "opus2": {
+            "both": 19,
+            "then_only": [
+              "04-d3",
+              "11-d1",
+              "11-d4",
+              "11-d5"
+            ],
+            "now_only": [
+              "04-d2",
+              "09-d1",
+              "09-d2",
+              "11-d2"
+            ],
+            "phi": 0.2546583850931677
+          }
+        },
+        "missed_by_all_round3_caught_then": []
+      },
+      "defect_types": {
+        "api-misuse": 4,
+        "boundary": 5,
+        "concurrency": 3,
+        "logic": 6,
+        "performance": 4,
+        "security": 5,
+        "spec-violation": 3
+      }
+    },
+    "headers": {
+      "n_defects": 30,
+      "raters": {
+        "haiku1": {
+          "caught": 25,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "11-d4",
+            "11-d5",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 4,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 2,
+            "security": 4,
+            "spec-violation": 3
+          }
+        },
+        "haiku2": {
+          "caught": 26,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d1",
+            "08-d2",
+            "08-d3",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "11-d4",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 4,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 3,
+            "security": 4,
+            "spec-violation": 3
+          }
+        },
+        "sonnet1": {
+          "caught": 26,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "04-d3",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "11-d4",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 0,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 6,
+            "performance": 2,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "sonnet2": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 2,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 1,
+            "security": 4,
+            "spec-violation": 3
+          }
+        },
+        "opus1": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 2,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 1,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "opus2": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d2",
+            "11-d3",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 3,
+          "by_type": {
+            "api-misuse": 3,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 1,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "fable1": {
+          "caught": 27,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "04-d3",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "11-d4",
+            "11-d5",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 4,
+            "concurrency": 3,
+            "logic": 6,
+            "performance": 2,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "fable2": {
+          "caught": 25,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "11-d4",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 2,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 2,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "opus48_then": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d3",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "11-d4",
+            "11-d5",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 1,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 3,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 2,
+            "security": 4,
+            "spec-violation": 3
+          }
+        }
+      },
+      "same_tier_pairs": [
+        {
+          "a": "haiku1",
+          "b": "haiku2",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.6139406135149205
+        },
+        {
+          "a": "sonnet1",
+          "b": "sonnet2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "opus1",
+          "b": "opus2",
+          "union": 24,
+          "best_single": 23,
+          "gain": 1,
+          "phi": 0.8136645962732919
+        },
+        {
+          "a": "fable1",
+          "b": "fable2",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.7453559924999299
+        }
+      ],
+      "cross_tier_pairs": [
+        {
+          "a": "haiku1",
+          "b": "sonnet1",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.6139406135149205
+        },
+        {
+          "a": "haiku1",
+          "b": "sonnet2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        },
+        {
+          "a": "haiku2",
+          "b": "sonnet1",
+          "union": 28,
+          "best_single": 26,
+          "gain": 2,
+          "phi": 0.4230769230769231
+        },
+        {
+          "a": "haiku2",
+          "b": "sonnet2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "haiku1",
+          "b": "opus1",
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "phi": 0.5991712703227052
+        },
+        {
+          "a": "haiku1",
+          "b": "opus2",
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "phi": 0.5991712703227052
+        },
+        {
+          "a": "haiku2",
+          "b": "opus1",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.47913961749476935
+        },
+        {
+          "a": "haiku2",
+          "b": "opus2",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.47913961749476935
+        },
+        {
+          "a": "haiku1",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.7453559924999299
+        },
+        {
+          "a": "haiku1",
+          "b": "fable2",
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "phi": 0.76
+        },
+        {
+          "a": "haiku2",
+          "b": "fable1",
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "phi": 0.19611613513818404
+        },
+        {
+          "a": "haiku2",
+          "b": "fable2",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.6139406135149205
+        },
+        {
+          "a": "sonnet1",
+          "b": "opus1",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "sonnet1",
+          "b": "opus2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "sonnet2",
+          "b": "opus1",
+          "union": 24,
+          "best_single": 23,
+          "gain": 1,
+          "phi": 0.8136645962732919
+        },
+        {
+          "a": "sonnet2",
+          "b": "opus2",
+          "union": 24,
+          "best_single": 23,
+          "gain": 1,
+          "phi": 0.8136645962732919
+        },
+        {
+          "a": "sonnet1",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.8498365855987975
+        },
+        {
+          "a": "sonnet1",
+          "b": "fable2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.8770580193070292
+        },
+        {
+          "a": "sonnet2",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.6042179781166439
+        },
+        {
+          "a": "sonnet2",
+          "b": "fable2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        },
+        {
+          "a": "opus1",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.6042179781166439
+        },
+        {
+          "a": "opus1",
+          "b": "fable2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        },
+        {
+          "a": "opus2",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.6042179781166439
+        },
+        {
+          "a": "opus2",
+          "b": "fable2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        }
+      ],
+      "summary": {
+        "same_tier": {
+          "n_pairs": 4,
+          "mean_union": 26.0,
+          "mean_gain": 0.5,
+          "mean_phi": 0.7209856425459016
+        },
+        "cross_tier": {
+          "n_pairs": 24,
+          "mean_union": 26.25,
+          "mean_gain": 0.5416666666666666,
+          "mean_phi": 0.6688103259324863
+        }
+      },
+      "gain_difference_cross_minus_same": 0.04166666666666663,
+      "bootstrap": {
+        "boots": 10000,
+        "seed": 20261114,
+        "ci95": [
+          -0.5833333333333334,
+          0.6666666666666666
+        ],
+        "share_above_zero": 0.5888
+      },
+      "verdict_by_preregistered_rule": "a second look is just as good",
+      "four_tier_unions": [
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus1",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus1",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus2",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus2",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus1",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus1",
+            "fable2"
+          ],
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "payoff": 1.04
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus2",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus2",
+            "fable2"
+          ],
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "payoff": 1.04
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus1",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus1",
+            "fable2"
+          ],
+          "union": 28,
+          "best_single": 26,
+          "gain": 2,
+          "payoff": 1.077
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus2",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus2",
+            "fable2"
+          ],
+          "union": 28,
+          "best_single": 26,
+          "gain": 2,
+          "payoff": 1.077
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus1",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus1",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus2",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus2",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        }
+      ],
+      "missed_by_every_round3_review": [
+        "15-d2"
+      ],
+      "then_row": {
+        "caught": 23,
+        "vs": {
+          "opus1": {
+            "both": 20,
+            "then_only": [
+              "04-d3",
+              "11-d4",
+              "11-d5"
+            ],
+            "now_only": [
+              "04-d2",
+              "09-d2",
+              "11-d2"
+            ],
+            "phi": 0.4409937888198758
+          },
+          "opus2": {
+            "both": 19,
+            "then_only": [
+              "04-d3",
+              "11-d1",
+              "11-d4",
+              "11-d5"
+            ],
+            "now_only": [
+              "04-d2",
+              "09-d1",
+              "09-d2",
+              "11-d2"
+            ],
+            "phi": 0.2546583850931677
+          }
+        },
+        "missed_by_all_round3_caught_then": []
+      },
+      "defect_types": {
+        "api-misuse": 4,
+        "boundary": 5,
+        "concurrency": 3,
+        "logic": 6,
+        "performance": 4,
+        "security": 5,
+        "spec-violation": 3
+      }
+    },
+    "headers_described": {
+      "n_defects": 30,
+      "raters": {
+        "haiku1": {
+          "caught": 25,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "11-d4",
+            "11-d5",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 4,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 2,
+            "security": 4,
+            "spec-violation": 3
+          }
+        },
+        "haiku2": {
+          "caught": 26,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d1",
+            "08-d2",
+            "08-d3",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "11-d4",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 4,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 3,
+            "security": 4,
+            "spec-violation": 3
+          }
+        },
+        "sonnet1": {
+          "caught": 26,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "04-d3",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "11-d4",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 0,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 6,
+            "performance": 2,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "sonnet2": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 2,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 1,
+            "security": 4,
+            "spec-violation": 3
+          }
+        },
+        "opus1": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 2,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 1,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "opus2": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d2",
+            "11-d3",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 3,
+          "by_type": {
+            "api-misuse": 3,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 1,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "fable1": {
+          "caught": 27,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "04-d3",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "11-d4",
+            "11-d5",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 4,
+            "concurrency": 3,
+            "logic": 6,
+            "performance": 2,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "fable2": {
+          "caught": 25,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d2",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d1",
+            "09-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d2",
+            "11-d3",
+            "11-d4",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 0,
+          "candidates_defective": 2,
+          "by_type": {
+            "api-misuse": 4,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 2,
+            "security": 5,
+            "spec-violation": 3
+          }
+        },
+        "opus48_then": {
+          "caught": 23,
+          "caught_ids": [
+            "01-d1",
+            "01-d2",
+            "02-d1",
+            "02-d2",
+            "03-d1",
+            "04-d1",
+            "04-d3",
+            "05-d1",
+            "05-d2",
+            "06-d1",
+            "07-d1",
+            "08-d2",
+            "09-d3",
+            "10-d1",
+            "11-d1",
+            "11-d3",
+            "11-d4",
+            "11-d5",
+            "12-d1",
+            "13-d1",
+            "14-d1",
+            "15-d1",
+            "20-d1"
+          ],
+          "false_positives_clean": 1,
+          "candidates_defective": 1,
+          "by_type": {
+            "api-misuse": 3,
+            "boundary": 3,
+            "concurrency": 3,
+            "logic": 5,
+            "performance": 2,
+            "security": 4,
+            "spec-violation": 3
+          }
+        }
+      },
+      "same_tier_pairs": [
+        {
+          "a": "haiku1",
+          "b": "haiku2",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.6139406135149205
+        },
+        {
+          "a": "sonnet1",
+          "b": "sonnet2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "opus1",
+          "b": "opus2",
+          "union": 24,
+          "best_single": 23,
+          "gain": 1,
+          "phi": 0.8136645962732919
+        },
+        {
+          "a": "fable1",
+          "b": "fable2",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.7453559924999299
+        }
+      ],
+      "cross_tier_pairs": [
+        {
+          "a": "haiku1",
+          "b": "sonnet1",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.6139406135149205
+        },
+        {
+          "a": "haiku1",
+          "b": "sonnet2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        },
+        {
+          "a": "haiku2",
+          "b": "sonnet1",
+          "union": 28,
+          "best_single": 26,
+          "gain": 2,
+          "phi": 0.4230769230769231
+        },
+        {
+          "a": "haiku2",
+          "b": "sonnet2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "haiku1",
+          "b": "opus1",
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "phi": 0.5991712703227052
+        },
+        {
+          "a": "haiku1",
+          "b": "opus2",
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "phi": 0.5991712703227052
+        },
+        {
+          "a": "haiku2",
+          "b": "opus1",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.47913961749476935
+        },
+        {
+          "a": "haiku2",
+          "b": "opus2",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.47913961749476935
+        },
+        {
+          "a": "haiku1",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.7453559924999299
+        },
+        {
+          "a": "haiku1",
+          "b": "fable2",
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "phi": 0.76
+        },
+        {
+          "a": "haiku2",
+          "b": "fable1",
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "phi": 0.19611613513818404
+        },
+        {
+          "a": "haiku2",
+          "b": "fable2",
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "phi": 0.6139406135149205
+        },
+        {
+          "a": "sonnet1",
+          "b": "opus1",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "sonnet1",
+          "b": "opus2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.7109813678954643
+        },
+        {
+          "a": "sonnet2",
+          "b": "opus1",
+          "union": 24,
+          "best_single": 23,
+          "gain": 1,
+          "phi": 0.8136645962732919
+        },
+        {
+          "a": "sonnet2",
+          "b": "opus2",
+          "union": 24,
+          "best_single": 23,
+          "gain": 1,
+          "phi": 0.8136645962732919
+        },
+        {
+          "a": "sonnet1",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.8498365855987975
+        },
+        {
+          "a": "sonnet1",
+          "b": "fable2",
+          "union": 26,
+          "best_single": 26,
+          "gain": 0,
+          "phi": 0.8770580193070292
+        },
+        {
+          "a": "sonnet2",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.6042179781166439
+        },
+        {
+          "a": "sonnet2",
+          "b": "fable2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        },
+        {
+          "a": "opus1",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.6042179781166439
+        },
+        {
+          "a": "opus1",
+          "b": "fable2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        },
+        {
+          "a": "opus2",
+          "b": "fable1",
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "phi": 0.6042179781166439
+        },
+        {
+          "a": "opus2",
+          "b": "fable2",
+          "union": 25,
+          "best_single": 25,
+          "gain": 0,
+          "phi": 0.8106434833777776
+        }
+      ],
+      "summary": {
+        "same_tier": {
+          "n_pairs": 4,
+          "mean_union": 26.0,
+          "mean_gain": 0.5,
+          "mean_phi": 0.7209856425459016
+        },
+        "cross_tier": {
+          "n_pairs": 24,
+          "mean_union": 26.25,
+          "mean_gain": 0.5416666666666666,
+          "mean_phi": 0.6688103259324863
+        }
+      },
+      "gain_difference_cross_minus_same": 0.04166666666666663,
+      "bootstrap": {
+        "boots": 10000,
+        "seed": 20261114,
+        "ci95": [
+          -0.5833333333333334,
+          0.6666666666666666
+        ],
+        "share_above_zero": 0.5888
+      },
+      "verdict_by_preregistered_rule": "a second look is just as good",
+      "four_tier_unions": [
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus1",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus1",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus2",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet1",
+            "opus2",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus1",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus1",
+            "fable2"
+          ],
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "payoff": 1.04
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus2",
+            "fable1"
+          ],
+          "union": 27,
+          "best_single": 27,
+          "gain": 0,
+          "payoff": 1.0
+        },
+        {
+          "members": [
+            "haiku1",
+            "sonnet2",
+            "opus2",
+            "fable2"
+          ],
+          "union": 26,
+          "best_single": 25,
+          "gain": 1,
+          "payoff": 1.04
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus1",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus1",
+            "fable2"
+          ],
+          "union": 28,
+          "best_single": 26,
+          "gain": 2,
+          "payoff": 1.077
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus2",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet1",
+            "opus2",
+            "fable2"
+          ],
+          "union": 28,
+          "best_single": 26,
+          "gain": 2,
+          "payoff": 1.077
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus1",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus1",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus2",
+            "fable1"
+          ],
+          "union": 29,
+          "best_single": 27,
+          "gain": 2,
+          "payoff": 1.074
+        },
+        {
+          "members": [
+            "haiku2",
+            "sonnet2",
+            "opus2",
+            "fable2"
+          ],
+          "union": 27,
+          "best_single": 26,
+          "gain": 1,
+          "payoff": 1.038
+        }
+      ],
+      "missed_by_every_round3_review": [
+        "15-d2"
+      ],
+      "then_row": {
+        "caught": 23,
+        "vs": {
+          "opus1": {
+            "both": 20,
+            "then_only": [
+              "04-d3",
+              "11-d4",
+              "11-d5"
+            ],
+            "now_only": [
+              "04-d2",
+              "09-d2",
+              "11-d2"
+            ],
+            "phi": 0.4409937888198758
+          },
+          "opus2": {
+            "both": 19,
+            "then_only": [
+              "04-d3",
+              "11-d1",
+              "11-d4",
+              "11-d5"
+            ],
+            "now_only": [
+              "04-d2",
+              "09-d1",
+              "09-d2",
+              "11-d2"
+            ],
+            "phi": 0.2546583850931677
+          }
+        },
+        "missed_by_all_round3_caught_then": []
+      },
+      "defect_types": {
+        "api-misuse": 4,
+        "boundary": 5,
+        "concurrency": 3,
+        "logic": 6,
+        "performance": 4,
+        "security": 5,
+        "spec-violation": 3
+      }
+    }
+  }
+}

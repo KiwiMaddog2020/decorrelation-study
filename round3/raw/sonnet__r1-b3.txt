@@ -1,0 +1,14 @@
+=== SNIPPET 07 ===
+line 20 (get) | logic | get returns the value without calling move_to_end, so reads never refresh recency and the cache evicts by insertion/update order rather than least-recently-used, evicting hot entries.
+=== SNIPPET 04 ===
+line 23 (range(1, len(lines) - 1)) | boundary | The loop stops one line early, so the last data line is never yielded (and a single data row with no trailing newline is lost entirely).
+line 7 (_split_fields) | logic | Splitting on every comma ignores quoted fields, so cells containing commas are broken into extra columns and values are misaligned with the header.
+line 28 (dict(zip(header, cells))) | logic | zip silently truncates ragged or over-long rows, dropping extra cells and leaving short rows without keys instead of surfacing an error.
+=== SNIPPET 15 ===
+lines 19-24 (convert_all) | logic | The source value is rounded to whole minor units before the rate is applied and then rounded again, producing double rounding that can be off by a cent compared with converting first and rounding once.
+line 19 (Decimal(100)) | logic | A hard-coded factor of 100 assumes every currency has two minor-unit digits, so zero-decimal (e.g. JPY) and three-decimal (e.g. KWD) currencies yield wrong amounts.
+=== SNIPPET 01 ===
+lines 18-20 (dedupe_events) | logic | A later duplicate unconditionally replaces the earlier one without comparing ts, so the event kept is the last in input order rather than the most recent by ts, contradicting the docstring when input is unordered.
+lines 13, 18-19 (seen_keys list) | performance | Membership test and index on a list are O(n) per event, making the whole function O(n^2) on large ingestion batches; a dict keyed by tuple would avoid this.
+=== SNIPPET 19 ===
+NO DEFECTS FOUND

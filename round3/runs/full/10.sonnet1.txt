@@ -1,0 +1,3 @@
+Lines 25-27 | logic | The check compares the event's local date to the current UTC date and the current UTC time to close_time, so a past or future event is rejected based on when the code runs rather than on the event's own time, and it mixes UTC with local time.
+Line 25 | api-misuse | datetime.utcnow() returns a naive UTC datetime and is deprecated, and it is compared against a local date and wall-clock time in a different timezone.
+Lines 29-30 | boundary | The window ignores the tz-specific handling of DST edge cases only via astimezone, but open_time and close_time are naive and the close check at line 26 uses <= semantics inconsistent with the exclusive close bound at line 30.

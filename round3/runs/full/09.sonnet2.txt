@@ -1,0 +1,3 @@
+Lines 30-37 (allow: check outside lock) | concurrency | The availability check and the decrement of self.tokens happen after the lock is released, so concurrent callers can all see the same token count and each consume it, allowing more calls than the budget and letting tokens go negative.
+Lines 23-26 (_refill with int() truncation) | logic | Only whole minted tokens are counted and _last is reset to now, so the fractional elapsed time is discarded on each refill and frequent calls at a low rate never accrue tokens, making the effective rate lower than configured.
+Lines 17 and 21 (time.time()) | api-misuse | time.time() is a wall clock that can jump backwards or forwards, which corrupts elapsed time and refills; a monotonic clock should be used for interval measurement.

@@ -1,0 +1,1 @@
+chunks / ichunks (lines 19-20, 28-29) | contract | Because both functions are generators, the `if size < 1: raise ValueError` validation does not execute at call time but is deferred until the first iteration, so callers that build but do not yet consume the generator receive no error despite an invalid `size`.

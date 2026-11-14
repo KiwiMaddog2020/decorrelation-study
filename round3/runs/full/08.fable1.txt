@@ -1,0 +1,1 @@
+line 20 (bisect_left(ids, cursor)) | boundary | bisect_left returns the index of the cursor item itself, so the cursor is treated as inclusive and every page after the first repeats the last item of the previous page, violating the documented exclusive contract (bisect_right is needed).

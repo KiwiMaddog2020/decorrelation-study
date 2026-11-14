@@ -1,0 +1,2 @@
+lines 19-24 (convert_all) | logic | The source value is rounded to whole minor units before the rate is applied and then rounded again, producing double rounding that can be off by a cent compared with converting first and rounding once.
+line 19 (Decimal(100)) | logic | A hard-coded factor of 100 assumes every currency has two minor-unit digits, so zero-decimal (e.g. JPY) and three-decimal (e.g. KWD) currencies yield wrong amounts.

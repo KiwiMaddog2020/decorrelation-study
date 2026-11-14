@@ -1,0 +1,1 @@
+Lines 22 and 26, weighted_score() | logic | The weighted sum is divided by the count of contributing rows instead of the sum of their weights, so the result is not a weighted average and is wrong whenever weights are not all 1.
