@@ -60,6 +60,12 @@ The audit and review runners call the Gemini and Codex CLIs; the corpus, ground
 truth, and recorded reviews are all in the repo, so the scoring and metrics
 reproduce offline.
 
+## Checks
+
+```bash
+bash bin/check.sh   # runs make verify; set PYTHON=/path/to/python to choose an interpreter
+```
+
 ## The discipline
 
 Planted defects were audited by Gemini for fairness and completeness before any
@@ -75,3 +81,7 @@ Rather than fake it, the study reframes H3 as a measurement lesson and a better
 experiment, where a human and the models evaluate real product flows, designed in
 [`docs/FOLLOWUP_human_product_decorrelation.md`](docs/FOLLOWUP_human_product_decorrelation.md).
 The model-only results (H1/H2/H5) stand as the pilot.
+
+## License
+
+Code is MIT licensed (see LICENSE); the prose is the author's.
