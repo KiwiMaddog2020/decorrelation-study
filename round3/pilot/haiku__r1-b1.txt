@@ -1,0 +1,18 @@
+=== SNIPPET 09 ===
+allow(), line 35 | concurrency | The lock is released before the token check and decrement, so two threads can both see one token available and both consume it, letting the bucket exceed its limit and drive tokens negative.
+_refill(), lines 23-26 | logic | int() truncates fractional accrual and then resets _last, so partial tokens are discarded and non-integer rates such as 1.5/s refill slower than configured.
+_refill(), line 21 | other | time.time() is wall-clock time; a backward clock adjustment makes elapsed negative and stalls refill until the clock catches up, where time.monotonic() is the correct clock.
+
+=== SNIPPET 10 ===
+within_business_hours(), lines 25-27 | logic | The early-close check compares the current UTC time of day against the local close time and ignores ts, so an event earlier today (for example 10:00 local) returns False whenever the UTC clock is past 17:00.
+within_business_hours(), line 25 | api-misuse | datetime.utcnow() returns a naive value and is deprecated since Python 3.12; the check is redundant with the window test on line 30, so it should be removed rather than fixed.
+
+=== SNIPPET 02 ===
+get_token(), line 21 | api-misuse | datetime.utcnow() is naive but _expires_at is timezone-aware, so the comparison raises TypeError on every call and the token can never be returned.
+get_token(), lines 21-22 | concurrency | The expiry check runs before the lock is taken, so several threads can all see an expired token and each request a new one; the check needs to be repeated inside the lock.
+
+=== SNIPPET 12 ===
+weighted_score(), line 26 | logic | The divisor is the count of contributing rows instead of the sum of their weights, so the result is not a weighted average (a row with weight 2 counts the same as weight 1, and a score of 10 at weight 2 can push the result above the score range).
+
+=== SNIPPET 06 ===
+line_total(), line 31 | spec-violation | Uses ROUND_HALF_UP, but the docstring (lines 16-18) says bankers rounding (round half to even) is applied to the final cent; results differ on exact half-cent ties, which breaks the stated consistency with the accounting system.

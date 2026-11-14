@@ -1,0 +1,12 @@
+=== SNIPPET 07 ===
+45-49 | logic | get() never calls move_to_end, so reads do not refresh recency and a frequently read entry can still be evicted as least-recently-used.
+=== SNIPPET 04 ===
+90 | boundary | range(1, len(lines) - 1) skips the final line, so a file without a trailing newline silently loses its last data row.
+74 | spec-violation | Splitting on every comma ignores CSV quoting, so quoted fields containing commas are mis-split into extra cells.
+=== SNIPPET 15 ===
+116-118 | logic | The source amount is rounded to whole cents before the rate is applied, contrary to the docstring's convert-then-round, so sub-cent precision is lost and results can differ by a cent.
+=== SNIPPET 01 ===
+143-145 | logic | A repeated (user_id, kind) replaces the earlier event regardless of ts, so the kept row is the last one in input order, not the most recent by ts as documented.
+143-144 | performance | seen_keys is a list, so each membership test and index() call is linear, making deduplication O(n^2) on large event streams.
+=== SNIPPET 19 ===
+NO DEFECTS FOUND

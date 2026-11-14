@@ -3,13 +3,16 @@
 
 Usage: python3 round3/build_prompts.py --out DIR [--seed 20261114]
 
-Writes DIR/prompts/r{1,2}-b{1..4}.txt and DIR/manifest.json. Each prompt holds
-the per-snippet instructions from protocol/review_prompt.txt verbatim, a short
-batch wrapper, and five snippets exactly as they are in corpus/snippets.
+Writes DIR/prompts/r{1,2}-b{1..4}.txt, DIR/files/snippet-NN.txt and
+DIR/manifest.json. Each prompt holds the per-snippet instructions from
+protocol/review_prompt.txt verbatim and a short batch wrapper that points at
+five snippet files. Each snippet file is the snippet exactly as it is in
+corpus/snippets, on its own, so the line numbers a file viewer shows are the
+snippet's own line numbers (see the amendment in PRE_REGISTRATION_R3.md).
 Nothing here calls a model. Stdlib only.
 """
 from __future__ import annotations
-import argparse, hashlib, json, pathlib, random, sys
+import argparse, json, pathlib, random, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 IDS = [f"{i:02d}" for i in range(1, 21)]
@@ -27,17 +30,21 @@ MARKER = "--- SNIPPET ---"
 
 WRAPPER = """\
 
-This message contains {n} independent snippets instead of one. Apply the
-instructions above to each snippet on its own:
-- Review each snippet separately. They are unrelated to each other.
-- Line numbers restart at 1 for each snippet.
-- Answer from the text only. Do not run code and do not use any tools.
+This task has {n} independent snippets instead of one. Each snippet is in its
+own file, listed below. Apply the instructions above to each snippet on its own:
+- Read each listed file once. Review each snippet separately. They are
+  unrelated to each other.
+- Line numbers restart at 1 for each snippet: line 1 is the first line of its
+  file.
+- Answer from the text only. Do not run code and do not use any tools other
+  than reading the listed files.
 - Reply with exactly one section per snippet, in any order. Each section starts
   with a line of the form `=== SNIPPET <ID> ===`, followed either by defect lines
   in the form `LOCATION | TYPE | DESCRIPTION` or by the exact line
   `NO DEFECTS FOUND`. Write nothing else.
 
-The snippets are: {ids}.
+The snippets are:
+{files}
 """
 
 
@@ -67,30 +74,32 @@ def partitions(seed: int) -> dict[int, list[list[str]]]:
     return out
 
 
-def build_prompt(batch: list[str]) -> str:
-    parts = [instructions().rstrip("\n") + "\n",
-             WRAPPER.format(n=len(batch), ids=", ".join(batch))]
-    for sid in batch:
-        code = (ROOT / "corpus" / "snippets" / f"{sid}.py").read_text()
-        if not code.endswith("\n"):
-            code += "\n"
-        parts.append(f"\n=== SNIPPET {sid} ===\n{code}")
-    return "".join(parts)
+def snippet_rel(sid: str) -> str:
+    return f"files/snippet-{sid}.txt"
+
+
+def build_prompt(batch: list[str], out: pathlib.Path) -> str:
+    files = "\n".join(f"- SNIPPET {sid}: {(out / snippet_rel(sid)).resolve()}" for sid in batch)
+    return instructions().rstrip("\n") + "\n" + WRAPPER.format(n=len(batch), files=files)
 
 
 def build(out: pathlib.Path, seed: int = DEFAULT_SEED) -> dict:
     (out / "prompts").mkdir(parents=True, exist_ok=True)
     (out / "raw").mkdir(parents=True, exist_ok=True)
+    (out / "files").mkdir(parents=True, exist_ok=True)
+    for sid in IDS:
+        code = (ROOT / "corpus" / "snippets" / f"{sid}.py").read_text()
+        (out / snippet_rel(sid)).write_text(code)
     calls, prompts = [], []
     for rev, batches in partitions(seed).items():
         for b, batch in enumerate(batches, 1):
             call_id = f"r{rev}-b{b}"
             rel = f"prompts/{call_id}.txt"
-            text = build_prompt(batch)
+            text = build_prompt(batch, out)
             (out / rel).write_text(text)
             prompts.append({"call_id": call_id, "review": rev, "batch": b,
                             "prompt_path": rel, "snippet_ids": batch,
-                            "sha256": hashlib.sha256(text.encode()).hexdigest()})
+                            "snippet_paths": [snippet_rel(x) for x in batch]})
     for tier, model in TIERS.items():
         for p in prompts:
             calls.append({

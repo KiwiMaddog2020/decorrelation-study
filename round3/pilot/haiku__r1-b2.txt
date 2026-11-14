@@ -1,0 +1,21 @@
+=== SNIPPET 17 ===
+49 | api-misuse | The size check sits inside a generator function, so chunks(seq, 0) raises nothing at the call and the ValueError only appears on first iteration, far from the bad call.
+58 | api-misuse | Same deferred validation in ichunks: the ValueError for size < 1 is raised only when iteration starts, not at the call.
+=== SNIPPET 13 ===
+96 | logic | "admin" in granted is a substring test on the space-joined role string, so roles such as "superadmin" or "admin_readonly" wrongly grant full access.
+99 | logic | required_role in granted is also substring matching on the joined string, so "edit" matches "copy-editor", and an empty required_role always matches.
+=== SNIPPET 11 ===
+121 | boundary | When minconn exceeds maxconn, the constructor still opens minconn connections, so the pool can start above its stated cap.
+126 | logic | Idle connections are handed out without a liveness check, so a connection the server has dropped is returned as usable and fails on first use.
+128 | performance | psycopg2.connect runs while self._lock is held, so a slow or unreachable database blocks every other thread's acquire and release.
+139 | security | release() returns connections to the idle list without resetting session state, so a search_path set by set_active_tenant (line 143) persists and the next caller can read another tenant's schema.
+139 | logic | release() does not roll back, so a transaction left open by one caller is handed to the next caller.
+143 | security | The tenant value is interpolated into SQL with % formatting instead of psycopg2.sql identifiers, so a crafted tenant string injects SQL.
+=== SNIPPET 14 ===
+176 | logic | The fingerprint omits the query string (request.path excludes it), so requests differing only in query parameters share a key and the second receives the first's stored result.
+177 | logic | get_json(silent=True) or {} maps every non-JSON body and every falsy JSON body ([], 0, "") to the same empty fingerprint, so different requests can collide.
+181 | logic | Derived keys use the prefix "auto-", which a client can also send as an explicit header, so a chosen key can collide with and reuse another request's stored result.
+=== SNIPPET 20 ===
+201 | security | os.path.abspath does not resolve symlinks, so a symlink inside base that points outside passes the check and the path escapes the base.
+215 | spec-violation | The docstring promises a symlink-resolved real path and rejection of symlinks that escape the base, but the code never calls realpath, so the contract is not met.
+215 | concurrency | The path is validated and then returned for later use, so a symlink swapped in between the check and the open can escape the base.

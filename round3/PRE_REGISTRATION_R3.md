@@ -108,3 +108,23 @@ mode decides.
   use; any review with tool use is reported and rerun in a fresh session.
 - Model ids are as requested; the served model may differ and is recorded when
   known.
+
+## Amendment 1 (2026-11-14, before any scored data)
+
+The first three calls (one tier, three batches of review 1) showed a harness
+problem, not a model result. Helper sessions read the prompt from a file, and
+the file viewer numbers lines from the top of the file, so reviewers reported
+locations such as "line 143" for a snippet that was pasted partway down the
+prompt. The scorer matches on line numbers, so this would have depressed every
+score for a reason unrelated to review quality.
+
+Fix: each snippet now sits alone in its own file, byte for byte as in the
+corpus, and the prompt lists the five files. Line 1 of the file is line 1 of the
+snippet. Everything else is unchanged: same batches, same seed, same
+instructions, same reply format.
+
+The three pilot answers were set aside unscored (kept under `round3/pilot/` for
+the record) and those calls are rerun in fresh sessions with the fixed prompts.
+No answer was scored before this amendment. One consequence to keep in mind for
+the then row: in round 1 the reviewer counted lines itself, while here the file
+viewer shows them, so line locations may be more exact now than then.

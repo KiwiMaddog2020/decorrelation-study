@@ -1,7 +1,7 @@
 """Round 3 tooling: prompt builder, ingest and analysis. Everything is written
 under pytest's tmp_path; nothing is written inside the repo."""
 from __future__ import annotations
-import json, re
+import json, pathlib, re
 
 import pytest
 
@@ -34,8 +34,10 @@ def test_build_is_deterministic(bp, tmp_path):
     b = bp.build(tmp_path / "b")
     assert a == b
     for p in a["prompts"]:
-        assert (tmp_path / "a" / p["prompt_path"]).read_text() == \
-            (tmp_path / "b" / p["prompt_path"]).read_text()
+        # Same text apart from the run folder the snippet paths point into.
+        ta = (tmp_path / "a" / p["prompt_path"]).read_text().replace(str(tmp_path / "a"), "RUN")
+        tb = (tmp_path / "b" / p["prompt_path"]).read_text().replace(str(tmp_path / "b"), "RUN")
+        assert ta == tb
     assert bp.build(tmp_path / "c", seed=7)["prompts"] != a["prompts"]
 
 
@@ -76,12 +78,14 @@ def test_prompt_content(bp, tmp_path):
         assert text.startswith(instr.rstrip("\n") + "\n")
         assert "--- SNIPPET ---" not in text and "{{SNIPPET}}" not in text
         assert "NO DEFECTS FOUND" in text and "Line numbers restart at 1" in text
-        assert "do not use any tools" in text
-        heads = re.findall(r"^=== SNIPPET (\d\d) ===$", text, re.M)
-        assert heads == p["snippet_ids"]
-        for sid in p["snippet_ids"]:
+        assert "do not use any tools other" in text
+        listed = re.findall(r"^- SNIPPET (\d\d): (.+)$", text, re.M)
+        assert [sid for sid, _ in listed] == p["snippet_ids"]
+        for sid, path in listed:
+            # Each snippet sits alone in its own file, byte for byte, so the
+            # line numbers a file viewer shows are the snippet's own.
             code = (ROOT / "corpus" / "snippets" / f"{sid}.py").read_text()
-            assert f"=== SNIPPET {sid} ===\n{code}" in text
+            assert pathlib.Path(path).read_text() == code
 
 
 ALWAYS = ["planted", "truth", "decorrelat", "answer key", "kiwimaddog", "github",
@@ -96,8 +100,8 @@ def test_prompt_has_no_leaks(bp, tmp_path, word):
     m = bp.build(tmp_path)
     for p in m["prompts"]:
         text = (tmp_path / p["prompt_path"]).read_text().lower()
-        if word not in ALWAYS:
-            text = text.split("=== snippet", 1)[0]
+        # File paths depend on where the run folder is, so check the wording only.
+        text = "\n".join(l for l in text.splitlines() if not l.startswith("- snippet "))
         assert word not in text
 
 

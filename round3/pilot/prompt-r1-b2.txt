@@ -1,0 +1,215 @@
+You are reviewing a single, self-contained code snippet for defects.
+
+Report every defect you find. For each one, give exactly:
+- LOCATION: the line number or the function/expression where the defect lives.
+- TYPE: one of [logic, security, concurrency, boundary, api-misuse, performance, spec-violation, other].
+- DESCRIPTION: one sentence stating what is actually wrong and why it matters.
+
+Rules:
+- Report defects only. Do NOT rewrite or fix the code.
+- If you find no defects, respond with exactly: NO DEFECTS FOUND.
+- Judge only the snippet as given. Do not assume callers sanitize inputs unless the snippet shows it.
+- Do not pad the list with style nitpicks; report genuine defects (correctness, security, resource, contract).
+
+Output one defect per line in the form:
+LOCATION | TYPE | DESCRIPTION
+
+This message contains 5 independent snippets instead of one. Apply the
+instructions above to each snippet on its own:
+- Review each snippet separately. They are unrelated to each other.
+- Line numbers restart at 1 for each snippet.
+- Answer from the text only. Do not run code and do not use any tools.
+- Reply with exactly one section per snippet, in any order. Each section starts
+  with a line of the form `=== SNIPPET <ID> ===`, followed either by defect lines
+  in the form `LOCATION | TYPE | DESCRIPTION` or by the exact line
+  `NO DEFECTS FOUND`. Write nothing else.
+
+The snippets are: 17, 13, 11, 14, 20.
+
+=== SNIPPET 17 ===
+"""Utilities for splitting sequences into fixed-size batches."""
+
+from itertools import islice
+from typing import Iterable, Iterator, List, Sequence, TypeVar
+
+T = TypeVar("T")
+
+
+def chunks(seq: Sequence[T], size: int) -> Iterator[List[T]]:
+    """Yield successive ``size``-length chunks from ``seq``.
+
+    The final chunk may contain fewer than ``size`` elements when
+    ``len(seq)`` is not an exact multiple of ``size``. ``size`` must be a
+    positive integer.
+
+    >>> list(chunks([1, 2, 3, 4, 5], 2))
+    [[1, 2], [3, 4], [5]]
+    """
+    if size < 1:
+        raise ValueError("size must be at least 1")
+
+    for start in range(0, len(seq), size):
+        yield list(seq[start:start + size])
+
+
+def ichunks(iterable: Iterable[T], size: int) -> Iterator[List[T]]:
+    """Like :func:`chunks` but accepts any iterable, consuming it lazily."""
+    if size < 1:
+        raise ValueError("size must be at least 1")
+
+    it = iter(iterable)
+    while True:
+        batch = list(islice(it, size))
+        if not batch:
+            return
+        yield batch
+
+=== SNIPPET 13 ===
+from dataclasses import dataclass, field
+from typing import List
+
+
+@dataclass
+class User:
+    username: str
+    roles: List[str] = field(default_factory=list)
+
+
+@dataclass
+class Resource:
+    owner: str
+    required_role: str
+
+
+def can_access(user, resource):
+    """Decide whether ``user`` may access ``resource``.
+
+    Owners always have access to their own resources. Otherwise the user must
+    hold the role required by the resource. A user with the ``admin`` role may
+    access any resource.
+    """
+    if resource.owner == user.username:
+        return True
+
+    granted = " ".join(user.roles)
+
+    if "admin" in granted:
+        return True
+
+    return resource.required_role in granted
+
+=== SNIPPET 11 ===
+import logging
+import threading
+from contextlib import contextmanager
+
+import psycopg2
+
+log = logging.getLogger(__name__)
+
+
+class Pool:
+    """A small thread-safe pool of PostgreSQL connections."""
+
+    def __init__(self, dsn, minconn=2, maxconn=10):
+        self.dsn = dsn
+        self.maxconn = maxconn
+        self._idle = []
+        self._in_use = set()
+        self._lock = threading.Lock()
+        for _ in range(minconn):
+            self._idle.append(psycopg2.connect(dsn))
+
+    def acquire(self):
+        with self._lock:
+            if self._idle:
+                conn = self._idle.pop()
+            elif len(self._in_use) < self.maxconn:
+                conn = psycopg2.connect(self.dsn)
+            else:
+                raise RuntimeError("connection pool exhausted")
+            self._in_use.add(conn)
+            return conn
+
+    def release(self, conn):
+        with self._lock:
+            self._in_use.discard(conn)
+            if conn.closed:
+                return
+            self._idle.append(conn)
+
+    def set_active_tenant(self, conn, tenant):
+        with conn.cursor() as cur:
+            cur.execute("SET search_path TO tenant_%s, public" % tenant)
+
+    @contextmanager
+    def connection(self):
+        conn = self.acquire()
+        try:
+            yield conn
+        finally:
+            self.release(conn)
+
+=== SNIPPET 14 ===
+import hashlib
+import json
+
+from .errors import IdempotencyError
+
+
+def idempotency_key(request):
+    """Derive a stable key so a retried request is not processed twice.
+
+    The client may supply an explicit Idempotency-Key header; otherwise we
+    fall back to a deterministic fingerprint of the request so that an
+    accidental retry of the same operation maps to the same stored result.
+    """
+    explicit = request.headers.get("Idempotency-Key")
+    if explicit:
+        explicit = explicit.strip()
+        if len(explicit) < 8 or len(explicit) > 255:
+            raise IdempotencyError("Idempotency-Key must be 8-255 characters")
+        return explicit
+
+    fingerprint = {
+        "method": request.method.upper(),
+        "path": request.path,
+        "body": request.get_json(silent=True) or {},
+    }
+    canonical = json.dumps(fingerprint, sort_keys=True, separators=(",", ":"))
+    digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+    return "auto-" + digest
+
+=== SNIPPET 20 ===
+import os
+
+
+class PathTraversalError(ValueError):
+    """Raised when a joined path would escape the configured base directory."""
+
+
+def safe_join(base, *parts):
+    """Join ``parts`` beneath ``base`` and reject any result that escapes it.
+
+    The returned path is always an absolute, real (symlink-resolved) path
+    located inside ``base``. Attempts to traverse outside the base, whether
+    via ``..`` segments, absolute components, or a symlink that resolves
+    outside it, raise PathTraversalError.
+    """
+    base_root = os.path.abspath(base)
+
+    candidate = os.path.abspath(os.path.join(base_root, *parts))
+
+    # Compare against the base with a trailing separator so that a sibling
+    # directory sharing a name prefix (e.g. "/srv/data-evil" vs "/srv/data")
+    # is not mistaken for a path inside the base.
+    base_prefix = base_root
+    if not base_prefix.endswith(os.sep):
+        base_prefix += os.sep
+
+    if candidate != base_root and not candidate.startswith(base_prefix):
+        raise PathTraversalError(
+            "refusing to access {!r}: outside base {!r}".format(candidate, base_root)
+        )
+
+    return candidate

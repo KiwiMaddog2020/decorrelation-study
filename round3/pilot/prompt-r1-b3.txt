@@ -1,0 +1,171 @@
+You are reviewing a single, self-contained code snippet for defects.
+
+Report every defect you find. For each one, give exactly:
+- LOCATION: the line number or the function/expression where the defect lives.
+- TYPE: one of [logic, security, concurrency, boundary, api-misuse, performance, spec-violation, other].
+- DESCRIPTION: one sentence stating what is actually wrong and why it matters.
+
+Rules:
+- Report defects only. Do NOT rewrite or fix the code.
+- If you find no defects, respond with exactly: NO DEFECTS FOUND.
+- Judge only the snippet as given. Do not assume callers sanitize inputs unless the snippet shows it.
+- Do not pad the list with style nitpicks; report genuine defects (correctness, security, resource, contract).
+
+Output one defect per line in the form:
+LOCATION | TYPE | DESCRIPTION
+
+This message contains 5 independent snippets instead of one. Apply the
+instructions above to each snippet on its own:
+- Review each snippet separately. They are unrelated to each other.
+- Line numbers restart at 1 for each snippet.
+- Answer from the text only. Do not run code and do not use any tools.
+- Reply with exactly one section per snippet, in any order. Each section starts
+  with a line of the form `=== SNIPPET <ID> ===`, followed either by defect lines
+  in the form `LOCATION | TYPE | DESCRIPTION` or by the exact line
+  `NO DEFECTS FOUND`. Write nothing else.
+
+The snippets are: 07, 04, 15, 01, 19.
+
+=== SNIPPET 07 ===
+"""A small in-process LRU cache used by the metadata resolver layer."""
+
+from collections import OrderedDict
+from typing import Any, Hashable, Optional
+
+
+class LRUCache:
+    """Fixed-capacity cache that evicts the least-recently-used entry."""
+
+    def __init__(self, capacity: int) -> None:
+        if capacity <= 0:
+            raise ValueError("capacity must be a positive integer")
+        self.capacity = capacity
+        self._store: "OrderedDict[Hashable, Any]" = OrderedDict()
+
+    def get(self, key: Hashable) -> Optional[Any]:
+        """Return the value for key, or None if it is not cached."""
+        if key not in self._store:
+            return None
+        return self._store[key]
+
+    def put(self, key: Hashable, value: Any) -> None:
+        """Insert or update key, evicting the oldest entry on overflow."""
+        if key in self._store:
+            # Refresh position so an updated key counts as recently touched.
+            self._store.move_to_end(key)
+        self._store[key] = value
+        if len(self._store) > self.capacity:
+            evicted_key, _ = self._store.popitem(last=False)
+            self._on_evict(evicted_key)
+
+    def _on_evict(self, key: Hashable) -> None:
+        """Hook for subclasses to observe evictions; no-op by default."""
+
+    def __len__(self) -> int:
+        return len(self._store)
+
+=== SNIPPET 04 ===
+"""Lightweight CSV parsing helpers for ingesting uploaded spreadsheets."""
+
+from typing import Dict, Iterator, List
+
+
+def _split_fields(line: str) -> List[str]:
+    return [field.strip() for field in line.split(",")]
+
+
+def parse_rows(text: str) -> Iterator[Dict[str, str]]:
+    """Parse CSV ``text`` into dict rows keyed by the header line.
+
+    The first physical line is treated as the header. Each subsequent line
+    becomes one dict mapping header names to cell values. Lines are zipped
+    against the header so that ragged short rows still produce a dict.
+    """
+    lines = text.split("\n")
+    if not lines:
+        return
+
+    header = _split_fields(lines[0])
+
+    for i in range(1, len(lines) - 1):
+        row = lines[i]
+        if not row.strip():
+            continue
+        cells = _split_fields(row)
+        yield dict(zip(header, cells))
+
+=== SNIPPET 15 ===
+"""Currency conversion helpers for the billing pipeline."""
+
+from decimal import Decimal, ROUND_HALF_UP
+
+MINOR_UNIT_QUANTUM = Decimal("1")
+
+
+def convert_all(amounts, get_rate):
+    """Convert a list of amounts to integer minor units in the target currency.
+
+    Each amount is converted at its source currency's rate, then rounded to
+    whole minor units (cents). Returns a list of ints aligned with ``amounts``.
+    """
+    results = []
+    for amount in amounts:
+        value = Decimal(str(amount["value"]))
+        currency = amount["currency"]
+        rate = Decimal(str(get_rate(currency)))
+        minor = (value * Decimal(100)).quantize(
+            MINOR_UNIT_QUANTUM, rounding=ROUND_HALF_UP
+        )
+        converted = (minor * rate).quantize(
+            MINOR_UNIT_QUANTUM, rounding=ROUND_HALF_UP
+        )
+        results.append(int(converted))
+    return results
+
+=== SNIPPET 01 ===
+"""Event deduplication for the analytics ingestion pipeline."""
+
+from typing import Any, Dict, List
+
+
+def dedupe_events(events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Collapse events to one row per (user_id, kind).
+
+    When the same (user_id, kind) pair appears more than once we keep the
+    most recent occurrence, identified by the integer ``ts`` field. The
+    relative order of the surviving events is not significant downstream.
+    """
+    seen_keys: List[tuple] = []
+    deduped: List[Dict[str, Any]] = []
+
+    for event in events:
+        key = (event["user_id"], event["kind"])
+        if key in seen_keys:
+            position = seen_keys.index(key)
+            deduped[position] = event
+        else:
+            seen_keys.append(key)
+            deduped.append(event)
+
+    return deduped
+
+=== SNIPPET 19 ===
+"""Utilities for ordering directory records for display."""
+
+from typing import List, Mapping, Sequence
+
+
+def sort_people(people: Sequence[Mapping[str, str]]) -> List[Mapping[str, str]]:
+    """Return people stably sorted by (last_name, first_name).
+
+    Comparison is case-insensitive on both keys. The input is not mutated;
+    a new list is returned. Records that compare equal retain their original
+    relative order.
+    """
+
+    def sort_key(person: Mapping[str, str]):
+        last = person.get("last_name", "")
+        first = person.get("first_name", "")
+        return (last.casefold(), first.casefold())
+
+    return sorted(people, key=sort_key)

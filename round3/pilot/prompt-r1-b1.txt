@@ -1,0 +1,198 @@
+You are reviewing a single, self-contained code snippet for defects.
+
+Report every defect you find. For each one, give exactly:
+- LOCATION: the line number or the function/expression where the defect lives.
+- TYPE: one of [logic, security, concurrency, boundary, api-misuse, performance, spec-violation, other].
+- DESCRIPTION: one sentence stating what is actually wrong and why it matters.
+
+Rules:
+- Report defects only. Do NOT rewrite or fix the code.
+- If you find no defects, respond with exactly: NO DEFECTS FOUND.
+- Judge only the snippet as given. Do not assume callers sanitize inputs unless the snippet shows it.
+- Do not pad the list with style nitpicks; report genuine defects (correctness, security, resource, contract).
+
+Output one defect per line in the form:
+LOCATION | TYPE | DESCRIPTION
+
+This message contains 5 independent snippets instead of one. Apply the
+instructions above to each snippet on its own:
+- Review each snippet separately. They are unrelated to each other.
+- Line numbers restart at 1 for each snippet.
+- Answer from the text only. Do not run code and do not use any tools.
+- Reply with exactly one section per snippet, in any order. Each section starts
+  with a line of the form `=== SNIPPET <ID> ===`, followed either by defect lines
+  in the form `LOCATION | TYPE | DESCRIPTION` or by the exact line
+  `NO DEFECTS FOUND`. Write nothing else.
+
+The snippets are: 09, 10, 02, 12, 06.
+
+=== SNIPPET 09 ===
+import time
+import threading
+
+
+class RateLimiter:
+    """Token-bucket rate limiter.
+
+    Tokens accrue at ``rate`` per second up to ``capacity`` and each
+    ``allow()`` consumes one token. Calls beyond the available token
+    budget are rejected so callers can shed or retry load.
+    """
+
+    def __init__(self, rate, capacity):
+        self.rate = rate
+        self.capacity = capacity
+        self.tokens = capacity
+        self._last = time.time()
+        self._lock = threading.Lock()
+
+    def _refill(self):
+        now = time.time()
+        elapsed = now - self._last
+        minted = int(elapsed * self.rate)
+        if minted > 0:
+            self.tokens = min(self.capacity, self.tokens + minted)
+            self._last = now
+
+    def allow(self):
+        """Return True if a token is available and consume it."""
+        with self._lock:
+            self._refill()
+            available = self.tokens
+
+        if available >= 1:
+            self.tokens -= 1
+            return True
+        return False
+
+=== SNIPPET 10 ===
+"""Business-hours gating for scheduled notification delivery."""
+
+from datetime import datetime, time
+from zoneinfo import ZoneInfo
+
+DEFAULT_TZ = ZoneInfo("America/Toronto")
+OPEN_TIME = time(9, 0)
+CLOSE_TIME = time(17, 0)
+BUSINESS_DAYS = frozenset({0, 1, 2, 3, 4})
+
+
+def within_business_hours(ts, tz=DEFAULT_TZ, open_time=OPEN_TIME, close_time=CLOSE_TIME):
+    """Return True if ``ts`` falls inside the configured business window.
+
+    ``ts`` is the UTC instant of the event. The window is evaluated in the
+    business's local timezone so that 9-to-5 means local wall-clock time.
+    """
+    if ts.tzinfo is None:
+        ts = ts.replace(tzinfo=ZoneInfo("UTC"))
+
+    local = ts.astimezone(tz)
+    if local.weekday() not in BUSINESS_DAYS:
+        return False
+
+    now = datetime.utcnow()
+    if local.date() == now.date() and now.time() > close_time:
+        return False
+
+    local_t = local.time()
+    return open_time <= local_t < close_time
+
+=== SNIPPET 02 ===
+import threading
+from datetime import datetime, timedelta, timezone
+
+import requests
+
+
+class AuthSession:
+    """Holds an OAuth access token and refreshes it before it expires."""
+
+    REFRESH_WINDOW = timedelta(seconds=60)
+
+    def __init__(self, token_url, client_id, client_secret):
+        self._token_url = token_url
+        self._client_id = client_id
+        self._client_secret = client_secret
+        self._lock = threading.Lock()
+        self._access_token = None
+        self._expires_at = datetime.now(timezone.utc)
+
+    def get_token(self):
+        if datetime.utcnow() >= self._expires_at - self.REFRESH_WINDOW:
+            with self._lock:
+                resp = requests.post(
+                    self._token_url,
+                    data={
+                        "grant_type": "client_credentials",
+                        "client_id": self._client_id,
+                        "client_secret": self._client_secret,
+                    },
+                    timeout=10,
+                )
+                resp.raise_for_status()
+                payload = resp.json()
+                self._access_token = payload["access_token"]
+                lifetime = timedelta(seconds=payload["expires_in"])
+                self._expires_at = datetime.now(timezone.utc) + lifetime
+        return self._access_token
+
+=== SNIPPET 12 ===
+"""Aggregation helpers for survey and rubric scoring."""
+
+from numbers import Real
+from typing import Iterable, Mapping
+
+
+def weighted_score(rows: Iterable[Mapping[str, Real]]) -> float:
+    """Return the weighted average score across the given rows.
+
+    Each row is a mapping with a numeric ``score`` and a non-negative
+    ``weight``. Rows whose weight is zero contribute nothing and are
+    skipped so they do not drag the denominator. Returns ``0.0`` when no
+    contributing rows are present.
+    """
+    total = 0.0
+    contributing = 0
+    for row in rows:
+        weight = row["weight"]
+        if weight <= 0:
+            continue
+        total += row["score"] * weight
+        contributing += 1
+
+    if contributing == 0:
+        return 0.0
+    return total / contributing
+
+=== SNIPPET 06 ===
+"""Money helpers for the checkout pipeline.
+
+All amounts are integer cents to avoid floating-point drift in
+ledgers. Tax is applied per line so that downstream rounding matches
+what the customer sees on the printed receipt.
+"""
+
+from decimal import Decimal, ROUND_HALF_UP
+
+
+def line_total(qty: int, unit_cents: int, tax_rate: Decimal) -> int:
+    """Return the line total in integer cents, tax included.
+
+    The pre-tax subtotal is always an exact integer number of cents, so
+    only the tax component needs rounding. We use bankers rounding
+    (round half to even) on the final cent to stay consistent with the
+    accounting system's half-to-even convention and keep large batches
+    statistically balanced.
+
+    Args:
+        qty: number of units ordered.
+        unit_cents: price per unit, in whole cents.
+        tax_rate: fractional tax rate, e.g. Decimal("0.08875").
+
+    Returns:
+        Total cents (subtotal plus tax) as an int.
+    """
+    subtotal = qty * unit_cents
+    tax = Decimal(subtotal) * tax_rate
+    taxed_total = Decimal(subtotal) + tax
+    return int(taxed_total.quantize(Decimal("1"), rounding=ROUND_HALF_UP))
