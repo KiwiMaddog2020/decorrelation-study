@@ -17,6 +17,20 @@ import json, os, re, sys, pathlib
 # to the matching rule -- never as the canonical scorer.
 _STEM = os.environ.get("SCORE_STEM", "0") == "1"
 
+# Opt-in stricter modes, off by default so the published numbers reproduce.
+# SCORE_HEADERS=1: drop rows that are not defect flags (an echoed
+#   "LOCATION | TYPE | DESCRIPTION" header, a markdown table separator, or a
+#   row with neither an allowed TYPE nor a line number in LOCATION).
+# SCORE_DESCRIBED=1: a line-overlap match only counts when the flag also has
+#   some affinity with the defect (type token or a shared content word);
+#   otherwise the flag falls through to the content matcher.
+_HEADERS = os.environ.get("SCORE_HEADERS", "0") == "1"
+_DESCRIBED = os.environ.get("SCORE_DESCRIBED", "0") == "1"
+
+# The eight TYPE values allowed by protocol/review_prompt.txt.
+ALLOWED_TYPES = ("logic", "security", "concurrency", "boundary", "api-misuse",
+                 "performance", "spec-violation", "other")
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 RATERS = ["claude", "codex", "gemini"]
 STOP = set(("the a an of to in is are be it its and or that this with not no for "
@@ -25,12 +39,50 @@ STOP = set(("the a an of to in is are be it its and or that this with not no for
             "instead being which because so does do has have").split())
 
 
-def parse_flags(text: str) -> list[dict]:
+def normalize_type(field: str) -> str:
+    """Strip case, surrounding markdown (backticks, asterisks, underscores) and
+    an optional "TYPE:" label from a TYPE field, e.g. "**Logic**" -> "logic"."""
+    t = field.strip().strip("`*_ ").lower()
+    t = re.sub(r"^type\s*:\s*", "", t)
+    return t.strip("`*_ ")
+
+
+def _is_separator(parts: list[str]) -> bool:
+    return all(re.fullmatch(r"[\s:\-=+]*", p) for p in parts)
+
+
+def parse_flags(text: str, filter_headers: bool | None = None) -> list[dict]:
+    """Parse "LOCATION | TYPE | DESCRIPTION" rows into flags.
+
+    Default (filter_headers False, or SCORE_HEADERS unset): any line with two or
+    more pipes is a flag, exactly as pre-registered. With filter_headers True,
+    outer table pipes are stripped and header rows, separator rows and rows with
+    neither an allowed TYPE nor a line number are dropped. Matching is unchanged either way.
+    """
+    if filter_headers is None:
+        filter_headers = _HEADERS
     flags = []
     for raw in text.splitlines():
         if "|" not in raw:
             continue
-        parts = [p.strip() for p in raw.split("|")]
+        if filter_headers:
+            row = raw.strip()
+            if row.startswith("|"):
+                row = row[1:]
+            if row.endswith("|"):
+                row = row[:-1]
+            parts = [p.strip() for p in row.split("|")]
+            if len(parts) < 3 or _is_separator(parts):
+                continue
+            if normalize_type(parts[1]) not in ALLOWED_TYPES:
+                # An off-list type on a row that still points at a line number
+                # is a real flag with a sloppy label (e.g. "contract"); keep it
+                # so false positives are not under-counted. Rows with neither an
+                # allowed type nor a line number are headers or prose.
+                if normalize_type(parts[1]) == "type" or not re.search(r"\d", parts[0]):
+                    continue
+        else:
+            parts = [p.strip() for p in raw.split("|")]
         if len(parts) < 3:
             continue
         loc, typ, desc = parts[0], parts[1].lower(), "|".join(parts[2:])
@@ -64,7 +116,9 @@ def _affinity(flag: dict, d: dict) -> int:
     return score + len(words(flag["desc"]) & defect_keywords(d))
 
 
-def match(flag: dict, defects: list[dict]) -> str | None:
+def match(flag: dict, defects: list[dict], described: bool | None = None) -> str | None:
+    if described is None:
+        described = _DESCRIBED
     # 1) line overlap (+/-1). Among overlapping defects prefer the one whose
     #    type/content best fits the flag, so two different-typed defects on the
     #    same lines are not both auto-credited to the first one.
@@ -73,6 +127,10 @@ def match(flag: dict, defects: list[dict]) -> str | None:
         if flag["lines"] and set(d.get("lines", []))
         and any(min(abs(fl - x) for x in d["lines"]) <= 1 for fl in flag["lines"])
     ]
+    if described:
+        # Opt-in: being near a defect is not enough, the flag must also say
+        # something about it. Unrelated nearby flags fall through to step 2.
+        hits = [d for d in hits if _affinity(flag, d) > 0]
     if hits:
         return max(hits, key=lambda d: _affinity(flag, d))["id"]
     # 2) no line overlap: best content match (>= 3 shared words), not just first.
@@ -84,18 +142,22 @@ def match(flag: dict, defects: list[dict]) -> str | None:
     return best
 
 
-def score_snippet(sid: str, runs_dir: pathlib.Path) -> dict:
+def score_snippet(sid: str, runs_dir: pathlib.Path, raters: list[str] | None = None,
+                  filter_headers: bool | None = None,
+                  described: bool | None = None) -> dict:
+    """Score one snippet. raters defaults to RATERS; the two mode switches
+    default to the SCORE_HEADERS / SCORE_DESCRIBED environment variables."""
     truth = json.loads((ROOT / "corpus" / "truth" / f"{sid}.json").read_text())
     defects = truth["defects"]
     out = {}
-    for r in RATERS:
+    for r in (RATERS if raters is None else raters):
         f = runs_dir / f"{sid}.{r}.txt"
         if not f.exists():
             continue
-        flags = parse_flags(f.read_text())
+        flags = parse_flags(f.read_text(), filter_headers)
         caught, candidates = set(), []
         for fl in flags:
-            m = match(fl, defects)
+            m = match(fl, defects, described)
             if m:
                 caught.add(m)
             else:

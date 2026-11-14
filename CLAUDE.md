@@ -8,10 +8,12 @@ or cover for each other. Write-up is in docs/.
 
 ## Build, test, run
 
-- `bash bin/check.sh` runs `make verify` (set `PYTHON=/path/to/python` if needed).
+- `bash bin/check.sh` runs the pytest suite in tests/, then `make verify`
+  (set `PYTHON=/path/to/python` if needed; the tests need pytest).
 - `make verify` regenerates runs/RESULTS.json and fails on any drift from git.
 - `make repro` runs the align, strict and lenient commands.
-- Stdlib Python 3.10 or newer, no network needed.
+- Opt-in scorer modes: `SCORE_HEADERS=1`, `SCORE_DESCRIBED=1` (write runs/RESULTS_*.json).
+- Round 3: see round3/README.md. Stdlib Python 3.10 or newer, no network needed.
 
 ## Layout
 
@@ -20,6 +22,8 @@ or cover for each other. Write-up is in docs/.
 - runs/: recorded reviews, audits and results.
 - probes/: follow-up probe and its protocol.
 - round2/: round 2 pre-registration.
+- round3/: Claude tiers study: tooling, pre-registration, and its data.
+- tests/: pytest suite (never writes inside the repo).
 - protocol/: reviewer prompt.
 - docs/: GitHub Pages source for the write-up (the only published folder).
 - bin/: local check script.

@@ -4,3 +4,5 @@ __pycache__/
 corpus/h3/
 runs/h3/
 runs/RESULTS_lenient.json
+runs/RESULTS_*.json
+.pytest_cache/

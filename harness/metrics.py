@@ -42,19 +42,35 @@ def phi(x, y):
     return (n11 * n00 - n10 * n01) / denom if denom else 0.0
 
 
-def main():
+def out_name(stem: bool | None = None, headers: bool | None = None,
+             described: bool | None = None) -> str:
+    """Results file name for a scoring mode. Only the default (pre-registered)
+    mode writes RESULTS.json, so a non-default run can never clobber the pin."""
+    stem = score._STEM if stem is None else stem
+    headers = score._HEADERS if headers is None else headers
+    described = score._DESCRIBED if described is None else described
+    tags = [t for t, on in (("lenient", stem), ("headers", headers),
+                            ("described", described)) if on]
+    return "RESULTS_" + "_".join(tags) + ".json" if tags else "RESULTS.json"
+
+
+def compute(runs_dir=None, raters=None, filter_headers=None, described=None):
+    """Score every review in runs_dir and return the building blocks of the
+    report. Pure: reads files, writes nothing."""
+    runs_dir = ROOT / "runs" / "full" if runs_dir is None else pathlib.Path(runs_dir)
     defects = load_truth()
     all_ids = [d[0] for d in defects]
     type_of = {d[0]: d[1] for d in defects}
     # which raters are present
-    raters = [r for r in BASE_RATERS + ["human"]
-              if any((ROOT / "runs" / "full" / f"{sid}.{r}.txt").exists() for sid in IDS)]
+    if raters is None:
+        raters = [r for r in BASE_RATERS + ["human"]
+                  if any((runs_dir / f"{sid}.{r}.txt").exists() for sid in IDS)]
 
     caught = {r: set() for r in raters}
     fp = {r: 0 for r in raters}
     cand = {r: [] for r in raters}
     for sid in IDS:
-        res = score.score_snippet(sid, ROOT / "runs" / "full")
+        res = score.score_snippet(sid, runs_dir, raters, filter_headers, described)
         for r in raters:
             sc = res["raters"].get(r)
             if not sc:
@@ -66,6 +82,30 @@ def main():
                 cand[r].extend(f"{sid}: {c}" for c in sc["candidates"])
 
     vec = {r: [1 if did in caught[r] else 0 for did in all_ids] for r in raters}
+    return {"raters": raters, "all_ids": all_ids, "type_of": type_of,
+            "caught": caught, "fp": fp, "cand": cand, "vec": vec}
+
+
+def payload(c: dict) -> dict:
+    """The JSON object written to the results file, from compute() output."""
+    raters, caught, vec = c["raters"], c["caught"], c["vec"]
+    pairs = [(a, b) for i, a in enumerate(raters) for b in raters[i + 1:]]
+    union = set().union(*[caught[r] for r in raters]) if raters else set()
+    best = max((len(caught[r]) for r in raters), default=0)
+    return {
+        "raters": raters, "n_defects": len(c["all_ids"]),
+        "caught": {r: sorted(caught[r]) for r in raters},
+        "false_positives": c["fp"],
+        "correlations": {f"{a}|{b}": round(phi(vec[a], vec[b]), 3) for a, b in pairs},
+        "coverage_payoff": round(len(union) / best if best else 0, 3),
+        "union_caught": len(union), "best_single": best,
+    }
+
+
+def main():
+    res = compute()
+    raters, all_ids, type_of = res["raters"], res["all_ids"], res["type_of"]
+    caught, fp, cand, vec = res["caught"], res["fp"], res["cand"], res["vec"]
     N = len(all_ids)
 
     print(f"=== rater performance (over {N} planted defects, 4 clean controls) ===")
@@ -108,19 +148,12 @@ def main():
     allm = sum(1 for did in all_ids if all(did not in caught[r] for r in model_raters))
     print(f"  all models caught: {allc}   all models missed: {allm}   split: {N - allc - allm}")
 
-    # The lenient (SCORE_STEM) sensitivity run writes its own file so the
-    # documented reproduce sequence cannot silently clobber the canonical
-    # strict pin in runs/RESULTS.json.
-    out_name = "RESULTS_lenient.json" if score._STEM else "RESULTS.json"
-    (ROOT / "runs" / out_name).write_text(json.dumps({
-        "raters": raters, "n_defects": N,
-        "caught": {r: sorted(caught[r]) for r in raters},
-        "false_positives": fp,
-        "correlations": {f"{a}|{b}": round(v, 3) for (a, b), v in corrs.items()},
-        "coverage_payoff": round(payoff, 3),
-        "union_caught": len(union), "best_single": best,
-    }, indent=2) + "\n")
-    print(f"\nwrote runs/{out_name}")
+    # Any non-default run (SCORE_STEM, SCORE_HEADERS, SCORE_DESCRIBED) writes
+    # its own file so the documented reproduce sequence cannot silently
+    # clobber the canonical strict pin in runs/RESULTS.json.
+    name = out_name()
+    (ROOT / "runs" / name).write_text(json.dumps(payload(res), indent=2) + "\n")
+    print(f"\nwrote runs/{name}")
 
 
 if __name__ == "__main__":
